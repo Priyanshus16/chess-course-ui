@@ -7,8 +7,6 @@ import {
   Button,
   Avatar,
   Paper,
-  Card,
-  CardContent,
 } from '@mui/material';
 
 const About = () => {

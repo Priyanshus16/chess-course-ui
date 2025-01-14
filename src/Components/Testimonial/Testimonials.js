@@ -5,7 +5,6 @@ import {
   Avatar,
   Card,
   CardContent,
-  Button,
   IconButton,
 } from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";

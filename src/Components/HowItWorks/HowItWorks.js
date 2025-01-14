@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Container, Grid, Card, CardContent, Button, Paper } from '@mui/material';
+import { Box, Typography, Container, Grid, Card, CardContent, Button } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const steps = [

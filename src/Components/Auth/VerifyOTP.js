@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
-import { Box, Typography, TextField, Button, Checkbox, FormControlLabel } from '@mui/material';
-import axios from 'axios';
+import { Box, Typography, TextField, Button } from '@mui/material';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const VerifyOTP = () => {
   const [userData,setUserData] = useState({
-    email:"",
-    password:""
+    otp:"",
+    email:""
   })
+    const location = useLocation();
   const handleChange = (e)=>{
     const {name,value}= e.target;
     setUserData({...userData,[name]:value})
   }
   const navigate = useNavigate();
+
   const handleSubmit = async()=>{
+    if(location.state.email){
+      setUserData({...userData,email:location.state.email})
+    }
     try {
-      const loginResponse = await axios.post("https://coddect.glitch.me/login",userData)
-      if(loginResponse.data){
-      toast.success(loginResponse.data)
-      navigate("/");
+      if(location.state.otp !== userData.otp){
+        toast.error("OTP incorrect");
+        return;
+      }
+    else{
+      toast.success("OTP Verified");
+      navigate("/ChangePassword",{state:userData});
     }
     } catch (error) {
       toast.error(error);
@@ -46,11 +53,12 @@ const Login = () => {
         }}
       >
         <Typography variant="h5" fontWeight="bold" textAlign="center" mb={2}>
-          Hi, Welcome back!
+          Forgot Password
         </Typography>
-        <TextField fullWidth label="Username or Email Address" variant="outlined" margin="normal" name="email" onChange={handleChange} required />
-        <TextField fullWidth label="Password" type="password" variant="outlined" margin="normal" name="password" onChange={handleChange} required />
-        <FormControlLabel control={<Checkbox />} label="Keep me signed in" />
+        <Typography variant="body2" textAlign="center" mb={2}>
+          Enter your OTP from email address
+        </Typography>
+        <TextField fullWidth label="OTP" variant="outlined" margin="normal" required name="otp" onChange={handleChange}/>
         <Button
           variant="contained"
           color="primary"
@@ -58,20 +66,11 @@ const Login = () => {
           sx={{ marginTop: 2, padding: 1, textTransform: 'none' }}
           onClick={handleSubmit}
         >
-          SIGN IN
+          VERIFY EMAIL
         </Button>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginTop: 2,
-          }}
-        >
-          <Link to="/forgot-password" underline="hover">
-            Forgot?
-          </Link>
-          <Link to="/register" underline="hover">
-            Register Now
+        <Box sx={{ textAlign: 'center', marginTop: 2 }}>
+          <Link to="/login" underline="hover">
+            Back to Sign In
           </Link>
         </Box>
       </Box>
@@ -79,4 +78,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default VerifyOTP;
