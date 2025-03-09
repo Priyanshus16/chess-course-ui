@@ -10,7 +10,12 @@ import {
 } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import { Instagram, YouTube, Menu as MenuIcon, ExpandMore } from "@mui/icons-material";
+import {
+  Instagram,
+  YouTube,
+  Menu as MenuIcon,
+  ExpandMore,
+} from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({ onCourseSelect }) => {
@@ -28,14 +33,14 @@ const Header = ({ onCourseSelect }) => {
   };
 
   const handleNavigate = () => {
-    navigate('/')
-  }
+    navigate("/");
+  };
 
   // Handle Course Selection
   const handleCourseSelect = (course) => {
     // onCourseSelect(course);
     // handleMenuClose();
-    navigate('/Courses')
+    navigate("/Courses");
   };
 
   return (
@@ -44,7 +49,7 @@ const Header = ({ onCourseSelect }) => {
         boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
         display: "flex",
         width: "100%",
-        justifyContent: "center",
+        justifyContent: { xs: "center", md: "space-between" }, // Center logo on mobile, align on desktop
         height: "80px",
         zIndex: 10,
         position: "fixed",
@@ -57,10 +62,10 @@ const Header = ({ onCourseSelect }) => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ width: "90%", height: "100%" }}
+        sx={{ width: "90%", height: "100%", position: "relative" }}
       >
-        {/* Logo */}
-        <Box sx={{ width: "150px", cursor: "pointer" }}>
+        {/* Logo - Centered on Mobile */}
+        <Box sx={{ width: "150px", cursor: "pointer", textAlign: "center" }}>
           <img
             src={require("../../Assets/my-chess.png")}
             width={"100%"}
@@ -69,8 +74,15 @@ const Header = ({ onCourseSelect }) => {
           />
         </Box>
 
-        {/* Mobile Menu Icon */}
-        <Box sx={{ display: { xs: "block", md: "none" } }}>
+        {/* Mobile Menu Icon - Positioned at Top Right */}
+        <Box
+          sx={{
+            display: { xs: "block", md: "none" },
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+          }}
+        >
           <IconButton onClick={() => setMenuOpen(!menuOpen)}>
             <MenuIcon fontSize="large" />
           </IconButton>
@@ -92,9 +104,18 @@ const Header = ({ onCourseSelect }) => {
             boxShadow: { xs: "0px 5px 10px rgba(0, 0, 0, 0.1)", md: "none" },
           }}
         >
-          <List sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2 }}>
-            {/* View Courses with Dropdown */}
-            <ListItem button onClick={handleMenuClick} sx={{ cursor: "pointer", fontWeight: "bold" }}>
+          <List
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              gap: 2,
+            }}
+          >
+            <ListItem
+              button
+              onClick={handleMenuClick}
+              sx={{ cursor: "pointer", fontWeight: "bold" }}
+            >
               <ListItemText
                 primary="Chess Coaching"
                 primaryTypographyProps={{
@@ -105,15 +126,28 @@ const Header = ({ onCourseSelect }) => {
               <ExpandMore />
             </ListItem>
 
-            {/* Dropdown Items */}
-            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-              <MenuItem onClick={() => handleCourseSelect("beginner")}>Beginner Online Coaching</MenuItem>
-              <MenuItem onClick={() => handleCourseSelect("intermediate")}>Intermediate Online Coaching</MenuItem>
-              <MenuItem onClick={() => handleCourseSelect("advanced")}>Advanced Online Coaching</MenuItem>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={() => handleCourseSelect("beginner")}>
+                Beginner Online Coaching
+              </MenuItem>
+              <MenuItem onClick={() => handleCourseSelect("intermediate")}>
+                Intermediate Online Coaching
+              </MenuItem>
+              <MenuItem onClick={() => handleCourseSelect("advanced")}>
+                Advanced Online Coaching
+              </MenuItem>
             </Menu>
 
             {["About", "Blog", "Contact"].map((item, index) => (
-              <Link to={`/${item}`} key={index} style={{ textDecoration: "none" }}>
+              <Link
+                to={`/${item}`}
+                key={index}
+                style={{ textDecoration: "none" }}
+              >
                 <ListItem
                   button
                   sx={{
@@ -136,33 +170,6 @@ const Header = ({ onCourseSelect }) => {
               </Link>
             ))}
           </List>
-        </Box>
-
-        {/* Login/Register and Social Icons */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Link to={"/login"}>
-            <Button
-              variant="contained"
-              sx={{
-                background: "#1976D2",
-                color: "#fff",
-                "&:hover": { background: "#1565C0" },
-                fontSize: "0.875rem",
-                fontWeight: "bold",
-                textTransform: "none",
-                padding: "6px 15px",
-                borderRadius: "8px",
-              }}
-            >
-              Login/Register
-            </Button>
-          </Link>
-          <IconButton sx={{ color: "#E4405F" }}>
-            <Instagram fontSize="large" />
-          </IconButton>
-          <IconButton sx={{ color: "#FF0000" }}>
-            <YouTube fontSize="large" />
-          </IconButton>
         </Box>
       </Box>
     </Box>
