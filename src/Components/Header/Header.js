@@ -49,7 +49,7 @@ const Header = ({ onCourseSelect }) => {
         boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
         display: "flex",
         width: "100%",
-        justifyContent: { xs: "center", md: "space-between" }, // Center logo on mobile, align on desktop
+        justifyContent: "center", 
         height: "80px",
         zIndex: 10,
         position: "fixed",
@@ -62,10 +62,10 @@ const Header = ({ onCourseSelect }) => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ width: "90%", height: "100%", position: "relative" }}
+        sx={{ width: "90%", height: "100%" }}
       >
-        {/* Logo - Centered on Mobile */}
-        <Box sx={{ width: "150px", cursor: "pointer", textAlign: "center" }}>
+        {/* Logo */}
+        <Box sx={{ width: "150px", cursor: "pointer" }}>
           <img
             src={require("../../Assets/my-chess.png")}
             width={"100%"}
@@ -74,15 +74,8 @@ const Header = ({ onCourseSelect }) => {
           />
         </Box>
 
-        {/* Mobile Menu Icon - Positioned at Top Right */}
-        <Box
-          sx={{
-            display: { xs: "block", md: "none" },
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-          }}
-        >
+        {/* Mobile Menu Icon */}
+        <Box sx={{ display: { xs: "block", md: "none" } }}>
           <IconButton onClick={() => setMenuOpen(!menuOpen)}>
             <MenuIcon fontSize="large" />
           </IconButton>
@@ -111,6 +104,7 @@ const Header = ({ onCourseSelect }) => {
               gap: 2,
             }}
           >
+            {/* View Courses with Dropdown */}
             <ListItem
               button
               onClick={handleMenuClick}
@@ -126,6 +120,7 @@ const Header = ({ onCourseSelect }) => {
               <ExpandMore />
             </ListItem>
 
+            {/* Dropdown Items */}
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
@@ -170,6 +165,38 @@ const Header = ({ onCourseSelect }) => {
               </Link>
             ))}
           </List>
+        </Box>
+
+        {/* Login/Register and Social Icons */}
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Link to={"/login"}>
+            <Button
+              variant="contained"
+              sx={{
+                background: "#1976D2",
+                color: "#fff",
+                "&:hover": { background: "#1565C0" },
+                fontSize: "0.875rem",
+                fontWeight: "bold",
+                textTransform: "none",
+                padding: "6px 15px",
+                borderRadius: "8px",
+              }}
+            >
+              Login/Register
+            </Button>
+          </Link>
+
+          <IconButton
+            sx={{ color: "#E4405F", display: { xs: "none", md: "flex" } }}
+          >
+            <Instagram fontSize="large" />
+          </IconButton>
+          <IconButton
+            sx={{ color: "#FF0000", display: { xs: "none", md: "flex" } }}
+          >
+            <YouTube fontSize="large" />
+          </IconButton>
         </Box>
       </Box>
     </Box>
