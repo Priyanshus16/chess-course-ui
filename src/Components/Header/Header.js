@@ -11,11 +11,13 @@ import {
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { Instagram, YouTube, Menu as MenuIcon, ExpandMore } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({ onCourseSelect }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const navigate = useNavigate();
 
   // Handle Dropdown Menu
   const handleMenuClick = (event) => {
@@ -25,10 +27,15 @@ const Header = ({ onCourseSelect }) => {
     setAnchorEl(null);
   };
 
+  const handleNavigate = () => {
+    navigate('/')
+  }
+
   // Handle Course Selection
   const handleCourseSelect = (course) => {
-    onCourseSelect(course);
-    handleMenuClose();
+    // onCourseSelect(course);
+    // handleMenuClose();
+    navigate('/Courses')
   };
 
   return (
@@ -58,6 +65,7 @@ const Header = ({ onCourseSelect }) => {
             src={require("../../Assets/my-chess.png")}
             width={"100%"}
             alt={"logo"}
+            onClick={handleNavigate}
           />
         </Box>
 

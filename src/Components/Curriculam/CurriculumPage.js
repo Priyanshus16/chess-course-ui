@@ -4,7 +4,7 @@ import { School, EmojiEvents, Star, LocalLibrary } from '@mui/icons-material';
 
 const courses = [
   {
-    level: 'Beginner Level',
+    level: 'Level 1 (Beginner)',
     icon: <LocalLibrary fontSize="large" sx={{ color: '#1E88E5' }} />,
     outcome: 'Learn the fundamentals and rules of chess',
     topics: [
@@ -15,7 +15,7 @@ const courses = [
     gradient: 'linear-gradient(135deg, #2196F3 30%, #21CBF3 90%)',
   },
   {
-    level: 'Intermediate Level',
+    level: 'Level 2 (Intermediate)',
     icon: <School fontSize="large" sx={{ color: '#43A047' }} />,
     outcome: 'Develop strategies and improve gameplay',
     topics: [
@@ -26,7 +26,7 @@ const courses = [
     gradient: 'linear-gradient(135deg, #4CAF50 30%, #66BB6A 90%)',
   },
   {
-    level: 'Advanced Level',
+    level: 'Level 3 (Advance)',
     icon: <EmojiEvents fontSize="large" sx={{ color: '#FB8C00' }} />,
     outcome: 'Master advanced chess tactics and strategies',
     topics: [
@@ -37,7 +37,7 @@ const courses = [
     gradient: 'linear-gradient(135deg, #FB8C00 30%, #FFA726 90%)',
   },
   {
-    level: 'Expert Level',
+    level: 'FIDE Rating Course (Expert)',
     icon: <Star fontSize="large" sx={{ color: '#D32F2F' }} />,
     outcome: 'Compete at the highest level with expert strategies',
     topics: [

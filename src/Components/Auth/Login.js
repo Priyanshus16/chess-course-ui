@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Paper, Link } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,9 +14,31 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("Login Data:", formData);
+    console.log(formData);
+    try {
+      const response = await axios.post(`http://localhost:4000/login`, formData)
+      console.log(response)
+
+      if(response.status === 200) {
+        alert('user login successfully')
+        navigate('/')
+      }
+
+
+    } catch (error) {
+      console.log('error while sending data', error)
+      if (error.response.status === 404) {
+        alert('invalid email')
+        return;
+      }
+      if(error.response.status === 401) {
+        alert('inavlid password')
+        return;
+      }
+    }
+    
   };
 
   return (

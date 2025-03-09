@@ -26,7 +26,7 @@ const Blog = () => {
   return (
     <Container sx={{ py: 5, my:5 }}>
       {/* Hero Section */}
-      <Box sx={{ textAlign: "center", mb: 5 }}>
+      <Box sx={{ textAlign: "center", mb: 5, mt:3 }}>
         <Typography variant="h3" fontWeight={600} gutterBottom>
           Chess Insights & Strategies
         </Typography>

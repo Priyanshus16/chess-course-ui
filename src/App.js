@@ -1,7 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
 import React from 'react';
-// import Header from './Components/Header/Header';
+import Header from './Components/Header/Header';
 import { Box } from '@mui/material';
 import Login from './Components/Auth/Login';
 import Register from './Components/Auth/Register';
@@ -21,7 +21,7 @@ function App() {
     <div className="App">
       <Router>
         <Box sx={{ width: "100%", display: 'flex', flexDirection: "column", alignItems: 'center' }}>
-          
+          <Header/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -31,7 +31,7 @@ function App() {
             <Route path="/ChangePassword" element={<ChangePassword />} />
             <Route path="/About" element={<About />} />
             <Route path="/Courses" element={<Courses />} />
-            <Route path="/ContactUs" element={<ContactUs />} />
+            <Route path="/Contact" element={<ContactUs />} />
             <Route path="/Curriculum" element={<CurriculumPage />} />
             <Route path="/Blog" element={<Blog />} />
           </Routes>

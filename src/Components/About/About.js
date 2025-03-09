@@ -13,9 +13,9 @@ const About = () => {
   return (
     <Container sx={{ mt: 8, mb: 8 ,
         width:"100%",}}>
-      <Typography variant="h3" gutterBottom align="center">
+      <Typography sx={{mt:3}} variant="h3" gutterBottom align="center">
         About Us
-      </Typography>
+      </Typography> 
       <Typography variant="body1" color="text.secondary" paragraph align="center">
         Welcome to My Chess Learning, your ultimate platform for mastering the game of chess.
         Our mission is to provide learners of all levels with the best resources to enhance their skills,

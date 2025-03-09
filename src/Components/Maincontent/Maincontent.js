@@ -12,7 +12,7 @@ const Maincontent = () => {
             <CardMedia
               component="img"
               alt="Chess Award Ceremony"
-              image="https://via.placeholder.com/400x300" // Replace with the actual image URL
+              image="https://via.placeholder.com/400x300" 
             />
             <CardContent>
               <Typography variant="body1" fontWeight="bold">

@@ -12,7 +12,7 @@ import {
 const ContactUs = () => {
   return (
     <Container sx={{ mt: 8, mb: 8 }}>
-      <Typography variant="h3" gutterBottom align="center">
+      <Typography sx={{mt:5}} variant="h3" gutterBottom align="center">
         Contact Us
       </Typography>
       <Typography variant="body1" color="text.secondary" paragraph align="center">

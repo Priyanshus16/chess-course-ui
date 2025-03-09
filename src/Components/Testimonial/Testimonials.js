@@ -243,8 +243,8 @@ const testimonials = [
     role: "Chess Prodigy (The Queen’s Gambit)",
     review:
       "I never imagined an online chess course could be this effective. The lessons are engaging and well-structured!",
-    image:
-      "https://static01.nyt.com/images/2020/10/23/arts/23harmon-phototest1/23harmon-phototest1-superJumbo.jpg",
+    // image:
+    //   "https://static01.nyt.com/images/2020/10/23/arts/23harmon-phototest1/23harmon-phototest1-superJumbo.jpg",
     courseEnrolled: "Mastering Chess Basics",
   },
 ];
