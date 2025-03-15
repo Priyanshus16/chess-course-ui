@@ -16,6 +16,7 @@ import Courses from './Components/Courses/Courses';
 import CurriculumPage from './Components/Curriculam/CurriculumPage';
 import ContactUs from './Components/ContactUs/ContactUs';
 import Blog from './Components/Blog/Blog';
+import BlogDetails from './Components/Blog/BlogDetails';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/Contact" element={<ContactUs />} />
             <Route path="/Curriculum" element={<CurriculumPage />} /> 
             <Route path="/Blog" element={<Blog />} />
+            <Route path="/blogs/:id" element={<BlogDetails />} />
           </Routes>
           <Footer/>
         </Box>

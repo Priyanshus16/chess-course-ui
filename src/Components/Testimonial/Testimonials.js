@@ -55,9 +55,11 @@ const NextArrow = ({ onClick }) => (
 const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
 
+  const UI_API_PREFIX = `api/v1`
+
   const getTestimonialData = async () => {
     try {
-      const res = await axios.get(`http://localhost:4000/testimonial`);
+      const res = await axios.get(`http://localhost:4000/${UI_API_PREFIX}/testimonial`);
       setTestimonials(res.data.testimonial);
     } catch (error) {
       console.error(error, "there was problem while getting testimonial data");

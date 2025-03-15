@@ -1,75 +1,4 @@
-// import React from "react";
-// import { Box, Typography, Card, CardContent, CardMedia, Button, Grid, Container } from "@mui/material";
-
-// const blogPosts = [
-//   {
-//     id: 1,
-//     title: "Mastering Chess Openings",
-//     excerpt: "Learn the key opening strategies to dominate your games from the very first move.",
-//     image: "https://www.classcentral.com/report/wp-content/uploads/2022/11/Chess-BCG-Banner.png",
-//   },
-//   {
-//     id: 2,
-//     title: "Top 5 Chess Endgame Principles",
-//     excerpt: "Understand crucial endgame tactics to turn a balanced game into a decisive victory.",
-//     image: "https://www.classcentral.com/report/wp-content/uploads/2022/11/Chess-BCG-Banner.png",
-//   },
-//   {
-//     id: 3,
-//     title: "How to Think Like a Grandmaster",
-//     excerpt: "Enhance your strategic mindset and make better moves with these grandmaster tips.",
-//     image: "https://www.classcentral.com/report/wp-content/uploads/2022/11/Chess-BCG-Banner.png",
-//   },
-// ];
-
-// const Blog = () => {
-//   return (
-//     <Container sx={{ py: 5, my:5 }}>
-//       {/* Hero Section */}
-//       <Box sx={{ textAlign: "center", mb: 5, mt:3 }}>
-//         <Typography variant="h3" fontWeight={600} gutterBottom>
-//           Chess Insights & Strategies
-//         </Typography>
-//         <Typography variant="body1" color="text.secondary" maxWidth={600} mx="auto">
-//           Stay updated with expert advice, tips, and strategies to enhance your chess skills and master the game.
-//         </Typography>
-//       </Box>
-
-//       {/* Blog Posts */}
-//       <Grid container spacing={4}>
-//         {blogPosts.map((post) => (
-//           <Grid item xs={12} sm={6} md={4} key={post.id}>
-//             <Card sx={{ borderRadius: 3, boxShadow: 3, transition: "0.3s", '&:hover': { boxShadow: 6 } }}>
-//               <CardMedia
-//                 component="img"
-//                 height="200"
-//                 image={post.image}
-//                 alt={post.title}
-//                 sx={{ objectFit: "cover" }}
-//               />
-//               <CardContent>
-//                 <Typography variant="h6" fontWeight={600} gutterBottom>
-//                   {post.title}
-//                 </Typography>
-//                 <Typography variant="body2" color="text.secondary" mb={2}>
-//                   {post.excerpt}
-//                 </Typography>
-//                 <Button variant="contained" color="primary">
-//                   Read More
-//                 </Button>
-//               </CardContent>
-//             </Card>
-//           </Grid>
-//         ))}
-//       </Grid>
-//     </Container>
-//   );
-// };
-
-// export default Blog;
-
-
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -81,33 +10,31 @@ import {
   Container,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
-const blogPosts = [
-  {
-    id: 1,
-    title: "Mastering Chess Openings",
-    excerpt: "Learn the key opening strategies to dominate your games from the very first move.",
-    longDesc: "Chess openings are the foundation of a strong game. By understanding the key principles...",
-    image: "https://www.classcentral.com/report/wp-content/uploads/2022/11/Chess-BCG-Banner.png",
-  },
-  {
-    id: 2,
-    title: "Top 5 Chess Endgame Principles",
-    excerpt: "Understand crucial endgame tactics to turn a balanced game into a decisive victory.",
-    longDesc: "Endgames require precise calculation and a deep understanding of pawn structures...",
-    image: "https://www.classcentral.com/report/wp-content/uploads/2022/11/Chess-BCG-Banner.png",
-  },
-  {
-    id: 3,
-    title: "How to Think Like a Grandmaster",
-    excerpt: "Enhance your strategic mindset and make better moves with these grandmaster tips.",
-    longDesc: "Grandmasters think several moves ahead, using pattern recognition and deep calculation...",
-    image: "https://www.classcentral.com/report/wp-content/uploads/2022/11/Chess-BCG-Banner.png",
-  },
-];
+import { useEffect } from "react";
+import axios from "axios";
 
 const Blog = () => {
+  const [response, setResponse] = useState([]);
+
   const navigate = useNavigate();
+
+  const UI_API_PREFIX = "/api/v1";
+
+  const getData = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:4000${UI_API_PREFIX}/blogs`
+      );
+      setResponse(res.data.blogs);
+      console.log(res.data.blogs);
+    } catch (error) {
+      console.log(error, "problem while getting data");
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Container sx={{ py: 5 }}>
@@ -116,14 +43,20 @@ const Blog = () => {
         <Typography variant="h3" fontWeight={700} gutterBottom>
           Chess Insights & Strategies
         </Typography>
-        <Typography variant="body1" color="text.secondary" maxWidth={600} mx="auto">
-          Stay updated with expert advice, tips, and strategies to enhance your chess skills and master the game.
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          maxWidth={600}
+          mx="auto"
+        >
+          Stay updated with expert advice, tips, and strategies to enhance your
+          chess skills and master the game.
         </Typography>
       </Box>
 
       {/* Blog Cards */}
       <Grid container spacing={4}>
-        {blogPosts.map((post) => (
+        {response.map((post) => (
           <Grid item xs={12} sm={6} md={4} key={post.id}>
             <Card
               sx={{
@@ -131,26 +64,59 @@ const Blog = () => {
                 boxShadow: 3,
                 transition: "0.3s",
                 "&:hover": { boxShadow: 6, transform: "translateY(-5px)" },
+                height: "100%", // Ensures all cards have the same height
+                display: "flex",
+                flexDirection: "column",
               }}
-              onClick={() => navigate(`/blog/${post.id}`, { state: post })}
             >
               <CardMedia
                 component="img"
                 height="200"
                 image={post.image}
                 alt={post.title}
-                sx={{ objectFit: "cover" }}
+                sx={{ objectFit: "cover", p: 1 }}
               />
-              <CardContent>
-                <Typography variant="h6" fontWeight={700} gutterBottom>
-                  {post.title}
+              <CardContent
+                sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
+              >
+                <Typography
+                  variant="h6"
+                  fontWeight={700}
+                  gutterBottom
+                  sx={{
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    WebkitLineClamp: 2, // Limits title to 2 lines
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {post.heading}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" mb={2}>
-                  {post.excerpt}
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  mb={2}
+                  sx={{
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    WebkitLineClamp: 3, // Limits description to 3 lines
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {post.description}
                 </Typography>
-                <Button variant="contained" color="primary">
-                  Read More
-                </Button>
+                <Box sx={{ mt: "auto" }}>
+                  <Button
+                    onClick={() => navigate(`/blogs/${post._id}`, { state: post })
+                    }
+                    variant="contained"
+                    color="primary"
+                  >
+                    Read More
+                  </Button>
+                </Box>
               </CardContent>
             </Card>
           </Grid>

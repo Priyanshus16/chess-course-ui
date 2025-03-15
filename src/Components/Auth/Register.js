@@ -12,10 +12,12 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const UI_API_PREFIX = `api/v1`
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:4000/register`, formData)
+      const response = await axios.post(`http://localhost:4000/${UI_API_PREFIX}/register`, formData)
       if(response.status === 200) {
         alert('User Register Successfully');
         return;

@@ -15,9 +15,11 @@ import axios from "axios";
 const CurriculumPage = () => {
   const [response, setResponse] = useState([]);
 
+  const UI_API_PREFIX = `api/v1`
+
   const getData = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/Curriculum");
+      const res = await axios.get(`http://localhost:4000/${UI_API_PREFIX}/curriculum`);
       setResponse(res.data.curriculum);
       console.log(res.data.curriculum);
     } catch (error) {

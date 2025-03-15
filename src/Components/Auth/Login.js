@@ -14,11 +14,13 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const UI_API_PREFIX = `api/v1`
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     console.log(formData);
     try {
-      const response = await axios.post(`http://localhost:4000/login`, formData)
+      const response = await axios.post(`http://localhost:4000/${UI_API_PREFIX}/login`, formData)
       console.log(response)
 
       if(response.status === 200) {
