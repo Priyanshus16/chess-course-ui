@@ -2,6 +2,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
 import React from 'react';
 import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
 import { Box } from '@mui/material';
 import Login from './Components/Auth/Login';
 import Register from './Components/Auth/Register';
@@ -26,15 +27,16 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
-            <Route path="/forgot-password" element={<Forgot />} />
-            <Route path="/VerifyOTP" element={<VerifyOTP />} />
+            {/* <Route path="/forgot-password" element={<Forgot />} /> */}
+            {/* <Route path="/VerifyOTP" element={<VerifyOTP />} /> */}
             <Route path="/ChangePassword" element={<ChangePassword />} />
             <Route path="/About" element={<About />} />
             <Route path="/Courses" element={<Courses />} />
             <Route path="/Contact" element={<ContactUs />} />
-            <Route path="/Curriculum" element={<CurriculumPage />} />
+            <Route path="/Curriculum" element={<CurriculumPage />} /> 
             <Route path="/Blog" element={<Blog />} />
           </Routes>
+          <Footer/>
         </Box>
       </Router>
       <ToastContainer/>

@@ -187,16 +187,16 @@ const Header = ({ onCourseSelect }) => {
             </Button>
           </Link>
 
-          <IconButton
+          {/* <IconButton
             sx={{ color: "#E4405F", display: { xs: "none", md: "flex" } }}
           >
             <Instagram fontSize="large" />
-          </IconButton>
-          <IconButton
+          </IconButton> */}
+          {/* <IconButton
             sx={{ color: "#FF0000", display: { xs: "none", md: "flex" } }}
           >
             <YouTube fontSize="large" />
-          </IconButton>
+          </IconButton> */}
         </Box>
       </Box>
     </Box>

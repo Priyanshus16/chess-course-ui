@@ -8,30 +8,55 @@ import {
   Paper,
   Divider,
   MenuItem,
-  Box
+  Box,
 } from "@mui/material";
 
 const ContactUs = () => {
   return (
-    <Container sx={{ mt: 8, mb: 8 }}>
-      <Typography sx={{ mt: 5 }} variant="h3" gutterBottom align="center">
-        Book Your Free Demo Class
+    <Container
+      sx={{
+        mt: 8,
+        mb: 8,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      {/* Heading */}
+      <Typography
+        variant="h3"
+        gutterBottom
+        sx={{
+          fontWeight: "bold",
+          textAlign: "center",
+          color: "#2E3B55",
+          mt: 5,
+        }}
+      >
+        Book Your Free Demo Class ♟️
       </Typography>
-      {/* <Typography
+      <Typography
         variant="body1"
         color="text.secondary"
         paragraph
-        align="center"
+        sx={{ textAlign: "center", maxWidth: "600px" }}
       >
-        Have questions or need help? Reach out to us using the form below, and
-        we'll get back to you as soon as possible.
-      </Typography> */}
+        Unlock your child's chess potential with expert coaching! 🚀  
+        Experience a free trial session with Master Chess Classes
+        and start your journey towards chess mastery today.
+      </Typography>
 
-      <Grid container spacing={4} sx={{ mt: 3 }}>
+      {/* Grid Layout */}
+      <Grid container spacing={4} sx={{ mt: 3, width: "100%" }}>
+        {/* Booking Form */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ p: 4 }}>
-            <Typography variant="h5" gutterBottom>
-              Book Your Demo Class
+          <Paper elevation={4} sx={{ p: 4, borderRadius: "10px" }}>
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{ fontWeight: "bold", color: "#1B5E20" }}
+            >
+              Book Your Demo Class 🎯
             </Typography>
             <Divider sx={{ mb: 3 }} />
 
@@ -43,10 +68,10 @@ const ContactUs = () => {
             />
             <TextField
               fullWidth
-              label="Whatsapp Contact"
+              label="WhatsApp Contact"
               variant="outlined"
               margin="normal"
-              type="email"
+              type="text"
             />
             <TextField
               fullWidth
@@ -60,6 +85,8 @@ const ContactUs = () => {
               variant="outlined"
               margin="normal"
             />
+
+            {/* Age Group & Preferred Language */}
             <Box sx={{ display: "flex", gap: 2 }}>
               <TextField
                 fullWidth
@@ -87,28 +114,56 @@ const ContactUs = () => {
               </TextField>
             </Box>
 
-            <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-              Book Now
+            <Button
+              variant="contained"
+              color="success"
+              sx={{
+                mt: 2,
+                width: "100%",
+                fontSize: "1rem",
+                fontWeight: "bold",
+                textTransform: "none",
+              }}
+            >
+              ✅ Book Now
             </Button>
           </Paper>
         </Grid>
 
+        {/* Contact Information */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ p: 4 }}>
-            <Typography variant="h5" gutterBottom>
-              Contact Information
+          <Paper
+            elevation={4}
+            sx={{
+              p: 4,
+              borderRadius: "10px",
+              backgroundColor: "#F4F6F8",
+            }}
+          >
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{ fontWeight: "bold", color: "#1E88E5" }}
+            >
+              Contact Information 📞
             </Typography>
             <Divider sx={{ mb: 3 }} />
 
-            <Typography variant="body1" color="text.secondary" paragraph>
-              <strong>Email:</strong> support@mychesslearning.com
+            <Typography variant="body1" color="text.primary" paragraph>
+              <strong>Email:</strong>{" "}
+              <a
+                href="mailto:contact@masterchessclasses.com"
+                style={{ textDecoration: "none", color: "#1E88E5" }}
+              >
+                contact@masterchessclasses.com
+              </a>
             </Typography>
-            <Typography variant="body1" color="text.secondary" paragraph>
-              <strong>Phone:</strong> +1 234 567 890
+            <Typography variant="body1" color="text.primary" paragraph>
+              <strong>Phone:</strong> +91 98765 43210
             </Typography>
-            <Typography variant="body1" color="text.secondary" paragraph>
-              <strong>Address:</strong> 123 Chess Avenue, Suite 456, ChessCity,
-              CC 12345, World
+            <Typography variant="body1" color="text.primary" paragraph>
+              <strong>Address:</strong> Master Chess Academy, Chess Street,  
+              Mumbai, India 🇮🇳
             </Typography>
           </Paper>
         </Grid>
@@ -118,3 +173,4 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+
