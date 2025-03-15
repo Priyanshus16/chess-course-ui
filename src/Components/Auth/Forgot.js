@@ -15,7 +15,7 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
   const handleSubmit = async()=>{
     try {
-      const loginResponse = await axios.post("https://coddect.glitch.me/forgot-password",userData)
+      const loginResponse = await axios.post(`${process.env.REACT_APP_BASE_URL}/forgot-password`,userData)
       if(loginResponse.data){
       toast.success(loginResponse.data.message)
       navigate("/VerifyOTP",{state:{otp:loginResponse.data.otp,email:userData.email}})
