@@ -18,12 +18,10 @@ const Blog = () => {
 
   const navigate = useNavigate();
 
-  const UI_API_PREFIX = "/api/v1";
-
   const getData = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:4000${UI_API_PREFIX}/blogs`
+        `${process.env.REACT_APP_BASE_URL}/blogs`
       );
       setResponse(res.data.blogs);
       console.log(res.data.blogs);

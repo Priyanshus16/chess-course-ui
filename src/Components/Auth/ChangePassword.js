@@ -23,7 +23,7 @@ const ChangePassword = () => {
       return;
     }
     try {
-      const response = await axios.post('https://coddect.glitch.me/reset-password', {
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/reset-password`, {
         email: state?.email,
         newPassword: passwordData.password,
       });
