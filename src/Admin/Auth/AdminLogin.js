@@ -23,15 +23,15 @@ export default function AdminLogin() {
     setdata({ ...data, [name]: value });
   };
   const handleSubmit = async () => {
-    axios.post(`${process.env.REACT_APP_BASE_ADMIN_URL}/login`, data).then((res) => {
-    if (res.data.success) {
+    // axios.post(`${process.env.REACT_APP_BASE_ADMIN_URL}/login`, data).then((res) => {
+    // if (res.data.success) {
         navigate("/admin/Users");
         localStorage.setItem('login',true);
-    }
-    else{
-        alert('Username Incorrect');
-      }
-    });
+    // }
+    // else{
+    //     alert('Username Incorrect');
+    //   }
+    // });
      
   };
 

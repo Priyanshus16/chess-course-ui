@@ -23,8 +23,6 @@ export default function Users() {
   const navigate = useNavigate();
   const [apiData, setApiData] = useState([]);
 
-  const ADMIN_API_PREFIX = '/api/v1/admin'
-
   const getData = async() => {
     const response = await axios.get(`${process.env.REACT_APP_BASE_ADMIN_URL}/users`);
     setApiData(response.data.users);

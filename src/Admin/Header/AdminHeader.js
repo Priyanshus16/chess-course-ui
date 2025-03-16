@@ -3,7 +3,7 @@ import { CssBaseline,Toolbar,Typography,AppBar } from '@mui/material';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Sidebar from '../Sidebar/Sidebar';
 
-export default function Header() {
+export default function AdminHeader() {
   return (
     <>
       <CssBaseline />
