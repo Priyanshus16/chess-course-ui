@@ -25,7 +25,7 @@ export default function Sidebar() {
   const [open, setOpen] = React.useState(true);
 
   const Logout = () => {
-    localStorage.removeItem('login');
+    localStorage.removeItem('login'); 
     navigate('/')
   }
   return (
@@ -78,7 +78,7 @@ export default function Sidebar() {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/Users')}>
+              <ListItemButton onClick={() => navigate('/admin/Users')}>
                 <ListItemIcon>
                   <FaceIcon sx={{ color: "#6945FF" }} />
                 </ListItemIcon>
@@ -87,7 +87,7 @@ export default function Sidebar() {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/addTestimonials')}>
+              <ListItemButton onClick={() => navigate('/admin/addTestimonials')}>
                 <ListItemIcon>
                   <FaceIcon sx={{ color: "#6945FF" }} />
                 </ListItemIcon>
@@ -96,7 +96,7 @@ export default function Sidebar() {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/testimonials')}>
+              <ListItemButton onClick={() => navigate('/admin/testimonials')}>
                 <ListItemIcon>
                   <FaceIcon sx={{ color: "#6945FF" }} />
                 </ListItemIcon>
@@ -105,7 +105,7 @@ export default function Sidebar() {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/addCurriculum')}>
+              <ListItemButton onClick={() => navigate('/admin/addCurriculum')}>
                 <ListItemIcon>
                   <AttachMoneyIcon sx={{ color: "#6945FF" }} />
                 </ListItemIcon>
@@ -117,7 +117,7 @@ export default function Sidebar() {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/curriculum')}>
+              <ListItemButton onClick={() => navigate('/admin/curriculum')}>
                 <ListItemIcon>
                   <AttachMoneyIcon sx={{ color: "#6945FF" }} />
                 </ListItemIcon>
@@ -130,7 +130,7 @@ export default function Sidebar() {
 
 
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/addBlog')}>
+              <ListItemButton onClick={() => navigate('/admin/addBlog')}>
                 <ListItemIcon>
                   <ApartmentIcon sx={{ color: "#6945FF" }} />
                 </ListItemIcon>
@@ -142,7 +142,7 @@ export default function Sidebar() {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/blogs')}>
+              <ListItemButton onClick={() => navigate('/admin/adminBlog')}>
                 <ListItemIcon>
                   <ApartmentIcon sx={{ color: "#6945FF" }} />
                 </ListItemIcon>
@@ -153,29 +153,29 @@ export default function Sidebar() {
               </ListItemButton>
             </ListItem>
 
-            {/* <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/QuantityList')}>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate('/admin/addYoutubeVideo')}>
                 <ListItemIcon>
                   <ApartmentIcon sx={{ color: "#6945FF" }} />
                 </ListItemIcon>
                 <ListItemText
                   sx={{ fontSize: "14px" }}
-                  primary="QuantityList"
+                  primary="Add Youtube Video"
                 />
               </ListItemButton>
-            </ListItem> */}
+            </ListItem>
             
-            {/* <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/TimeSlot')}>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate('/admin/addYoutube')}>
                 <ListItemIcon>
                   <ApartmentIcon sx={{ color: "#6945FF" }} />
                 </ListItemIcon>
                 <ListItemText
                   sx={{ fontSize: "14px" }}
-                  primary="Time Slot"
+                  primary="Youtube video"
                 />
               </ListItemButton>
-            </ListItem> */}
+            </ListItem>
             
             <ListItem disablePadding>
               <ListItemButton onClick={Logout}>

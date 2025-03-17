@@ -24,7 +24,6 @@ const Blog = () => {
         `${process.env.REACT_APP_BASE_URL}/blogs`
       );
       setResponse(res.data.blogs);
-      console.log(res.data.blogs);
     } catch (error) {
       console.log(error, "problem while getting data");
     }
@@ -55,7 +54,7 @@ const Blog = () => {
       {/* Blog Cards */}
       <Grid container spacing={4}>
         {response.map((post) => (
-          <Grid item xs={12} sm={6} md={4} key={post.id}>
+          <Grid item xs={12} sm={6} md={4} key={post._id}>
             <Card
               sx={{
                 borderRadius: 3,
