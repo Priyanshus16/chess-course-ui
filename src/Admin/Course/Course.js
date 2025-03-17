@@ -14,30 +14,28 @@ import {
 import { Button } from "@mui/material";
 
 //icons
-import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { resolvePath, useNavigate } from "react-router-dom";
 
-export default function Blog() {
+export default function Course() {
   const navigate = useNavigate();
   const [apiData, setApiData] = useState([]);
 
-  const ADMIN_API_PREFIX = '/api/v1/admin'
-
   const getData = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_ADMIN_URL}/blogs`);
-    console.log(response);
-    setApiData(response.data.blogs);
+    const response = await axios.get(`${process.env.REACT_APP_BASE_ADMIN_URL}/course`);
+    setApiData(response.data.courses);
   };
 
   const handleUserDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_BASE_ADMIN_URL}/blogs/${id}`
+        `${process.env.REACT_APP_BASE_ADMIN_URL}/course/${id}`
       );
       setApiData((prevData) => prevData.filter((item) => item._id !== id));
-      console.log(response);
-    } catch (error) {}
+      // console.log(response);
+    } catch (error) {
+      console.log(error,'there was problem while deleting data');
+    }
   };
 
   useEffect(() => {
@@ -68,7 +66,7 @@ export default function Blog() {
                     textAlign: "center",
                   }}
                 >
-                  Blogs Management
+                  Courses Management
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -86,7 +84,7 @@ export default function Blog() {
                     letterSpacing: "0em",
                   }}
                 >
-                  Heading
+                  Title
                 </TableCell>
 
                 <TableCell
@@ -100,6 +98,43 @@ export default function Blog() {
                   }}
                 >
                   Description
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    fontFamily: "Roboto",
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    lineHeight: "16px",
+                    letterSpacing: "0em",
+                  }}
+                >
+                  Duration
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    fontFamily: "Roboto",
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    lineHeight: "16px",
+                    letterSpacing: "0em",
+                  }}
+                >
+                  Price
+                </TableCell>
+
+                <TableCell
+                  align="center"
+                  sx={{
+                    fontFamily: "Roboto",
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    lineHeight: "16px",
+                    letterSpacing: "0em",
+                  }}
+                >
+                  Course Level
                 </TableCell>
 
                 <TableCell
@@ -132,8 +167,11 @@ export default function Blog() {
             <TableBody>
               {apiData.map((item) => (
                 <TableRow key={item._id}>
-                  <TableCell align="center">{item.heading}</TableCell>
+                  <TableCell align="center">{item.title}</TableCell>
                   <TableCell align="center">{item.description}</TableCell>
+                  <TableCell align="center">{item.price}</TableCell>
+                  <TableCell align="center">{item.duration}</TableCell>
+                  <TableCell align="center">{item.courseLevel}</TableCell>
                   <TableCell align="center">
                     <img style={{ width: "60px" }} src={item.image}></img>
                   </TableCell>

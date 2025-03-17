@@ -19,7 +19,6 @@ const CurriculumPage = () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/curriculum`);
       setResponse(res.data.curriculum);
-      console.log(res.data.curriculum);
     } catch (error) {
       console.log("Error while getting data", error);
     }

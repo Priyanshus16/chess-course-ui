@@ -1,7 +1,6 @@
 import React from 'react'
 import { CssBaseline,Toolbar,Typography,AppBar } from '@mui/material';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Sidebar from '../Sidebar/Sidebar';
 
 export default function AdminHeader() {
   return (
@@ -18,7 +17,6 @@ export default function AdminHeader() {
           <AccountCircleIcon/>
         </Toolbar>
       </AppBar>
-      <Sidebar/>
       </>
   )
 }
