@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Toolbar,
-  Typography,
   Table,
   TableBody,
   TableCell,
@@ -10,33 +9,40 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Button,
+  Typography,
+  IconButton,
 } from "@mui/material";
-import { Button } from "@mui/material";
-
-//icons
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
-import { resolvePath, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Testimonial() {
   const navigate = useNavigate();
   const [apiData, setApiData] = useState([]);
-
-  const ADMIN_API_PREFIX = '/api/v1/admin'
+  
 
   const getData = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_ADMIN_URL}/testimonials`);
-    setApiData(response.data.testimonials);
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_ADMIN_URL}/testimonials`
+      );
+      setApiData(response.data.testimonials);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const handleUserDelete = async (id) => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/testimonials/${id}`
       );
       setApiData((prevData) => prevData.filter((item) => item._id !== id));
-      console.log(response);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error deleting testimonial:", error);
+    }
   };
 
   useEffect(() => {
@@ -44,123 +50,80 @@ export default function Testimonial() {
   }, []);
 
   return (
-    <>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, bgcolor: "#F5F5F5", height: "97vh" }}
-      >
-        <Toolbar />
-        <TableContainer component={Paper} sx={{ marginTop: "20px" }}>
-          <Table sx={{ minWidth: 650 }} aria-label="caption table">
-            {/* // first Row */}
+    <Box
+      component="main"
+      sx={{ flexGrow: 1, p: 3, bgcolor: "#E3F2FD", height: "97vh" }}
+    >
+      <Toolbar />
 
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  colSpan={16}
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "24px",
-                    fontWeight: 600,
-                    lineHeight: "30px",
-                    letterSpacing: "0em",
-                    textAlign: "center",
-                  }}
-                >
-                  Testimonial Management
-                </TableCell>
-              </TableRow>
-            </TableHead>
-
-            {/* // Thrid row */}
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Full Name
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Achievement
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Description
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Image
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Action
-                </TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {apiData.map((item) => (
-                <TableRow key={item._id}>
-                  <TableCell align="center">{item.name}</TableCell>
-                  <TableCell align="center">{item.achievement}</TableCell>
-                  <TableCell align="center">{item.description}</TableCell>
-                  <TableCell align="center">
-                    <img style={{ width: "60px" }} src={item.image}></img>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button onClick={() => handleUserDelete(item._id)}>
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      {/* Header Section */}
+      <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ marginBottom: "20px" }}>
+        <Typography
+          variant="h5"
+          sx={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, color: "#0D47A1" }}
+        >
+          Testimonial Management
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={() => navigate("/admin/addTestimonials")}
+          sx={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400 }}
+        >
+          Create
+        </Button>
       </Box>
-    </>
+
+      {/* Table Section */}
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }}>
+          <TableHead>
+            <TableRow sx={{ backgroundColor: "#1976D2", color: "white" }}>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 700 }}>
+                Full Name
+              </TableCell>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 700 }}>
+                Achievement
+              </TableCell>
+              <TableCell align="center" sx={{ color: "white", width: "30%", fontWeight: 700 }}>
+                Description
+              </TableCell>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 700 }}>
+                Image
+              </TableCell>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 700 }}>
+                Action
+              </TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {apiData.map((item) => (
+              <TableRow key={item._id}>
+                <TableCell align="center">{item.name}</TableCell>
+                <TableCell align="center">{item.achievement}</TableCell>
+                <TableCell align="center">{item.description}</TableCell>
+                <TableCell align="center">
+                  <img
+                    style={{ width: "60px", borderRadius: "5px" }}
+                    src={item.image}
+                    alt={item.name}
+                  />
+                </TableCell>
+                <TableCell align="center">
+                <IconButton color="primary">
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton color="error" onClick={() => handleUserDelete(item._id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }
-  

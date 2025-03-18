@@ -1,191 +1,160 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
+import {
+  Box,
+  Drawer,
+  Toolbar,
+  List,
+  Typography,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  IconButton,
+  Divider,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Testimonials from "../Testimonial/Testimonial";
 
-//icons
-import ApartmentIcon from "@mui/icons-material/Apartment";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import FaceIcon from "@mui/icons-material/Face";
+// Icons
+import PeopleIcon from "@mui/icons-material/People";
+import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
+import SchoolIcon from "@mui/icons-material/School";
+import ArticleIcon from "@mui/icons-material/Article";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-
+const menuItems = [
+  { text: "Users", icon: <PeopleIcon />, path: "/admin/Users" },
+  // { text: "Add Testimonials", icon: <FormatQuoteIcon />, path: "/admin/addTestimonials" },
+  { text: "Testimonials", icon: <FormatQuoteIcon />, path: "/admin/testimonials" },
+  // { text: "Add Curriculum", icon: <SchoolIcon />, path: "/admin/addCurriculum" },
+  { text: "Curriculum", icon: <SchoolIcon />, path: "/admin/curriculum" },
+  // { text: "Add Blog", icon: <ArticleIcon />, path: "/admin/addBlog" },
+  { text: "Blogs", icon: <ArticleIcon />, path: "/admin/adminBlog" },
+  // { text: "Add Youtube Video", icon: <YouTubeIcon />, path: "/admin/addYoutubeVideo" },
+  { text: "Youtube Video", icon: <YouTubeIcon />, path: "/admin/addYoutube" },
+];
 
 export default function Sidebar() {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
 
-  const Logout = () => {
-    localStorage.removeItem('login'); 
-    navigate('/')
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("login");
+    navigate("/");
+  };
+
   return (
     <>
-
-
+      {/* Sidebar Toggle Button (Fixed Left Position) */}
       <IconButton
-
         color="inherit"
-        aria-label="open drawer"
         onClick={() => setOpen(!open)}
-        edge="start"
         sx={{
-          mr: 2
-         }}
+          position: "fixed",
+          top: 20,
+          left: 15,
+          zIndex: 1400,
+          backgroundColor: "#fff",
+          borderRadius: "50%",
+          boxShadow: 3,
+          transition: "transform 0.3s ease-in-out",
+          "&:hover": { backgroundColor: "#e0e0e0" },
+        }}
       >
-        <MenuIcon />
+        <MenuIcon sx={{ fontSize: 30, color: "#333" }} />
       </IconButton>
 
-
+      {/* Sidebar Drawer */}
       <Drawer
-        variant="temporary"
-        open={open} // Control the open state of the drawer
-        onClose={() => setOpen(false)} // Function to close the drawer
+        variant="persistent"
+        open={open}
         sx={{
-          width: 300,
+          width: open ? 260 : 0,
+          transition: "width 0.3s ease-in-out",
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: 300, boxSizing: "border-box" },
+          [`& .MuiDrawer-paper`]: {
+            width: 260,
+            backgroundColor: "#F4F6F8",
+            color: "#333",
+            boxSizing: "border-box",
+            transition: "width 0.3s ease-in-out",
+            borderRight: "2px solid #ddd",
+          },
         }}
       >
         <Toolbar />
+        <Box sx={{ overflow: "auto", p: 2 }}>
+          
+          {/* Admin Panel Title (Shifted Slightly Right) */}
+          <Typography
+            sx={{
+              fontSize: "18px",
+              fontWeight: "bold",
+              textAlign: "center",
+              mb: 2,
+              color: "#444",
+              paddingLeft: "15px", // Moves text slightly right
+            }}
+          >
+            Admin Panel
+          </Typography>
 
-
-        
-        <Box sx={{ overflow: "auto" }}>
+          {/* Profile Section */}
           <List>
-            <ListItem sx={{ height: 130, flexDirection: "column" }}>
-              <ListItemIcon>
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                  height="64px"
-                  width="60px"
-                  alt="profileImg"
-                />
-                <br></br>
-              </ListItemIcon>
-              <Typography sx={{ fontSize: "14px", color: "#6C7177" }}>
-                Welcome
+            <ListItem sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 2 }}>
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                height="64px"
+                width="60px"
+                alt="profileImg"
+                style={{ borderRadius: "50%", border: "2px solid #ddd", padding: 5 }}
+              />
+              <Typography sx={{ fontSize: "14px", color: "#666", mt: 1 }}>
+                Welcome, Admin
               </Typography>
             </ListItem>
+          </List>
 
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/admin/Users')}>
-                <ListItemIcon>
-                  <FaceIcon sx={{ color: "#6945FF" }} />
-                </ListItemIcon>
-                <ListItemText sx={{ fontSize: "14px" }} primary="Users" />
-              </ListItemButton>
-            </ListItem>
+          <Divider sx={{ backgroundColor: "#ccc" }} />
 
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/admin/addTestimonials')}>
-                <ListItemIcon>
-                  <FaceIcon sx={{ color: "#6945FF" }} />
-                </ListItemIcon>
-                <ListItemText sx={{ fontSize: "14px" }} primary="Add Testimonials" />
-              </ListItemButton>
-            </ListItem>
+          {/* Sidebar Menu Items */}
+          <List>
+            {menuItems.map(({ text, icon, path }) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton
+                  onClick={() => navigate(path)}
+                  sx={{
+                    color: "#444",
+                    borderRadius: "8px",
+                    "&:hover": { backgroundColor: "#e0e0e0" },
+                  }}
+                >
+                  <ListItemIcon sx={{ color: "#0077b6" }}>{icon}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
 
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/admin/testimonials')}>
-                <ListItemIcon>
-                  <FaceIcon sx={{ color: "#6945FF" }} />
-                </ListItemIcon>
-                <ListItemText sx={{ fontSize: "14px" }} primary="Testimonials" />
-              </ListItemButton>
-            </ListItem>
+          <Divider sx={{ backgroundColor: "#ccc", mt: 2 }} />
 
+          {/* Logout Button */}
+          <List>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/admin/addCurriculum')}>
-                <ListItemIcon>
-                  <AttachMoneyIcon sx={{ color: "#6945FF" }} />
+              <ListItemButton
+                onClick={handleLogout}
+                sx={{
+                  color: "#fff",
+                  backgroundColor: "#d32f2f",
+                  borderRadius: "8px",
+                  "&:hover": { backgroundColor: "#b71c1c" },
+                }}
+              >
+                <ListItemIcon sx={{ color: "#fff" }}>
+                  <LogoutIcon />
                 </ListItemIcon>
-                <ListItemText
-                  sx={{ fontSize: "14px" }}
-                  primary="Add Curriculum"
-                />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/admin/curriculum')}>
-                <ListItemIcon>
-                  <AttachMoneyIcon sx={{ color: "#6945FF" }} />
-                </ListItemIcon>
-                <ListItemText
-                  sx={{ fontSize: "14px" }}
-                  primary="Curriculum"
-                />
-              </ListItemButton>
-            </ListItem>
-
-
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/admin/addBlog')}>
-                <ListItemIcon>
-                  <ApartmentIcon sx={{ color: "#6945FF" }} />
-                </ListItemIcon>
-                <ListItemText
-                  sx={{ fontSize: "14px" }}
-                  primary="Add Blog"
-                />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/admin/adminBlog')}>
-                <ListItemIcon>
-                  <ApartmentIcon sx={{ color: "#6945FF" }} />
-                </ListItemIcon>
-                <ListItemText
-                  sx={{ fontSize: "14px" }}
-                  primary="Blogs"
-                />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/admin/addYoutubeVideo')}>
-                <ListItemIcon>
-                  <ApartmentIcon sx={{ color: "#6945FF" }} />
-                </ListItemIcon>
-                <ListItemText
-                  sx={{ fontSize: "14px" }}
-                  primary="Add Youtube Video"
-                />
-              </ListItemButton>
-            </ListItem>
-            
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/admin/addYoutube')}>
-                <ListItemIcon>
-                  <ApartmentIcon sx={{ color: "#6945FF" }} />
-                </ListItemIcon>
-                <ListItemText
-                  sx={{ fontSize: "14px" }}
-                  primary="Youtube video"
-                />
-              </ListItemButton>
-            </ListItem>
-            
-            <ListItem disablePadding>
-              <ListItemButton onClick={Logout}>
-                <ListItemIcon>
-                  <ApartmentIcon sx={{ color: "#6945FF" }} />
-                </ListItemIcon>
-                <ListItemText
-                  sx={{ fontSize: "14px" }}
-                  primary="Logout"
-                />
+                <ListItemText primary="Logout" />
               </ListItemButton>
             </ListItem>
           </List>

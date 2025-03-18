@@ -1,5 +1,5 @@
-import React from 'react'
-import { CssBaseline,Toolbar,Typography,AppBar } from '@mui/material';
+import React from 'react';
+import { AppBar, Toolbar, Typography, CssBaseline, IconButton, Tooltip } from '@mui/material';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export default function AdminHeader() {
@@ -8,15 +8,38 @@ export default function AdminHeader() {
       <CssBaseline />
       <AppBar
         position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: "#6945FF" }}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          background: "linear-gradient(90deg, #3B82F6 0%, #1E40AF 100%)", 
+          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)", 
+          padding: "5px 0"
+        }}
       >
-        <Toolbar sx={{justifyContent:'space-between'}}>
-          <Typography variant="h6" noWrap component="div">
-          Admin Panal
+        <Toolbar sx={{ justifyContent: "space-between", paddingX: "20px", px: { xs: 10 } }}>
+          {/* Admin Panel Title */}
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{
+              mt:1.2,
+              fontFamily: "'Poppins', sans-serif",
+              fontWeight: "600",
+              letterSpacing: "1px",
+              color: "#F3F4F6",
+            }}
+          >
+            Chess Learning
           </Typography>
-          <AccountCircleIcon/>
+
+          {/* Profile Icon with Tooltip */}
+          <Tooltip title="Profile">
+            <IconButton sx={{ color: "#F3F4F6", "&:hover": { color: "#E5E7EB" } }}>
+              <AccountCircleIcon sx={{ fontSize: 36 }} />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
-      </>
-  )
+    </>
+  );
 }
+
