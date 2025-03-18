@@ -1,10 +1,9 @@
-
-
 import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Paper, Link } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,19 +21,19 @@ const Login = () => {
       console.log(response)
 
       if(response.status === 200) {
-        alert('user login successfully')
-        navigate('/')
+        Swal.fire('user login successfully')
+        navigate('/home')
       }
 
 
     } catch (error) {
       console.log('error while sending data', error)
       if (error.response.status === 404) {
-        alert('invalid email')
+        Swal.fire('invalid email')
         return;
       }
       if(error.response.status === 401) {
-        alert('inavlid password')
+        Swal.fire('inavlid password')
         return;
       }
     }

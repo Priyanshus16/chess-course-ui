@@ -25,7 +25,8 @@ import Blog from "./Components/Blog/Blog.js";
 import BlogDetails from "./Components/Blog/BlogDetails";
 import Testimonials from "./Components/Testimonial/Testimonials.js";
 
-import Users from "./Admin/Auth/Users.js";
+// ADMIN ROUTES
+import Users from "./Admin/User/Users.js";
 import Testimonial from "./Admin/Testimonial/Testimonial.js";
 import AddTestimonials from "./Admin/Testimonial/AddTestimonials.js";
 import AddCurriculum from "./Admin/Curriculum/AddCurriculum.js";
@@ -35,8 +36,8 @@ import AdminBlog from "./Admin/Blog/AdminBlog.js";
 import AdminLogin from "./Admin/Auth/AdminLogin.js";
 import AddCourses from "./Admin/Course/AddCourses.js";
 import Course from "./Admin/Course/Course.js";
-
 import Sidebar from "./Admin/Sidebar/Sidebar.js";
+import AddUser from "./Admin/User/AddUser.js";
 
 function App() {
   const location = useLocation();
@@ -63,6 +64,7 @@ function App() {
                 <Routes>
                   <Route exact path="/admin" element={<AdminLogin />} />
                   <Route path="/admin/Users" element={<Users />} />
+                  <Route path="/admin/addUser" element={<AddUser />} />
                   <Route path="/admin/Testimonials" element={<Testimonial />} />
                   <Route path="/admin/addTestimonials" element={<AddTestimonials />}/>
                   <Route path="/admin/addCurriculum" element={<AddCurriculum />}/>
@@ -80,7 +82,8 @@ function App() {
             {/* UI ROUTES */}
             <Header/>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Login />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/Register" element={<Register />} />
               <Route path="/forgot-password" element={<Forgot />} />

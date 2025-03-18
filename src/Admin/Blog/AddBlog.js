@@ -6,19 +6,22 @@ import {
   Typography,
   Box,
   Avatar,
+  InputAdornment,
 } from "@mui/material";
+import { Title, Description, CloudUpload } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddBlog = () => {
   const navigate = useNavigate();
-
-  const ADMIN_API_PREFIX = '/api/v1/admin'
+  const cloud_name = process.env.REACT_APP_CLOUD_NAME;
+  const cloudinary_URL = process.env.REACT_APP_CLOUDINARY_URL;
 
   const [formData, setFormData] = useState({
     heading: "",
     description: "",
     image: null,
+    imagePreview: null,
   });
 
   const handleChange = (e) => {
@@ -29,12 +32,20 @@ const AddBlog = () => {
     });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({
+        ...formData,
+        image: file,
+        imagePreview: URL.createObjectURL(file), // Show preview
+      });
+    }
+    alert("Image uploaded successfully!");
+  };
 
-  const cloud_name = process.env.REACT_APP_CLOUD_NAME;
-  const cloudinary_URL = process.env.REACT_APP_CLOUDINARY_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData)
     try {
       let imageUrl = "";
 
@@ -42,7 +53,7 @@ const AddBlog = () => {
         const imageData = new FormData();
         imageData.append("file", formData.image);
         imageData.append("upload_preset", "chess-course");
-        imageData.append("folder","blogs" )
+        imageData.append("folder", "blogs");
 
         const cloudinaryRes = await axios.post(
           `${cloudinary_URL}/${cloud_name}/image/upload`,
@@ -56,82 +67,113 @@ const AddBlog = () => {
         image: imageUrl,
       };
 
-      if (
-        !finalData.heading ||
-        !finalData.description ||
-        !finalData.image
-      ) {
-        return alert("please provide all fields");
+      if (!finalData.heading || !finalData.description || !finalData.image) {
+        return alert("Please provide all fields.");
       }
 
-      const res = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/addBlog`,
         finalData
       );
-      console.log(res)
       navigate("/blogs");
     } catch (error) {
-      console.error(error, "error while sending data");
+      console.error(error, "Error while sending data");
     }
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFormData({
-        ...formData,
-        image: file,
-      });
-    }
-    alert("image upload successfully");
   };
 
   return (
     <Container maxWidth="sm">
-      <Box sx={{ mt: 10, p: 3, boxShadow: 3, borderRadius: 2 }}>
-        <Typography variant="h5" gutterBottom>
+      <Box
+        sx={{
+          mt: 10,
+          p: 4,
+          boxShadow: 4,
+          borderRadius: 3,
+          bgcolor: "#F8FAFC", // Light background
+          textAlign: "center",
+          fontFamily: "'Poppins', sans-serif",
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: "600", color: "#1E3A8A" }}>
           Add Blog
         </Typography>
 
         <form>
+          {/* Heading */}
           <TextField
-            label="Name"
+            label="Heading"
             fullWidth
             name="heading"
             value={formData.heading}
             onChange={handleChange}
             margin="normal"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Title sx={{ color: "#1E3A8A" }} />
+                </InputAdornment>
+              ),
+            }}
           />
 
+          {/* Description */}
           <TextField
             label="Description"
             multiline
-            rows={5}
+            rows={4}
             name="description"
             value={formData.description}
-            type="description"
             fullWidth
             onChange={handleChange}
             margin="normal"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Description sx={{ color: "#1E3A8A" }} />
+                </InputAdornment>
+              ),
+            }}
           />
 
-          <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
-            <Avatar sx={{ width: 100, height: 100, mb: 2 }} />
-            <Button variant="contained" component="label">
+          {/* Image Upload */}
+          <Box display="flex" flexDirection="column" alignItems="center" mt={3}>
+            <Avatar
+              src={formData.imagePreview || ""}
+              sx={{ width: 120, height: 120, mb: 2, border: "2px solid #ccc" }}
+            />
+            <Button
+              variant="contained"
+              component="label"
+              startIcon={<CloudUpload />}
+              sx={{
+                backgroundColor: "#1976d2",
+                color: "#fff",
+                fontWeight: "bold",
+                "&:hover": { backgroundColor: "#1565c0" },
+              }}
+            >
               Upload Image
               <input onChange={handleFileChange} type="file" hidden />
             </Button>
           </Box>
 
+          {/* Submit Button */}
           <Button
             type="submit"
             variant="contained"
-            color="primary"
             fullWidth
             onClick={handleSubmit}
-            sx={{ mt: 2 }}
+            sx={{
+              mt: 3,
+              bgcolor: "#0F172A",
+              "&:hover": { bgcolor: "#1E293B" },
+              color: "white",
+              fontWeight: "bold",
+              p: 1.5,
+              borderRadius: 2,
+            }}
           >
-            Submit
+            Submit Blog
           </Button>
         </form>
       </Box>
