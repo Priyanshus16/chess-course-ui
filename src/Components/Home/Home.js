@@ -6,6 +6,7 @@ import ContactUs from '../ContactUs/ContactUs'
 import HowItWorks from '../HowItWorks/HowItWorks'
 import CurriculumPage from '../Curriculam/CurriculumPage'
 import Blog from '../Blog/Blog'
+import FloatingVideo from '../Youtube/FloatingVideo'
 
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
     <CurriculumPage/>
     <About/>
     <ContactUs/>
+    <FloatingVideo/>
     </>
   )
 }

@@ -11,6 +11,7 @@ import {
 import { Title, Description, CloudUpload } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const AddUser = () => {
   const navigate = useNavigate();
@@ -30,12 +31,13 @@ const AddUser = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log(formData);
     e.preventDefault();
     try {
       if (!formData.name || !formData.email || !formData.password) {
-        return alert("Please provide all fields.");
+        return Swal.fire("Please provide all fields.");
       }
-
+      
       const res = await axios.post(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/addUser`,
         formData
@@ -131,7 +133,7 @@ const AddUser = () => {
               borderRadius: 2,
             }}
           >
-            Submit Blog
+            Submit User
           </Button>
         </form>
       </Box>

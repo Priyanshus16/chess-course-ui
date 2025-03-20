@@ -7,31 +7,38 @@ import {
   Typography,
   Grid,
   Button,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import axios from "axios";
+import { useCourses } from "../../context/courseContext";
 
 
 const Courses = () => {
 
-  const [courses, setCourses] = useState([]);
+  // const [courses, setCourses] = useState([]);
+  const {courses} = useCourses();;
 
-  const getData = async() => {
-    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses`)
-    setCourses(res.data.courses);
-  }
+  // const getData = async() => {
+  //   const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses`)
+  //   setCourses(res.data.courses);
+    
+  // }
 
-  useEffect(() => {
-    getData();
-  },[])
+  // useEffect(() => {
+  //   getData();
+  // },[])
 
 
   return (
-    <Box sx={{ p: 4 }}>
-      <Typography variant="h4" gutterBottom align="center">
-        Explore Our Courses
-      </Typography>
+    <Box sx={{ p: 4 }}> 
+        <Typography sx={{pb:2}} variant="h3" align="center" fontWeight={600} gutterBottom>
+          Explore Our Courses
+        </Typography>
+      
+
       <Grid container spacing={4}>
-        {courses.map((course) => (
+        {courses.slice(0,6).map((course) => (
           <Grid item xs={12} sm={6} md={4} key={course._id}>
             <Card sx={{ height: "100%" }}>
               <CardMedia
@@ -51,12 +58,16 @@ const Courses = () => {
                   Enrolled By: <strong>{course.enrolled}</strong>
                 </Typography> */}
                 <Typography variant="body2" color="text.secondary">
-                  Duration: <strong>{course.duration}{" hours"}</strong>
+                  Duration:{" "}
+                  <strong>
+                    {course.duration}
+                    {" hours"}
+                  </strong>
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Level: <strong>{course.courseLevel}</strong>
                 </Typography>
-                
+
                 <Box sx={{ mt: 2, display: "flex", alignItems: "center" }}>
                   {/* <Typography
                     variant="body1"

@@ -11,6 +11,7 @@ import {
 import { Title, Description, CloudUpload } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const AddBlog = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const AddBlog = () => {
         imagePreview: URL.createObjectURL(file), // Show preview
       });
     }
-    alert("Image uploaded successfully!");
+    Swal.fire("Image uploaded successfully!");
   };
 
   const handleSubmit = async (e) => {
@@ -68,7 +69,7 @@ const AddBlog = () => {
       };
 
       if (!finalData.heading || !finalData.description || !finalData.image) {
-        return alert("Please provide all fields.");
+        return Swal.fire("Please provide all fields.");
       }
 
       await axios.post(
