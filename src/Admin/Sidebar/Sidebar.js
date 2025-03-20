@@ -25,19 +25,16 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 const menuItems = [
   { text: "Users", icon: <PeopleIcon />, path: "/admin/Users" },
-  // { text: "Add Testimonials", icon: <FormatQuoteIcon />, path: "/admin/addTestimonials" },
+  { text: "Courses", icon: <PeopleIcon />, path: "/admin/course" },
   { text: "Testimonials", icon: <FormatQuoteIcon />, path: "/admin/testimonials" },
-  // { text: "Add Curriculum", icon: <SchoolIcon />, path: "/admin/addCurriculum" },
   { text: "Curriculum", icon: <SchoolIcon />, path: "/admin/curriculum" },
-  // { text: "Add Blog", icon: <ArticleIcon />, path: "/admin/addBlog" },
   { text: "Blogs", icon: <ArticleIcon />, path: "/admin/adminBlog" },
-  // { text: "Add Youtube Video", icon: <YouTubeIcon />, path: "/admin/addYoutubeVideo" },
-  { text: "Youtube Video", icon: <YouTubeIcon />, path: "/admin/addYoutube" },
+  // { text: "Youtube Video", icon: <YouTubeIcon />, path: "/admin/addYoutube" }, 
 ];
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("login");

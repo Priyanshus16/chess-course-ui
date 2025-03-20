@@ -28,12 +28,8 @@ const Login = () => {
 
     } catch (error) {
       console.log('error while sending data', error)
-      if (error.response.status === 404) {
-        Swal.fire('invalid email')
-        return;
-      }
-      if(error.response.status === 401) {
-        Swal.fire('inavlid password')
+      if (error.response.status === 401) {
+        Swal.fire('invalid credential')
         return;
       }
     }
@@ -64,6 +60,10 @@ const Login = () => {
           <Typography variant="body2" sx={{ mt: 2 }}>
             Don't have an account?{" "}
             <Link component="button" onClick={() => navigate("/register")} color="primary">Register</Link>
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 2 }}>
+            Admin?{" "}
+            <Link component="button" onClick={() => navigate("/admin/")} color="primary">Login</Link>
           </Typography>
         </Paper>
       </motion.div>

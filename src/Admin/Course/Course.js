@@ -10,31 +10,34 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Button,
+  IconButton,
 } from "@mui/material";
-import { Button } from "@mui/material";
-
-//icons
+import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import axios from "axios";
-import { resolvePath, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Course() {
   const navigate = useNavigate();
   const [apiData, setApiData] = useState([]);
 
   const getData = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_ADMIN_URL}/course`);
-    setApiData(response.data.courses);
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_ADMIN_URL}/course`
+      );
+      setApiData(response.data.courses);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
   };
 
-  const handleUserDelete = async (id) => {
+  const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_BASE_ADMIN_URL}/course/${id}`
-      );
+      await axios.delete(`${process.env.REACT_APP_BASE_ADMIN_URL}/course/${id}`);
       setApiData((prevData) => prevData.filter((item) => item._id !== id));
-      // console.log(response);
     } catch (error) {
-      console.log(error,'there was problem while deleting data');
+      console.error("Error deleting course:", error);
     }
   };
 
@@ -43,150 +46,53 @@ export default function Course() {
   }, []);
 
   return (
-    <>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, bgcolor: "#F5F5F5", height: "97vh" }}
-      >
-        <Toolbar />
-        <TableContainer component={Paper} sx={{ marginTop: "20px" }}>
-          <Table sx={{ minWidth: 650 }} aria-label="caption table">
-            {/* // first Row */}
+    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: "#E3F2FD", height: "97vh" }}>
+      <Toolbar />
+      <TableContainer component={Paper} sx={{ marginTop: "20px", padding: "10px" }}>
+        {/* Header Section */}
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px" }}>
+          <Typography variant="h5" sx={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, color: "#0D47A1" }}>
+            Course Management
+          </Typography>
+          <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={() => navigate("/admin/addCourses")}>
+            Create Course
+          </Button>
+        </Box>
 
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  colSpan={16}
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "24px",
-                    fontWeight: 600,
-                    lineHeight: "30px",
-                    letterSpacing: "0em",
-                    textAlign: "center",
-                  }}
-                >
-                  Courses Management
+        <Table sx={{ minWidth: 650 }} aria-label="course table">
+          <TableHead>
+            <TableRow sx={{ backgroundColor: "#1976D2" }}>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Title</TableCell>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Description</TableCell>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Duration</TableCell>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Price</TableCell>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Level</TableCell>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Image</TableCell>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {apiData.map((item) => (
+              <TableRow key={item._id} hover>
+                <TableCell align="center">{item.title}</TableCell>
+                <TableCell align="center">{item.description}</TableCell>
+                <TableCell align="center">{item.duration}</TableCell>
+                <TableCell align="center">{item.price}</TableCell>
+                <TableCell align="center">{item.courseLevel}</TableCell>
+                <TableCell align="center">
+                  <img style={{ width: "60px", borderRadius: "5px" }} src={item.image} alt="Course" />
+                </TableCell>
+                <TableCell align="center">
+                  <IconButton color="error" onClick={() => handleDelete(item._id)}>
+                    <DeleteIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
-            </TableHead>
-
-            {/* // Thrid row */}
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Title
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Description
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Duration
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Price
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Course Level
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Image
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "Roboto",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    lineHeight: "16px",
-                    letterSpacing: "0em",
-                  }}
-                >
-                  Action
-                </TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {apiData.map((item) => (
-                <TableRow key={item._id}>
-                  <TableCell align="center">{item.title}</TableCell>
-                  <TableCell align="center">{item.description}</TableCell>
-                  <TableCell align="center">{item.price}</TableCell>
-                  <TableCell align="center">{item.duration}</TableCell>
-                  <TableCell align="center">{item.courseLevel}</TableCell>
-                  <TableCell align="center">
-                    <img style={{ width: "60px" }} src={item.image}></img>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button onClick={() => handleUserDelete(item._id)}>
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
-    </>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }
-  

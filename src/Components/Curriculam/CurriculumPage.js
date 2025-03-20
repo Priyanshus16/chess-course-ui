@@ -11,6 +11,7 @@ import {
   Button,
 } from "@mui/material";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const CurriculumPage = () => {
   const [response, setResponse] = useState([]);
@@ -25,7 +26,7 @@ const CurriculumPage = () => {
   };
 
   const handleEnroll = (level) => {
-    alert(`Enrolling in ${level}`);
+    Swal.fire(`Enrolling in ${level}`);
   };
 
   const gradients = [

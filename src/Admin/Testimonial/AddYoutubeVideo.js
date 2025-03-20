@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
+import Swal from "sweetalert2";
 
 const AddCurriculum = () => {
 
@@ -30,7 +31,7 @@ const AddCurriculum = () => {
     e.preventDefault();
 
     if(!formData.heading || !formData.subHeading || !formData.keyPoints) {
-      return alert('Please fill all fields')
+      return Swal.fire('Please fill all fields')
     }
 
     try {

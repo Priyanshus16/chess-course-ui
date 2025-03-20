@@ -34,6 +34,8 @@ export default function Testimonial() {
     }
   };
 
+  console.log(apiData)
+
   const handleUserDelete = async (id) => {
     try {
       await axios.delete(
@@ -90,9 +92,12 @@ export default function Testimonial() {
                 Description
               </TableCell>
               <TableCell align="center" sx={{ color: "white", fontWeight: 700 }}>
-                Image
+                Course
               </TableCell>
               <TableCell align="center" sx={{ color: "white", fontWeight: 700 }}>
+                Image
+              </TableCell>
+              <TableCell align="center" sx={{ color: "white",width:'10%', fontWeight: 700 }}>
                 Action
               </TableCell>
             </TableRow>
@@ -104,6 +109,7 @@ export default function Testimonial() {
                 <TableCell align="center">{item.name}</TableCell>
                 <TableCell align="center">{item.achievement}</TableCell>
                 <TableCell align="center">{item.description}</TableCell>
+                <TableCell align="center">{item.course}</TableCell>
                 <TableCell align="center">
                   <img
                     style={{ width: "60px", borderRadius: "5px" }}

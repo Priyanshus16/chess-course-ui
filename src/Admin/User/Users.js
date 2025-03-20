@@ -30,11 +30,14 @@ export default function Users() {
   const [editRowId, setEditRowId] = useState(null);
   const [editedData, setEditedData] = useState({ name: "", email: "" });
 
+  console.log(process.env.REACT_APP_CLOUDINARY_URL);
+
   const getData = async () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/users`
       );
+      console.log(response)
       setApiData(response.data.users);
     } catch (error) {
       console.error("Error fetching users:", error);
