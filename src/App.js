@@ -40,6 +40,7 @@ import Course from "./Admin/Course/Course.js";
 import Sidebar from "./Admin/Sidebar/Sidebar.js";
 import AddUser from "./Admin/User/AddUser.js";
 import AllCourses from "./Components/Courses/AllCourses.js";
+import CourseDetail from "./Components/Courses/CourseDetail.js";
 
 function App() {
   const location = useLocation();
@@ -85,9 +86,9 @@ function App() {
             </>
           ) : (
             <>
-              {shouldShowHeader && <Header />} {/* Hide header on user login/register */}
+              {shouldShowHeader && <Header />} 
               <Routes>
-                <Route path="/" element={<Login />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
@@ -98,6 +99,7 @@ function App() {
                 <Route path="/blogs/:id" element={<BlogDetails />} />
                 <Route path="/testimonial" element={<Testimonials />} />
                 <Route path="/courses" element={<AllCourses />} />
+                <Route path="/courseDetail" element={<CourseDetail />} />
               </Routes>
             </>
           )}

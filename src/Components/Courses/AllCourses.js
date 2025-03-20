@@ -14,12 +14,16 @@ import {
   CardMedia
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import StarIcon from "@mui/icons-material/Star";
 import { useCourses } from "../../context/courseContext";
-import Testimonials from "../Testimonial/Testimonials";
+import { useNavigate } from "react-router-dom";
 
 const AllCourses = () => {
   const { courses } = useCourses();
+  const navigate = useNavigate();
+
+  const handleNavigate = (id) => { 
+    navigate(`/courseDetail`, {state: courses.find(course => course._id === id)});
+  };
 
   return (
     <Box sx={{ backgroundColor: "#f9f9f9", color: "#333", minHeight: "100vh", fontFamily: "Roboto, sans-serif" }}>
@@ -87,6 +91,7 @@ const AllCourses = () => {
                     {course.description}
                   </Typography>
                   <Button
+                  onClick={() => handleNavigate(course._id)}
                     variant="contained"
                     sx={{
                       mt: 2,
