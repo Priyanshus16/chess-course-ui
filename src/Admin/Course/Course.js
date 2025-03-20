@@ -34,8 +34,11 @@ export default function Course() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_BASE_ADMIN_URL}/course/${id}`);
+      await axios.delete(
+        `${process.env.REACT_APP_BASE_ADMIN_URL}/course/${id}`
+      );
       setApiData((prevData) => prevData.filter((item) => item._id !== id));
+      getData();
     } catch (error) {
       console.error("Error deleting course:", error);
     }
@@ -46,15 +49,40 @@ export default function Course() {
   }, []);
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: "#E3F2FD", height: "97vh" }}>
+    <Box
+      component="main"
+      sx={{ flexGrow: 1, p: 3, bgcolor: "#E3F2FD", height: "97vh" }}
+    >
       <Toolbar />
-      <TableContainer component={Paper} sx={{ marginTop: "20px", padding: "10px" }}>
+      <TableContainer
+        component={Paper}
+        sx={{ marginTop: "20px", padding: "10px" }}
+      >
         {/* Header Section */}
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px" }}>
-          <Typography variant="h5" sx={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, color: "#0D47A1" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "10px 16px",
+          }}
+        >
+          <Typography
+            variant="h5"
+            sx={{
+              fontFamily: "'Poppins', sans-serif",
+              fontWeight: 600,
+              color: "#0D47A1",
+            }}
+          >
             Course Management
           </Typography>
-          <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={() => navigate("/admin/addCourses")}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            onClick={() => navigate("/admin/addCourses")}
+          >
             Create Course
           </Button>
         </Box>
@@ -62,13 +90,54 @@ export default function Course() {
         <Table sx={{ minWidth: 650 }} aria-label="course table">
           <TableHead>
             <TableRow sx={{ backgroundColor: "#1976D2" }}>
-              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Title</TableCell>
-              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Description</TableCell>
-              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Duration</TableCell>
-              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Price</TableCell>
-              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Level</TableCell>
-              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Image</TableCell>
-              <TableCell align="center" sx={{ color: "white", fontWeight: 600 }}>Actions</TableCell>
+              <TableCell
+                align="center"
+                sx={{ color: "white", fontWeight: 600 }}
+              >
+                Title
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ color: "white", fontWeight: 600 }}
+              >
+                Description
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ color: "white", fontWeight: 600 }}
+              >
+                Curricullum
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ color: "white", fontWeight: 600 }}
+              >
+                Duration
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ color: "white", fontWeight: 600 }}
+              >
+                Price
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ color: "white", fontWeight: 600 }}
+              >
+                Level
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ color: "white", fontWeight: 600 }}
+              >
+                Image
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ color: "white", fontWeight: 600 }}
+              >
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
 
@@ -77,14 +146,28 @@ export default function Course() {
               <TableRow key={item._id} hover>
                 <TableCell align="center">{item.title}</TableCell>
                 <TableCell align="center">{item.description}</TableCell>
+                <TableCell align="center">
+                  {item.curricullum.map((point, index) => (
+                    <Typography key={index} variant="body2">
+                      {point}
+                    </Typography>
+                  ))}
+                </TableCell>
                 <TableCell align="center">{item.duration}</TableCell>
                 <TableCell align="center">{item.price}</TableCell>
                 <TableCell align="center">{item.courseLevel}</TableCell>
                 <TableCell align="center">
-                  <img style={{ width: "60px", borderRadius: "5px" }} src={item.image} alt="Course" />
+                  <img
+                    style={{ width: "60px", borderRadius: "5px" }}
+                    src={item.image}
+                    alt="Course"
+                  />
                 </TableCell>
                 <TableCell align="center">
-                  <IconButton color="error" onClick={() => handleDelete(item._id)}>
+                  <IconButton
+                    color="error"
+                    onClick={() => handleDelete(item._id)}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

@@ -194,6 +194,9 @@ const AddTestimonials = () => {
                     border: "1px solid #ccc",
                     borderRadius: 4,
                     padding: 8,
+                    textAlign: "left", 
+                    minHeight: 100, 
+                    verticalAlign: "top", 
                   },
                 }}
               />
