@@ -50,15 +50,14 @@ const AddCourses = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setFormData({
-        ...formData,
-        image: file,
-        imagePreview: URL.createObjectURL(file),
-        imageName: file.name, // Store file name
-      });
-      Swal.fire("Image uploaded successfully!");
-    }
+    if (!file) return;
+    setFormData({
+      ...formData,
+      image: file,
+      imagePreview: URL.createObjectURL(file),
+      imageName: file.name, // Store file name
+    });
+    Swal.fire("Image uploaded successfully!");
   };
 
   const handleVideoChange = (e) => {
@@ -81,6 +80,7 @@ const AddCourses = () => {
 
       // Upload Image to Cloudinary
       if (formData.image) {
+        setUploading(true);
         const imageData = new FormData();
         imageData.append("file", formData.image);
         imageData.append("upload_preset", "chess-course");
@@ -335,3 +335,4 @@ const AddCourses = () => {
 };
 
 export default AddCourses;
+    

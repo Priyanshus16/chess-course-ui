@@ -44,7 +44,6 @@ const AddCurriculum = () => {
           .filter((point) => point.trim() !== ""),
       };
 
-      console.log(formattedData);
 
       await axios.post(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/addCurriculum`,

@@ -94,7 +94,6 @@ const ContactUs = () => {
                 label="Select Age Group"
                 variant="outlined"
                 margin="normal"
-                sx={{ width: "50%" }}
               >
                 <MenuItem value="5-7">5-7</MenuItem>
                 <MenuItem value="8-10">8-10</MenuItem>

@@ -20,10 +20,8 @@ const Blog = () => {
 
   const getData = async () => {
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/blogs`
-      );
-      setResponse(res.data.blogs);
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/blogs`);
+      setResponse(res.data?.blogs || []);
     } catch (error) {
       console.log(error, "problem while getting data");
     }
@@ -69,7 +67,7 @@ const Blog = () => {
               <CardMedia
                 component="img"
                 height="200"
-                image={post.image}
+                image={post.image || "/images/default-blog.jpg"}
                 alt={post.title}
                 sx={{ objectFit: "cover", p: 1 }}
               />
@@ -106,8 +104,13 @@ const Blog = () => {
                 </Typography>
                 <Box sx={{ mt: "auto" }}>
                   <Button
-                    onClick={() => navigate(`/blogs/${post._id}`, { state: post })
-                    }
+                    onClick={() => {
+                      if (post._id) {
+                        navigate(`/blogs/${post._id}`, { state: post });
+                      } else {
+                        console.error("Invalid blog post ID");
+                      }
+                    }}
                     variant="contained"
                     color="primary"
                   >

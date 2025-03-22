@@ -145,157 +145,147 @@ const Testimonials = () => {
         }}
       >
         <Slider {...sliderSettings}>
-          
-          {
-            testimonials && testimonials.length === 0 ? (
-              testimonials.map((testimonial) => (
-                <Card
-                  key={testimonial._id}
-                  sx={{
-                    m: { xs: 2, md: 3 },
-                    p: { xs: 3, md: 5 },
-                    textAlign: "left",
-                    borderRadius: "15px",
-                    boxShadow: "0px 6px 20px rgba(0,0,0,0.15)",
-                    background:
-                      "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(240,240,240,0.7))",
-                    border: "1px solid rgba(0,0,0,0.05)",
-                    transition: "all 0.3s ease-in-out",
-                    "&:hover": {
-                      transform: "translateY(-5px)",
-                      boxShadow: "0px 10px 25px rgba(0,0,0,0.2)",
-                    },
-                  }}
-                >
-                  <CardContent>
-                    <Box
+          {testimonials.length > 0 ? (
+            testimonials.map((testimonial) => (
+              <Card
+                key={testimonial._id}
+                sx={{
+                  m: { xs: 2, md: 3 },
+                  p: { xs: 3, md: 5 },
+                  textAlign: "left",
+                  borderRadius: "15px",
+                  boxShadow: "0px 6px 20px rgba(0,0,0,0.15)",
+                  background:
+                    "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(240,240,240,0.7))",
+                  border: "1px solid rgba(0,0,0,0.05)",
+                  transition: "all 0.3s ease-in-out",
+                  "&:hover": {
+                    transform: "translateY(-5px)",
+                    boxShadow: "0px 10px 25px rgba(0,0,0,0.2)",
+                  },
+                }}
+              >
+                <CardContent>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: { xs: "column", md: "row" },
+                      textAlign: { xs: "center", md: "left" },
+                      mb: 3,
+                    }}
+                  >
+                    <Avatar
+                      src={testimonial.image}
+                      alt={testimonial.name}
                       sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        flexDirection: { xs: "column", md: "row" },
-                        textAlign: { xs: "center", md: "left" },
-                        mb: 3,
+                        width: 90,
+                        height: 90,
+                        mr: { md: 3 },
+                        mb: { xs: 2, md: 0 },
+                        border: "4px solid #1976d2",
+                        boxShadow: "0px 4px 8px rgba(0,0,0,0.1)",
                       }}
-                    >
-                      {/* Avatar Styling */}
-                      <Avatar
-                        src={testimonial.image}
-                        alt={testimonial.name}
+                    />
+                    <Box>
+                      <Typography
+                        variant="h6"
                         sx={{
-                          width: 90,
-                          height: 90,
-                          mr: { md: 3 },
-                          mb: { xs: 2, md: 0 },
-                          border: "4px solid #1976d2",
-                          boxShadow: "0px 4px 8px rgba(0,0,0,0.1)",
+                          fontWeight: "bold",
+                          color: "#333",
+                          fontSize: { xs: "1.2rem", md: "1.5rem" },
                         }}
-                      />
-    
-                      <Box>
-                        <Typography
-                          variant="h6"
-                          sx={{
-                            fontWeight: "bold",
-                            color: "#333",
-                            fontSize: { xs: "1.2rem", md: "1.5rem" },
-                          }}
-                        >
-                          {testimonial.name}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          sx={{ color: "text.secondary", fontStyle: "italic" }}
-                        >
-                          {testimonial.role}
-                        </Typography>
-                      </Box>
+                      >
+                        {testimonial.name}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary", fontStyle: "italic" }}
+                      >
+                        {testimonial.role}
+                      </Typography>
                     </Box>
-    
-                    {/* Testimonial Text */}
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        fontStyle: "italic",
-                        color: "#555",
-                        fontSize: "1.1rem",
-                        lineHeight: 1.6,
-                        mb: 2,
-                        position: "relative",
-                        px: 2,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontSize: "2rem",
-                          color: "#1976d2",
-                          fontWeight: "bold",
-                          position: "absolute",
-                          left: "-10px",
-                          top: "-5px",
-                        }}
-                      >
-                        “
-                      </span>
-                      {testimonial.description}
-                      <span
-                        style={{
-                          fontSize: "2rem",
-                          color: "#1976d2",
-                          fontWeight: "bold",
-                          position: "absolute",
-                          right: "-10px",
-                          bottom: "-5px",
-                        }}
-                      >
-                        ”
-                      </span>
-                    </Typography>
-    
-                    {/* Course Info */}
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        fontWeight: "bold",
-                        color: "#1976d2",
-                        fontSize: "1rem",
-                        mb: 2,
-                      }}
-                    >
-                      Enrolled in:{" "}
-                      <span style={{ color: "#444" }}>{testimonial.course}</span>
-                    </Typography>
-    
-                    {/* Join Now Button */}
-                    <Box sx={{ textAlign: "center", mt: 3 }}>
-                      <Button
-                        variant="contained"
-                        sx={{
-                          background: "#1976d2",
-                          color: "#fff",
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          textTransform: "none",
-                          px: 4,
-                          py: 1,
-                          borderRadius: "8px",
-                          transition: "all 0.3s ease-in-out",
-                          "&:hover": {
-                            background: "#125a9c",
-                          },
-                        }}
-                      >
-                        Join Now
-                      </Button>
-                    </Box>
-                  </CardContent>
-                </Card>
-              ))
-            ) : (
-              <Typography>No testimonials available</Typography>
-            )
-          }
+                  </Box>
 
-          
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontStyle: "italic",
+                      color: "#555",
+                      fontSize: "1.1rem",
+                      lineHeight: 1.6,
+                      mb: 2,
+                      position: "relative",
+                      px: 2,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "2rem",
+                        color: "#1976d2",
+                        fontWeight: "bold",
+                        position: "absolute",
+                        left: "-10px",
+                        top: "-5px",
+                      }}
+                    >
+                      “
+                    </span>
+                    {testimonial.description}
+                    <span
+                      style={{
+                        fontSize: "2rem",
+                        color: "#1976d2",
+                        fontWeight: "bold",
+                        position: "absolute",
+                        right: "-10px",
+                        bottom: "-5px",
+                      }}
+                    >
+                      ”
+                    </span>
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: "bold",
+                      color: "#1976d2",
+                      fontSize: "1rem",
+                      mb: 2,
+                    }}
+                  >
+                    Enrolled in:{" "}
+                    <span style={{ color: "#444" }}>{testimonial.course}</span>
+                  </Typography>
+
+                  <Box sx={{ textAlign: "center", mt: 3 }}>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        background: "#1976d2",
+                        color: "#fff",
+                        fontSize: "1rem",
+                        fontWeight: "bold",
+                        textTransform: "none",
+                        px: 4,
+                        py: 1,
+                        borderRadius: "8px",
+                        transition: "all 0.3s ease-in-out",
+                        "&:hover": {
+                          background: "#125a9c",
+                        },
+                      }}
+                    >
+                      Join Now
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <Typography>No testimonials available</Typography>
+          )}
         </Slider>
       </Box>
     </Box>

@@ -24,11 +24,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 const menuItems = [
   { text: "Users", icon: <PeopleIcon />, path: "/admin/Users" },
-  { text: "Courses", icon: <PeopleIcon />, path: "/admin/course" },
+  { text: "Courses", icon: <SchoolIcon  />, path: "/admin/course" },
   { text: "Testimonials", icon: <FormatQuoteIcon />, path: "/admin/testimonials" },
   { text: "Curriculum", icon: <SchoolIcon />, path: "/admin/curriculum" },
   { text: "Blogs", icon: <ArticleIcon />, path: "/admin/adminBlog" },
-  // { text: "Youtube Video", icon: <YouTubeIcon />, path: "/admin/addYoutube" }, 
 ];
 
 export default function Sidebar() {
