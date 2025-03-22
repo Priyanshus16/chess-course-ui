@@ -11,7 +11,6 @@ import {
 import {
   Person,
   EmojiEvents,
-  Description,
   School,
   CloudUpload,
 } from "@mui/icons-material";

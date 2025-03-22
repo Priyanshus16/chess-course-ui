@@ -5,10 +5,9 @@ import {
   Container,
   Typography,
   Box,
-  Avatar,
   InputAdornment,
 } from "@mui/material";
-import { Title, Description, CloudUpload } from "@mui/icons-material";
+import { Title, Description } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";

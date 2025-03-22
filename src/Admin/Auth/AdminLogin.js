@@ -1,12 +1,9 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import {Swal} from 'sweetalert2'

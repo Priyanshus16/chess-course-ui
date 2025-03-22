@@ -267,7 +267,12 @@ const AddCourses = () => {
             <Grid item xs={6} textAlign="center">
               <Avatar
                 src={formData.imagePreview}
-                sx={{ width: 80, height: 80, mx: "auto", border: "2px solid #ccc" }}
+                sx={{
+                  width: 80,
+                  height: 80,
+                  mx: "auto",
+                  border: "2px solid #ccc",
+                }}
               />
               <Typography variant="body2" sx={{ mt: 1 }}>
                 {formData.imageName}
@@ -285,9 +290,14 @@ const AddCourses = () => {
 
             {/* Video Upload */}
             <Grid item xs={6} textAlign="center">
-            <Avatar
+              <Avatar
                 src={formData.videoPreview}
-                sx={{ width: 80, height: 80, mx: "auto", border: "2px solid #ccc" }}
+                sx={{
+                  width: 80,
+                  height: 80,
+                  mx: "auto",
+                  border: "2px solid #ccc",
+                }}
               />
               <Typography variant="body2" sx={{ mb: 1 }}>
                 {formData.videoName}
@@ -298,13 +308,25 @@ const AddCourses = () => {
                 startIcon={<PlayCircleOutline />}
               >
                 Upload Course
-                <input type="file" accept="video/*" hidden onChange={handleVideoChange} />
+                <input
+                  type="file"
+                  accept="video/*"
+                  hidden
+                  onChange={handleVideoChange}
+                />
               </Button>
             </Grid>
           </Grid>
 
-          <Button type="submit" variant="contained" fullWidth onClick={handleSubmit} sx={{ mt: 3 }}>
-            Submit Course
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            onClick={handleSubmit}
+            disabled={uploading}
+            sx={{ mt: 3 }}
+          >
+            {uploading ? "Uploading..." : "Submit Course"}
           </Button>
         </form>
       </Box>

@@ -65,7 +65,7 @@ export default function Users() {
 
   const handleSave = async (id) => {
     try {
-      const res = await axios.put(
+      await axios.put(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/users/${id}`,
         editedData
       );
