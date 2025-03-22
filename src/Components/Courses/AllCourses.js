@@ -11,7 +11,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  CardMedia
+  CardMedia,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useCourses } from "../../context/courseContext";
@@ -21,13 +21,22 @@ const AllCourses = () => {
   const { courses } = useCourses();
   const navigate = useNavigate();
 
-  const handleNavigate = (id) => { 
-    navigate(`/courseDetail`, {state: courses.find(course => course._id === id)});
+  const handleNavigate = (id) => {
+    navigate(`/courseDetail`, {
+      state: courses.find((course) => course._id === id),
+    });
+    window.scrollTo(0, 0);
   };
 
   return (
-    <Box sx={{ backgroundColor: "#f9f9f9", color: "#333", minHeight: "100vh", fontFamily: "Roboto, sans-serif" }}>
-      
+    <Box
+      sx={{
+        backgroundColor: "#f9f9f9",
+        color: "#333",
+        minHeight: "100vh",
+        fontFamily: "Roboto, sans-serif",
+      }}
+    >
       {/* Hero Section */}
       <Box
         sx={{
@@ -39,7 +48,11 @@ const AllCourses = () => {
           borderRadius: "10px",
         }}
       >
-        <Typography variant="h3" fontWeight="bold" sx={{ color: "#333", fontFamily: "Georgia, serif" }}>
+        <Typography
+          variant="h3"
+          fontWeight="bold"
+          sx={{ color: "#333", fontFamily: "Georgia, serif" }}
+        >
           Mastering Chess: From Beginner to Grandmaster
         </Typography>
         <Typography variant="h6" sx={{ mt: 2, color: "#555" }}>
@@ -68,21 +81,23 @@ const AllCourses = () => {
         </Typography>
         <Grid container spacing={3} sx={{ mt: 3 }}>
           {courses.map((course, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <Card sx={{ 
-          display: "flex", 
-          flexDirection: "column", 
-          height: "100%", 
-          background: "#fff", 
-          borderRadius: "8px", 
-          boxShadow: "0 4px 10px rgba(0,0,0,0.1)" 
-        }}>
-              <CardMedia
-                component="img"
-                height="200"
-                image={course.image}
-                alt={course.title}
-              />
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                  background: "#fff",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={course.image}
+                  alt={course.title}
+                />
                 <CardContent>
                   <Typography variant="h5" fontWeight="bold">
                     {course.title}
@@ -90,8 +105,14 @@ const AllCourses = () => {
                   <Typography variant="body1" sx={{ mt: 1, color: "#666" }}>
                     {course.description}
                   </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Duration: <strong>{course.duration} hours</strong>
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Level: <strong>{course.courseLevel}</strong>
+                  </Typography>
                   <Button
-                  onClick={() => handleNavigate(course._id)}
+                    onClick={() => handleNavigate(course._id)}
                     variant="contained"
                     sx={{
                       mt: 2,
@@ -115,16 +136,20 @@ const AllCourses = () => {
           What You’ll Learn
         </Typography>
         <List>
-          {["Fundamentals of Chess", "Opening Strategies", "Middle-Game Tactics", "Endgame Mastery", "Think Like a Grandmaster"].map(
-            (item, index) => (
-              <ListItem key={index}>
-                <ListItemIcon>
-                  <CheckCircleIcon sx={{ color: "#ffcc00" }} />
-                </ListItemIcon>
-                <ListItemText primary={item} sx={{ color: "#555" }} />
-              </ListItem>
-            )
-          )}
+          {[
+            "Fundamentals of Chess",
+            "Opening Strategies",
+            "Middle-Game Tactics",
+            "Endgame Mastery",
+            "Think Like a Grandmaster",
+          ].map((item, index) => (
+            <ListItem key={index}>
+              <ListItemIcon>
+                <CheckCircleIcon sx={{ color: "#ffcc00" }} />
+              </ListItemIcon>
+              <ListItemText primary={item} sx={{ color: "#555" }} />
+            </ListItem>
+          ))}
         </List>
       </Box>
 
@@ -133,25 +158,36 @@ const AllCourses = () => {
         <Typography variant="h4" fontWeight="bold" sx={{ color: "#444" }}>
           Meet Your Instructor
         </Typography>
-        <Card sx={{ display: "flex", alignItems: "center", p: 3, mt: 3, backgroundColor: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.1)" }}>
-          <Avatar src="/images/instructor.jpg" sx={{ width: 100, height: 100, mr: 3 }} />
+        <Card
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            p: 3,
+            mt: 3,
+            backgroundColor: "#fff",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+          }}
+        >
+          <Avatar
+            src="/images/instructor.jpg"
+            sx={{ width: 100, height: 100, mr: 3 }}
+          />
           <CardContent>
-            <Typography variant="h5" fontWeight="bold">Kunal Vyas</Typography>
+            <Typography variant="h5" fontWeight="bold">
+              Kunal Vyas
+            </Typography>
             <Typography variant="body1" sx={{ color: "#666" }}>
-            I'm Kunal Vyas, the proud founder and coach of Master Chess Classes. With over a decade of experience as an International Chess Coach, I am dedicated to helping students master the art of chess.
+              I'm Kunal Vyas, the proud founder and coach of Master Chess
+              Classes. With over a decade of experience as an International
+              Chess Coach, I am dedicated to helping students master the art of
+              chess.
             </Typography>
           </CardContent>
         </Card>
       </Box>
 
-      {/* Testimonials */}  
-
-      {/* <Testimonials/> */}
-
-      
     </Box>
   );
 };
 
 export default AllCourses;
-

@@ -26,7 +26,7 @@ export default function AdminLogin() {
     axios.post(`${process.env.REACT_APP_BASE_ADMIN_URL}/login`, formData).then((res) => {
     if (res.formData.success) {
         navigate("/admin/Users");
-        localStorage.setItem('login',true);
+        // localStorage.setItem('login',true);
     }
     else{
         Swal.fire('Username Incorrect');

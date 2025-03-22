@@ -15,16 +15,24 @@ const Login = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(formData);
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/login`, formData)
-      console.log(response)
+      const user = response.data.user
+      const localStorageData = {
+        name: user.name,
+        email: user.email,
+        _id: user._id
 
-      if(response.status === 200) {
-        Swal.fire('user login successfully')
-        navigate('/home')
       }
 
+      if(response.status === 200) {
+        const token = response.data.token
+        localStorage.setItem('token', JSON.stringify(token))
+        localStorage.setItem('user', JSON.stringify(localStorageData));
+        Swal.fire('login successfully')
+        window.scrollTo(0, 0);
+        navigate('/home')
+      }
 
     } catch (error) {
       console.log('error while sending data', error)
@@ -33,7 +41,6 @@ const Login = () => {
         return;
       }
     }
-    
   };
 
   return (

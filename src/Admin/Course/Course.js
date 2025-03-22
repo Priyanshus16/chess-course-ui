@@ -38,7 +38,7 @@ export default function Course() {
         `${process.env.REACT_APP_BASE_ADMIN_URL}/course/${id}`
       );
       setApiData((prevData) => prevData.filter((item) => item._id !== id));
-      getData();
+
     } catch (error) {
       console.error("Error deleting course:", error);
     }

@@ -17,7 +17,6 @@ const Home = () => {
     <Courses/>
     <Testimonials/>
     <HowItWorks/>
-    {/* <Certifications/> */}
     <Blog/>
     <CurriculumPage/>
     <About/>
