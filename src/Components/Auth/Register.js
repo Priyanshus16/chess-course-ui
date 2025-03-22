@@ -11,6 +11,7 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -20,8 +21,14 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!formData.name || !formData.email || !formData.password) {
+      if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
         Swal.fire("Please provide all fields");
+        return;
+      }
+
+      if(formData.password !== formData.confirmPassword) {
+        Swal.fire("Password does not match");
+        return;
       }
 
       const response = await axios.post(
@@ -100,6 +107,15 @@ const Register = () => {
               type="password"
               name="password"
               value={formData.password}
+              onChange={handleChange}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fullWidth
+              label="Confirm Password"
+              type="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
               onChange={handleChange}
               sx={{ mb: 2 }}
             />

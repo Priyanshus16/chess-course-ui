@@ -37,8 +37,8 @@ export default function Sidebar() {
   const [open, setOpen] = React.useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("login");
-    navigate("/");
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   return (

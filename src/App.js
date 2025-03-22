@@ -41,11 +41,13 @@ import Sidebar from "./Admin/Sidebar/Sidebar.js";
 import AddUser from "./Admin/User/AddUser.js";
 import AllCourses from "./Components/Courses/AllCourses.js";
 import CourseDetail from "./Components/Courses/CourseDetail.js";
+import MyCourses from "./Components/MyCourses/MyCourses.js";
+import { UserProvider } from "./context/UserContext.js";
 
 function App() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
-  const hideHeaderRoutes = ["/", "/login", "/register"]; // Hide user headers
+  const hideHeaderRoutes = [ "/login", "/register"]; // Hide user headers
   const hideAdminHeaderRoutes = ["/admin"]; // Hide admin headers on login page
 
   const shouldShowHeader = !hideHeaderRoutes.includes(location.pathname);
@@ -53,6 +55,7 @@ function App() {
 
   return (
     <CourseProvider>
+      <UserProvider>
       <div className="App">
         <Box
           sx={{
@@ -100,6 +103,7 @@ function App() {
                 <Route path="/testimonial" element={<Testimonials />} />
                 <Route path="/courses" element={<AllCourses />} />
                 <Route path="/courseDetail" element={<CourseDetail />} />
+                <Route path="/myCourses" element={<MyCourses />} />
               </Routes>
             </>
           )}
@@ -107,6 +111,7 @@ function App() {
         </Box>
         <ToastContainer />
       </div>
+      </UserProvider>
     </CourseProvider>
   );
 }

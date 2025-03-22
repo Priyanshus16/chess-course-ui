@@ -41,9 +41,9 @@ const ContactUs = () => {
         paragraph
         sx={{ textAlign: "center", maxWidth: "600px" }}
       >
-        Unlock your child's chess potential with expert coaching! 🚀  
-        Experience a free trial session with Master Chess Classes
-        and start your journey towards chess mastery today.
+        Unlock your child's chess potential with expert coaching! 🚀 Experience
+        a free trial session with Master Chess Classes and start your journey
+        towards chess mastery today.
       </Typography>
 
       {/* Grid Layout */}
@@ -100,7 +100,6 @@ const ContactUs = () => {
                 <MenuItem value="8-10">8-10</MenuItem>
                 <MenuItem value="11-15">11-15</MenuItem>
               </TextField>
-
               <TextField
                 fullWidth
                 select
@@ -134,11 +133,7 @@ const ContactUs = () => {
         <Grid item xs={12} md={6}>
           <Paper
             elevation={4}
-            sx={{
-              p: 4,
-              borderRadius: "10px",
-              backgroundColor: "#F4F6F8",
-            }}
+            sx={{ p: 4, borderRadius: "10px", backgroundColor: "#F4F6F8" }}
           >
             <Typography
               variant="h5"
@@ -148,7 +143,6 @@ const ContactUs = () => {
               Contact Information 📞
             </Typography>
             <Divider sx={{ mb: 3 }} />
-
             <Typography variant="body1" color="text.primary" paragraph>
               <strong>Email:</strong>{" "}
               <a
@@ -162,10 +156,24 @@ const ContactUs = () => {
               <strong>Phone:</strong> +91 98765 43210
             </Typography>
             <Typography variant="body1" color="text.primary" paragraph>
-              <strong>Address:</strong> Master Chess Academy, Chess Street,  
+              <strong>Address:</strong> Master Chess Academy, Chess Street,
               Mumbai, India 🇮🇳
             </Typography>
           </Paper>
+
+          {/* Map */}
+          <Box sx={{ mt: 3, borderRadius: "10px", overflow: "hidden" }}>
+            <iframe
+              title="Master Chess Academy Location"
+              width="100%"
+              height="280"
+              style={{ border: 0, borderRadius: "10px" }}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.6765672881894!2d72.87765541537891!3d19.072188857546515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6303f4f9b6d%3A0x1e74f19e97f5b0b2!2sMaster%20Chess%20Academy!5e0!3m2!1sen!2sin!4v1649422345678!5m2!1sen!2sin"
+            ></iframe>
+          </Box>
         </Grid>
       </Grid>
     </Container>
@@ -173,4 +181,3 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
-

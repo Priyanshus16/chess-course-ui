@@ -4,7 +4,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const About = () => {
   return (
-    <Container sx={{ mt: 8, mb: 8, width: "100%" }}>
+    <Container id="about" sx={{ mt: 8, mb: 8, width: "100%" }}>
       {/* Header Section */}
       <Typography
         variant="h3"

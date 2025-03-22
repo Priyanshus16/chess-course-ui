@@ -51,7 +51,7 @@ const AddCurriculum = () => {
         formattedData
       );
 
-      navigate("/curriculum");
+      navigate("/admin/curriculum");
     } catch (error) {
       console.error(error, "Error while sending data");
     }

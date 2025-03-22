@@ -1,57 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
   IconButton,
-  Menu,
-  MenuItem,
   Button,
   Box,
-  Typography,
   List,
   ListItem,
   ListItemText,
   Drawer,
+  ListItemIcon,
+  Typography,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
-  ExpandMore,
-  Instagram,
-  YouTube,
+  School,
+  Info,
+  Article,
+  ContactMail,
+  Login,
+  AccountCircle,
+  Logout,
 } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const [activeUser, setActiveUser] = useState(false);
   const navigate = useNavigate();
 
-  // Open/Close Dropdown Menu
-  const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
-  const handleMenuClose = () => setAnchorEl(null);
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    // console.log(storedUser);
+    if (storedUser) {
+      setActiveUser(true);
+    } else {
+      setActiveUser(false);
+    }
+  }, []);
 
-  // Toggle Mobile Drawer
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setActiveUser(false);
+    navigate("/login");
+  };
+
   const toggleDrawer = (open) => () => setDrawerOpen(open);
-
   const handleNavigation = (path) => {
-    window.scrollTo(0, 0); // Scroll to top before navigating
+    window.scrollTo(0, 0);
     navigate(path);
   };
 
   return (
-    <AppBar
-      position="sticky"
-      sx={{ background: "#fff", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
-    >
-      <Toolbar
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+    <AppBar position="sticky" sx={{ background: "#E3F2FD", minHeight: 60 }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         {/* Logo */}
         <Box
           sx={{ cursor: "pointer", width: "150px" }}
@@ -68,65 +70,52 @@ const Header = () => {
         <Box
           sx={{
             display: { xs: "none", md: "flex" },
-            gap: 3,
             alignItems: "center",
+            gap: 3,
           }}
         >
-          {/* Chess Coaching Dropdown */}
-          {/* <Box sx={{ position: "relative" }}>
+          {[
+            { label: "Courses", icon: <School />, path: "/courses" },
+            { label: "About", icon: <Info />, path: "/about" },
+            { label: "Blog", icon: <Article />, path: "/blog" },
+            { label: "Contact", icon: <ContactMail />, path: "/contact" },
+            { label: "My Courses", icon: <School />, path: "/myCourses" },
+          ].map(({ label, icon, path }) => (
             <Button
-              onClick={handleMenuClick}
-              endIcon={<ExpandMore />}
-              sx={{
-                fontSize: "1rem",
-                fontWeight: 600,
-                color: "#333",
-                textTransform: "none",
-              }}
+              key={label}
+              onClick={() => handleNavigation(path)}
+              sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+              startIcon={icon}
             >
-              Chess Coaching
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-            >
-              <MenuItem onClick={() => navigate("/Courses/beginner")}>
-                Beginner Online Coaching
-              </MenuItem>
-              <MenuItem onClick={() => navigate("/Courses/intermediate")}>
-                Intermediate Online Coaching
-              </MenuItem>
-              <MenuItem onClick={() => navigate("/Courses/advanced")}>
-                Advanced Online Coaching
-              </MenuItem>
-            </Menu>
-          </Box> */}
-
-          {["Courses","About", "Blog", "Contact"].map((item, index) => (
-            <Button
-              key={index}
-              onClick={() => handleNavigation(`/${item.toLowerCase()}`)}
-              sx={{
-                fontSize: "1rem",
-                fontWeight: 600,
-                color: "#333",
-                textTransform: "none",
-              }}
-            >
-              {item}
+              {label}
             </Button>
           ))}
 
-          {/* Login/Register */}
-          <Link to="/login">
+          {/* Login or Username Display */}
+
+          {activeUser ? (
             <Button
+              onClick={handleLogout}
               variant="contained"
-              sx={{ background: "#1976D2", color: "#fff", borderRadius: "8px" }}
+              sx={{ background: "#1976D2", color: "#fff" }}
+              startIcon={<Logout />}
             >
-              Login/Register
+              Logout
             </Button>
-          </Link>
+          ) : (
+            <Link
+              to={activeUser ? "/profile" : "/login"}
+              style={{ textDecoration: "none" }}
+            >
+              <Button
+                variant="contained"
+                sx={{ background: "#1976D2", color: "#fff" }}
+                startIcon={<Login />}
+              >
+                Login
+              </Button>
+            </Link>
+          )}
         </Box>
 
         {/* Mobile Menu Button */}
@@ -137,38 +126,52 @@ const Header = () => {
           <MenuIcon fontSize="large" />
         </IconButton>
 
-        {/* Mobile Drawer Menu */}
+        {/* Mobile Drawer */}
         <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
           <Box sx={{ width: 250, padding: 2 }}>
             <List>
-              <ListItem button onClick={handleMenuClick}>
-                <ListItemText primary="Chess Coaching" />
-                <ExpandMore />
-              </ListItem>
-
-              {["About", "Blog", "Contact"].map((item, index) => (
+              {[
+                { label: "Courses", icon: <School />, path: "/courses" },
+                { label: "About", icon: <Info />, path: "/about" },
+                { label: "Blog", icon: <Article />, path: "/blog" },
+                { label: "Contact", icon: <ContactMail />, path: "/contact" },
+              ].map(({ label, icon, path }) => (
                 <ListItem
                   button
-                  key={index}
-                  onClick={() => handleNavigation(`/${item.toLowerCase()}`)}
+                  key={label}
+                  onClick={() => handleNavigation(path)}
                 >
-                  <ListItemText primary={item} />
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText primary={label} />
                 </ListItem>
               ))}
 
               <ListItem>
-                <Link
-                  to="/login"
-                  style={{ textDecoration: "none", width: "100%" }}
-                >
+                {activeUser ? (
                   <Button
+                    onClick={handleLogout}
                     variant="contained"
                     fullWidth
                     sx={{ background: "#1976D2", color: "#fff" }}
+                    startIcon={<Logout />}
                   >
-                    Login/Register
+                    Logout
                   </Button>
-                </Link>
+                ) : (
+                  <Link
+                    to={activeUser ? "/profile" : "/login"}
+                    style={{ textDecoration: "none", width: "100%" }}
+                  >
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      sx={{ background: "#1976D2", color: "#fff" }}
+                      startIcon={<Login />}
+                    >
+                      Login
+                    </Button>
+                  </Link>
+                )}
               </ListItem>
             </List>
           </Box>
