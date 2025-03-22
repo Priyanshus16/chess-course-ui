@@ -12,7 +12,7 @@ import {
   Divider,
 } from "@mui/material";
 import { AccessTime, MonetizationOn } from "@mui/icons-material";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import Swal from "sweetalert2";
 import axios from "axios";

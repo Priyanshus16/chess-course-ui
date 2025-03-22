@@ -50,15 +50,14 @@ const AddCourses = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setFormData({
-        ...formData,
-        image: file,
-        imagePreview: URL.createObjectURL(file),
-        imageName: file.name, // Store file name
-      });
-      Swal.fire("Image uploaded successfully!");
-    }
+    if (!file) return;
+    setFormData({
+      ...formData,
+      image: file,
+      imagePreview: URL.createObjectURL(file),
+      imageName: file.name, // Store file name
+    });
+    Swal.fire("Image uploaded successfully!");
   };
 
   const handleVideoChange = (e) => {
@@ -81,6 +80,7 @@ const AddCourses = () => {
 
       // Upload Image to Cloudinary
       if (formData.image) {
+        setUploading(true);
         const imageData = new FormData();
         imageData.append("file", formData.image);
         imageData.append("upload_preset", "chess-course");
@@ -267,7 +267,12 @@ const AddCourses = () => {
             <Grid item xs={6} textAlign="center">
               <Avatar
                 src={formData.imagePreview}
-                sx={{ width: 80, height: 80, mx: "auto", border: "2px solid #ccc" }}
+                sx={{
+                  width: 80,
+                  height: 80,
+                  mx: "auto",
+                  border: "2px solid #ccc",
+                }}
               />
               <Typography variant="body2" sx={{ mt: 1 }}>
                 {formData.imageName}
@@ -285,9 +290,14 @@ const AddCourses = () => {
 
             {/* Video Upload */}
             <Grid item xs={6} textAlign="center">
-            <Avatar
+              <Avatar
                 src={formData.videoPreview}
-                sx={{ width: 80, height: 80, mx: "auto", border: "2px solid #ccc" }}
+                sx={{
+                  width: 80,
+                  height: 80,
+                  mx: "auto",
+                  border: "2px solid #ccc",
+                }}
               />
               <Typography variant="body2" sx={{ mb: 1 }}>
                 {formData.videoName}
@@ -298,13 +308,25 @@ const AddCourses = () => {
                 startIcon={<PlayCircleOutline />}
               >
                 Upload Course
-                <input type="file" accept="video/*" hidden onChange={handleVideoChange} />
+                <input
+                  type="file"
+                  accept="video/*"
+                  hidden
+                  onChange={handleVideoChange}
+                />
               </Button>
             </Grid>
           </Grid>
 
-          <Button type="submit" variant="contained" fullWidth onClick={handleSubmit} sx={{ mt: 3 }}>
-            Submit Course
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            onClick={handleSubmit}
+            disabled={uploading}
+            sx={{ mt: 3 }}
+          >
+            {uploading ? "Uploading..." : "Submit Course"}
           </Button>
         </form>
       </Box>
@@ -313,3 +335,4 @@ const AddCourses = () => {
 };
 
 export default AddCourses;
+    

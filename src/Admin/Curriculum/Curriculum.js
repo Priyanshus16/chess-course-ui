@@ -12,7 +12,6 @@ import {
   Button,
   Typography,
   IconButton,
-  Input,
   TextField,
 } from "@mui/material";
 import { Save as SaveIcon, Close as CloseIcon } from "@mui/icons-material";
@@ -36,7 +35,7 @@ export default function Curriculum() {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/curriculum`
       );
-      setApiData(response.data.curriculum);
+      setApiData(response.data.curriculum || []);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -69,22 +68,20 @@ export default function Curriculum() {
         ...editUserData,
         keyPoints: Array.isArray(editUserData.keyPoints)
           ? editUserData.keyPoints
-          : editUserData.keyPoints.split("\n").map((point) => point.trim()), // Ensure it's an array
+          : editUserData.keyPoints.split("\n").map((point) => point.trim()),
       };
-  
+
       await axios.put(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/curriculum/${id}`,
         updatedData
       );
-  
-      getData(); 
-      setEditUserId(null); 
+
+      getData();
+      setEditUserId(null);
     } catch (error) {
       console.error("Error updating user:", error);
     }
   };
-  
-  
 
   useEffect(() => {
     getData();
@@ -202,28 +199,30 @@ export default function Curriculum() {
                 <TableCell align="center">
                   {editUserId === item._id ? (
                     <TextField
-                    fullWidth
-                    multiline
-                    minRows={3}
-                    maxRows={5}
-                    variant="outlined"
-                    value={Array.isArray(editUserData.keyPoints) ? editUserData.keyPoints.join("\n") : editUserData.keyPoints}
-                    onChange={(e) =>
-                      setEditUserData({
-                        ...editUserData,
-                        keyPoints: e.target.value, // Store as string while editing
-                      })
-                    }
-                  />
-                  
-                  
-                  ) : (
+                      fullWidth
+                      multiline
+                      minRows={3}
+                      maxRows={5}
+                      variant="outlined"
+                      value={
+                        Array.isArray(editUserData.keyPoints)
+                          ? editUserData.keyPoints.join("\n")
+                          : editUserData.keyPoints
+                      }
+                      onChange={(e) =>
+                        setEditUserData({
+                          ...editUserData,
+                          keyPoints: e.target.value, // Store as string while editing
+                        })
+                      }
+                    />
+                  ) : Array.isArray(item.keyPoints) ? (
                     item.keyPoints.map((point, index) => (
                       <Typography key={index} variant="body2">
                         {point}
                       </Typography>
                     ))
-                  )}
+                  ) : null}
                 </TableCell>
                 <TableCell align="center">
                   {editUserId === item._id ? (

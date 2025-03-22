@@ -68,7 +68,7 @@ const AddBlog = () => {
         image: imageUrl,
       };
 
-      if (!finalData.heading || !finalData.description || !finalData.image) {
+      if (!finalData.heading || !finalData.description || !finalData.imageUrl) {
         return Swal.fire("Please provide all fields.");
       }
 

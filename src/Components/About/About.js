@@ -101,7 +101,11 @@ const About = () => {
               <ListItemIcon>
                 <CheckCircleIcon sx={{ color: "green" }} />
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ fontSize: "1.1rem", fontWeight: "500" }} />
+              <ListItemText
+  primary={text}
+  primaryTypographyProps={{ sx: { fontSize: "1.1rem", fontWeight: "500" } }}
+/>
+
             </ListItem>
           ))}
         </List>

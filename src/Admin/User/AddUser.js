@@ -5,10 +5,9 @@ import {
   Container,
   Typography,
   Box,
-  Avatar,
   InputAdornment,
 } from "@mui/material";
-import { Title, Description, CloudUpload } from "@mui/icons-material";
+import { Person as PersonIcon, Email as EmailIcon, Lock as LockIcon } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -78,7 +77,7 @@ const AddUser = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Title sx={{ color: "#1E3A8A" }} />
+                  <PersonIcon sx={{ color: "#1E3A8A" }} />
                 </InputAdornment>
               ),
             }}
@@ -94,7 +93,7 @@ const AddUser = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Description sx={{ color: "#1E3A8A" }} />
+                  <EmailIcon sx={{ color: "#1E3A8A" }} />
                 </InputAdornment>
               ),
             }}
@@ -110,7 +109,7 @@ const AddUser = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Description sx={{ color: "#1E3A8A" }} />
+                  <LockIcon sx={{ color: "#1E3A8A" }} />
                 </InputAdornment>
               ),
             }}

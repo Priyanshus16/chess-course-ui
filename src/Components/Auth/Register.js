@@ -113,7 +113,7 @@ const Register = () => {
             <TextField
               fullWidth
               label="Confirm Password"
-              type="confirmPassword"
+              type="password"
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}

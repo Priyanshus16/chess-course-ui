@@ -10,7 +10,6 @@ import {
   ListItemText,
   Drawer,
   ListItemIcon,
-  Typography,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -19,7 +18,6 @@ import {
   Article,
   ContactMail,
   Login,
-  AccountCircle,
   Logout,
 } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";

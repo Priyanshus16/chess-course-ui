@@ -3,8 +3,9 @@ import { Box, Typography, Button, Container } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const BlogDetails = () => {
-  const { state: blog } = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
+  const blog = location.state || {}; 
 
   if (!blog) return <Typography>No blog found.</Typography>;
 
@@ -13,7 +14,7 @@ const BlogDetails = () => {
       {/* Hero Section */}
       <Box
         sx={{
-          backgroundImage: `url(${blog.image})`,
+          backgroundImage: `url(${blog.image || "/images/default-blog.jpg"})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           height: "300px",

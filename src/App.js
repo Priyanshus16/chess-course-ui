@@ -1,6 +1,5 @@
 import {
   Route,
-  BrowserRouter as Router,
   Routes,
   useLocation,
 } from "react-router-dom";
@@ -13,12 +12,12 @@ import AdminHeader from "./Admin/Header/AdminHeader.js";
 import Footer from "./Components/Footer/Footer.js";
 import Login from "./Components/Auth/Login.js";
 import Register from "./Components/Auth/Register.js";
-import Forgot from "./Components/Auth/Forgot";
+// import Forgot from "./Components/Auth/Forgot";
 import Home from "./Components/Home/Home.js";
-import VerifyOTP from "./Components/Auth/VerifyOTP";
-import ChangePassword from "./Components/Auth/ChangePassword";
+// import VerifyOTP from "./Components/Auth/VerifyOTP";
+// import ChangePassword from "./Components/Auth/ChangePassword";
 import About from "./Components/About/About";
-import Courses from "./Components/Courses/Courses";
+// import Courses from "./Components/Courses/Courses";
 import CurriculumPage from "./Components/Curriculam/CurriculumPage";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import Blog from "./Components/Blog/Blog.js";
