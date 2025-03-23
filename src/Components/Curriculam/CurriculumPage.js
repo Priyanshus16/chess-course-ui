@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const CurriculumPage = () => {
   const [response, setResponse] = useState([]);

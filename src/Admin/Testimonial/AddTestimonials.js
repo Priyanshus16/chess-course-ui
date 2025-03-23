@@ -16,16 +16,6 @@ import {
 } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {
-  Editor,
-  EditorProvider,
-  Toolbar,
-  BtnBold,
-  BtnItalic,
-  BtnUnderline,
-  BtnUndo,
-  BtnRedo,
-} from "react-simple-wysiwyg";
 import Swal from "sweetalert2";
 
 const AddTestimonials = () => {
@@ -49,7 +39,8 @@ const AddTestimonials = () => {
     });
   };
 
-  const handleDescriptionChange = (value) => {
+  const handleDescriptionChange = (e) => {
+    const value = e.target.value;
     setFormData({
       ...formData,
       description: value,
@@ -112,9 +103,6 @@ const AddTestimonials = () => {
   };
 
   return (
-    <EditorProvider>
-      {" "}
-      {/* Wrap the component with EditorProvider */}
       <Container maxWidth="sm">
         <Box
           sx={{
@@ -178,26 +166,13 @@ const AddTestimonials = () => {
               >
                 Description
               </Typography>
-              <Toolbar>
-                <BtnUndo />
-                <BtnRedo />
-                <BtnBold />
-                <BtnItalic />
-                <BtnUnderline />
-              </Toolbar>
-              <Editor
+              <TextField
+                fullWidth
+                name="description"
                 value={formData.description}
-                onChange={(e) => handleDescriptionChange(e.target.value)}
-                containerProps={{
-                  style: {
-                    border: "1px solid #ccc",
-                    borderRadius: 4,
-                    padding: 8,
-                    textAlign: "left", 
-                    minHeight: 100, 
-                    verticalAlign: "top", 
-                  },
-                }}
+                multiline
+                rows={4}
+                onChange={(e) => handleDescriptionChange(e)}
               />
             </Box>
 
@@ -276,7 +251,6 @@ const AddTestimonials = () => {
           </form>
         </Box>
       </Container>
-    </EditorProvider>
   );
 };
 
