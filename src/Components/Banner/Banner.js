@@ -3,12 +3,11 @@ import { Box, Typography, Button, Grid, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate('/Courses')
-  }
+    navigate("/Courses");
+  };
 
   return (
     <Box
@@ -24,15 +23,18 @@ const Banner = () => {
         <Grid container spacing={4} alignItems="center">
           {/* Left Section: Text */}
           <Grid item xs={12} md={6}>
-            <Typography variant="h3" gutterBottom sx={{ fontWeight: "bold" }}>
-              Master the Art of Chess
+            <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
+            Master Chess Classes: Ignite Passion, Build Skills, Achieve Results
             </Typography>
             <Typography variant="body1" paragraph sx={{ opacity: 0.9 }}>
-              Unlock your chess potential with expert-led courses designed to
-              enhance your skills, strategies, and gameplay. Whether you're a
-              beginner or a pro, our lessons will help you dominate the board.
+              At Master Chess Classes, our primary focus is to ignite a passion
+              for chess in every child while systematically developing their
+              skills to deliver tangible results in a short span of time. With a
+              well-structured system tailored to different levels of
+              proficiency, we aim to provide an unparalleled learning experience
+              that fosters growth, both on and off the chessboard.
             </Typography>
-            <Button
+            {/* <Button
               variant="contained"
               size="large"
               onClick={handleNavigate}
@@ -47,7 +49,7 @@ const Banner = () => {
               }}
             >
               Explore Courses
-            </Button>
+            </Button> */}
           </Grid>
 
           {/* Right Section: Image */}

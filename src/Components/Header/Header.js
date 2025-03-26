@@ -5,31 +5,32 @@ import {
   IconButton,
   Button,
   Box,
-  List,
-  ListItem,
-  ListItemText,
+  Menu,
+  MenuItem,
   Drawer,
-  ListItemIcon,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
   School,
-  Info,
   Article,
   ContactMail,
   Login,
   Logout,
+  ExpandMore,
 } from "@mui/icons-material";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { Link, useNavigate } from "react-router-dom";
+import { useCourses } from "../../context/courseContext";
 
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeUser, setActiveUser] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const { courses } = useCourses();
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    // console.log(storedUser);
     if (storedUser) {
       setActiveUser(true);
     } else {
@@ -49,16 +50,24 @@ const Header = () => {
     navigate(path);
   };
 
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <AppBar position="sticky" sx={{ background: "#E3F2FD", minHeight: 60 }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         {/* Logo */}
         <Box
-          sx={{ cursor: "pointer", width: "150px" }}
+          sx={{ cursor: "pointer", width: "70px", padding: "5px 0", marginLeft:"30px" }} 
           onClick={() => navigate("/")}
         >
           <img
-            src={require("../../Assets/my-chess.png")}
+            src={require("../../Assets/MasterChessClassesLogo.png")}
             width="100%"
             alt="logo"
           />
@@ -72,25 +81,79 @@ const Header = () => {
             gap: 3,
           }}
         >
-          {[
-            { label: "Courses", icon: <School />, path: "/courses" },
-            { label: "About", icon: <Info />, path: "/about" },
-            { label: "Blog", icon: <Article />, path: "/blog" },
-            { label: "Contact", icon: <ContactMail />, path: "/contact" },
-            { label: "My Courses", icon: <School />, path: "/myCourses" },
-          ].map(({ label, icon, path }) => (
+          {/* Chess Coaching Dropdown */}
+          <Button
+            onClick={handleMenuOpen}
+            sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+            endIcon={<ExpandMore />}
+          >
+            Chess Coaching
+          </Button>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={() => handleNavigation("/advanceCoaching")}>
+              Advanced Chess Coaching
+            </MenuItem>
+            <MenuItem onClick={() => handleNavigation("/intermediateCoaching")}>
+              Intermediate Chess Coaching
+            </MenuItem>
+            <MenuItem onClick={() => handleNavigation("/beginnerCoaching")}>
+              Beginner Chess Coaching
+            </MenuItem>
+          </Menu>
+
+          {courses.length > 0 && (
             <Button
-              key={label}
-              onClick={() => handleNavigation(path)}
+              onClick={() => handleNavigation("/courses")}
               sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
-              startIcon={icon}
+              startIcon={<School />}
             >
-              {label}
+              Courses
             </Button>
-          ))}
+          )}
 
-          {/* Login or Username Display */}
+          <Button
+            onClick={() => handleNavigation("/blog")}
+            sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+            startIcon={<Article />}
+          >
+            Blog
+          </Button>
 
+          <Button
+            onClick={() => handleNavigation("/contact")}
+            sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+            startIcon={<ContactMail />}
+          >
+            Contact
+          </Button>
+
+          {courses.length > 0 && (
+            <Button
+              onClick={() => handleNavigation("/myCourses")}
+              sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+              startIcon={<School />}
+            >
+              My Courses
+            </Button>
+          )}
+
+          <Button
+            onClick={() =>
+              window.open(
+                "https://shop.mychesslearning.com/?_gl=1%2A1rh8i1v%2A_gcl_au%2AMjEwNDA0NDc2Ny4xNzQyNzIwMzI1%2A_ga%2ANjcwODQyNjg2LjE3NDI3MjAzMjU.%2A_ga_5JJNDDZ5YZ%2AMTc0MjcyMDMyNC4xLjAuMTc0MjcyMDMyNC4wLjAuMA"
+              )
+            }
+            sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+            startIcon={<ContactMailIcon />}
+          >
+            Chess Store
+          </Button>
+
+          {/* Login or Logout */}
           {activeUser ? (
             <Button
               onClick={handleLogout}
@@ -101,10 +164,7 @@ const Header = () => {
               Logout
             </Button>
           ) : (
-            <Link
-              to={activeUser ? "/profile" : "/login"}
-              style={{ textDecoration: "none" }}
-            >
+            <Link to="/login" style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"
                 sx={{ background: "#1976D2", color: "#fff" }}
@@ -126,52 +186,89 @@ const Header = () => {
 
         {/* Mobile Drawer */}
         <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
-          <Box sx={{ width: 250, padding: 2 }}>
-            <List>
-              {[
-                { label: "Courses", icon: <School />, path: "/courses" },
-                { label: "About", icon: <Info />, path: "/about" },
-                { label: "Blog", icon: <Article />, path: "/blog" },
-                { label: "Contact", icon: <ContactMail />, path: "/contact" },
-              ].map(({ label, icon, path }) => (
-                <ListItem
-                  button
-                  key={label}
-                  onClick={() => handleNavigation(path)}
-                >
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText primary={label} />
-                </ListItem>
-              ))}
+          <Box sx={{ width: 250, padding: 2, display: "flex", flexDirection: "column", alignItems:"start", gap: 1 }}>
+            {/* Chess Coaching Dropdown in Drawer */}
+            <Button
+              onClick={handleMenuOpen}
+              sx={{
+                color: "#1976D2",
+                textTransform: "none",
+                fontSize: "1rem",
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+              endIcon={<ExpandMore />}
+            >
+              Chess Coaching
+            </Button>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={() => handleNavigation("/advanceCoaching")}>
+                Advanced Chess Coaching
+              </MenuItem>
+              <MenuItem
+                onClick={() => handleNavigation("/intermediateCoaching")}
+              >
+                Intermediate Chess Coaching
+              </MenuItem>
+              <MenuItem onClick={() => handleNavigation("/beginnerCoaching")}>
+                Beginner Chess Coaching
+              </MenuItem>
+            </Menu>
 
-              <ListItem>
-                {activeUser ? (
-                  <Button
-                    onClick={handleLogout}
-                    variant="contained"
-                    fullWidth
-                    sx={{ background: "#1976D2", color: "#fff" }}
-                    startIcon={<Logout />}
-                  >
-                    Logout
-                  </Button>
-                ) : (
-                  <Link
-                    to={activeUser ? "/profile" : "/login"}
-                    style={{ textDecoration: "none", width: "100%" }}
-                  >
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      sx={{ background: "#1976D2", color: "#fff" }}
-                      startIcon={<Login />}
-                    >
-                      Login
-                    </Button>
-                  </Link>
-                )}
-              </ListItem>
-            </List>
+            {courses.length > 0 && (
+            <Button
+              onClick={() => handleNavigation("/courses")}
+              sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+              startIcon={<School />}
+            >
+              Courses
+            </Button>
+          )}
+
+            <Button
+              onClick={() => handleNavigation("/blog")}
+              sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+              startIcon={<Article />}
+            >
+              Blog
+            </Button>
+
+            <Button
+              onClick={() =>
+                window.open(
+                  "https://shop.mychesslearning.com/?_gl=1%2A1rh8i1v%2A_gcl_au%2AMjEwNDA0NDc2Ny4xNzQyNzIwMzI1%2A_ga%2ANjcwODQyNjg2LjE3NDI3MjAzMjU.%2A_ga_5JJNDDZ5YZ%2AMTc0MjcyMDMyNC4xLjAuMTc0MjcyMDMyNC4wLjAuMA"
+                )
+              }
+              sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+              startIcon={<ContactMailIcon />}
+            >
+              Chess Store
+            </Button>
+
+            <Button
+              onClick={() => handleNavigation("/contact")}
+              sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+              startIcon={<ContactMail />}
+            >
+              Contact
+            </Button>
+
+            <Button
+              onClick={
+                activeUser ? handleLogout : () => handleNavigation("/login")
+              }
+              variant="contained"
+              fullWidth
+              sx={{ background: "#1976D2", color: "#fff" }}
+              startIcon={activeUser ? <Logout /> : <Login />}
+            >
+              {activeUser ? "Logout" : "Login"}
+            </Button>
           </Box>
         </Drawer>
       </Toolbar>

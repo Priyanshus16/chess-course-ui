@@ -33,7 +33,6 @@ import AddCurriculum from "./Admin/Curriculum/AddCurriculum.js";
 import Curriculum from "./Admin/Curriculum/Curriculum.js";
 import AddBlog from "./Admin/Blog/AddBlog.js";
 import AdminBlog from "./Admin/Blog/AdminBlog.js";
-import AdminLogin from "./Admin/Auth/AdminLogin.js";
 import AddCourses from "./Admin/Course/AddCourses.js";
 import Course from "./Admin/Course/Course.js";
 import Sidebar from "./Admin/Sidebar/Sidebar.js";
@@ -42,6 +41,10 @@ import AllCourses from "./Components/Courses/AllCourses.js";
 import CourseDetail from "./Components/Courses/CourseDetail.js";
 import MyCourses from "./Components/MyCourses/MyCourses.js";
 import { UserProvider } from "./context/UserContext.js";
+import IntermediateCoaching from "./Components/ChessCoaching/IntermediateCoaching.js";
+import BeginnerCoaching from "./Components/ChessCoaching/BeginnerCoaching.js";
+import AdvanceCoaching from "./Components/ChessCoaching/AdvanceCoaching.js";
+import AddAdmin from "./Admin/User/AddAdmin.js";
 
 function App() {
   const location = useLocation();
@@ -71,9 +74,10 @@ function App() {
                 {shouldShowAdminHeader && <Sidebar />} {/* Hide sidebar on admin login */}
                 <Box sx={{ flexGrow: 1, padding: 2 }}>
                   <Routes>
-                    <Route exact path="/admin" element={<AdminLogin />} />
+                    <Route path="/admin/" element={<Users />} />
                     <Route path="/admin/users" element={<Users />} />
                     <Route path="/admin/addUser" element={<AddUser />} />
+                    <Route path="/admin/addAdmin" element={<AddAdmin />} />
                     <Route path="/admin/Testimonials" element={<Testimonial />} />
                     <Route path="/admin/addTestimonials" element={<AddTestimonials />} />
                     <Route path="/admin/addCurriculum" element={<AddCurriculum />} />
@@ -103,6 +107,10 @@ function App() {
                 <Route path="/courses" element={<AllCourses />} />
                 <Route path="/courseDetail" element={<CourseDetail />} />
                 <Route path="/myCourses" element={<MyCourses />} />
+                <Route path="/intermediateCoaching" element={<IntermediateCoaching />} />
+                <Route path="/beginnerCoaching" element={<BeginnerCoaching />} />
+                <Route path="/advanceCoaching" element={<AdvanceCoaching />} />
+
               </Routes>
             </>
           )}

@@ -7,12 +7,16 @@ import {
   Box,
   InputAdornment,
 } from "@mui/material";
-import { Person as PersonIcon, Email as EmailIcon, Lock as LockIcon } from "@mui/icons-material";
+import {
+  Person as PersonIcon,
+  Email as EmailIcon,
+  Lock as LockIcon,
+} from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const AddUser = () => {
+const AddAdmin = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -36,19 +40,19 @@ const AddUser = () => {
       if (!formData.name || !formData.email || !formData.password) {
         return Swal.fire("Please provide all fields.");
       }
-      
+
       const res = await axios.post(
-        `${process.env.REACT_APP_BASE_ADMIN_URL}/addUser`,
+        `${process.env.REACT_APP_BASE_ADMIN_URL}/addAdmin`,
         formData
       );
-      console.log(res)
+      console.log(res);
       navigate("/admin/users");
     } catch (error) {
-      if(error.response.status === 409){
-        Swal.fire("User already exists");
+      if (error.response.status === 409) {
+        Swal.fire("Admin already exists");
         return;
       }
-      console.log(error)
+      console.log(error);
       console.error(error, "Error while sending data");
     }
   };
@@ -61,13 +65,17 @@ const AddUser = () => {
           p: 4,
           boxShadow: 4,
           borderRadius: 3,
-          bgcolor: "#F8FAFC", 
+          bgcolor: "#F8FAFC",
           textAlign: "center",
           fontFamily: "'Poppins', sans-serif",
         }}
       >
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: "600", color: "#1E3A8A" }}>
-          User Management
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{ fontWeight: "600", color: "#1E3A8A" }}
+        >
+          Admin Management
         </Typography>
 
         <form>
@@ -102,7 +110,7 @@ const AddUser = () => {
               ),
             }}
           />
-          
+
           <TextField
             label="Password"
             name="password"
@@ -118,7 +126,6 @@ const AddUser = () => {
               ),
             }}
           />
-
 
           {/* Submit Button */}
           <Button
@@ -144,4 +151,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddAdmin;

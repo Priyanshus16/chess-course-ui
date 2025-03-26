@@ -13,6 +13,8 @@ import {
   Button,
   IconButton,
   TextField,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -23,21 +25,21 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function Users() {
   const navigate = useNavigate();
   const [apiData, setApiData] = useState([]);
   const [editRowId, setEditRowId] = useState(null);
   const [editedData, setEditedData] = useState({ name: "", email: "" });
-
-  console.log(process.env.REACT_APP_CLOUDINARY_URL);
+  const [roleFilter, setRoleFilter] = useState("all");
 
   const getData = async () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/users`
       );
-      console.log(response)
+      console.log(response);
       setApiData(response.data.users);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -45,11 +47,24 @@ export default function Users() {
   };
 
   const handleUserDelete = async (id) => {
-    try {
-      await axios.delete(`${process.env.REACT_APP_BASE_ADMIN_URL}/users/${id}`);
-      setApiData((prevData) => prevData.filter((item) => item._id !== id));
-    } catch (error) {
-      console.error("Error deleting user:", error);
+    const confirmDelete = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+    if (confirmDelete.isConfirmed) {
+      try {
+        await axios.delete(
+          `${process.env.REACT_APP_BASE_ADMIN_URL}/users/${id}`
+        );
+        setApiData((prevData) => prevData.filter((item) => item._id !== id));
+      } catch (error) {
+        console.error("Error deleting user:", error);
+      }
     }
   };
 
@@ -86,6 +101,15 @@ export default function Users() {
     getData();
   }, []);
 
+  const filteredData =
+    roleFilter === "all"
+      ? apiData
+      : apiData.filter((item) =>
+          roleFilter === "admin"
+            ? item.source === "admin"
+            : item.source !== "admin"
+        );
+
   return (
     <Box
       component="main"
@@ -114,14 +138,41 @@ export default function Users() {
           >
             User Management
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            onClick={() => navigate("/admin/addUser")}
+
+          {/* Role Filter Dropdown */}
+          <Select
+            value={roleFilter}
+            onChange={(e) => setRoleFilter(e.target.value)}
+            size="small"
+            sx={{
+              minWidth: 150,
+              backgroundColor: "white",
+              borderRadius: "4px",
+            }}
           >
-            Create User
-          </Button>
+            <MenuItem value="all">All</MenuItem>
+            <MenuItem value="admin">Admin</MenuItem>
+            <MenuItem value="user">User</MenuItem>
+          </Select>
+
+          <Box sx={{ display: "flex", gap: 3 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<AddIcon />}
+              onClick={() => navigate("/admin/addAdmin")}
+            >
+              Create Admin
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<AddIcon />}
+              onClick={() => navigate("/admin/addUser")}
+            >
+              Create User
+            </Button>
+          </Box>
         </Box>
 
         <Table sx={{ minWidth: 650 }} aria-label="user table">
@@ -155,7 +206,7 @@ export default function Users() {
           </TableHead>
 
           <TableBody>
-            {apiData.map((item) => (
+            {filteredData.map((item) => (
               <TableRow key={item._id} hover>
                 {/* Full Name Cell */}
                 <TableCell align="center">
@@ -233,5 +284,3 @@ export default function Users() {
     </Box>
   );
 }
-
-

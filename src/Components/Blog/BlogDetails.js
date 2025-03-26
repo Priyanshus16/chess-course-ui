@@ -5,12 +5,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 const BlogDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const blog = location.state || {}; 
+  const blog = location.state || {};
 
   if (!blog) return <Typography>No blog found.</Typography>;
 
   return (
-    <Container sx={{ py: 5, mt:8, width:'60%' }}>
+    <Container sx={{ py: 5, width: "60%" }}>
+      <Typography variant="h3" fontWeight={700}>
+        {blog.heading}
+      </Typography>
       {/* Hero Section */}
       <Box
         sx={{
@@ -25,17 +28,13 @@ const BlogDetails = () => {
           color: "white",
           textAlign: "center",
           p: 3,
-          mb: 5,
+          mt: 5,
         }}
-      >
-        
-      </Box>
+      ></Box>
 
       {/* Blog Content */}
-      <Typography variant="h3" fontWeight={700}>
-          {blog.heading} {/* Ensure correct property is used */}
-        </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 3, mt:5 }}>
+
+      <Typography variant="body1" color="text.secondary" sx={{ mb: 3, mt: 5 }}>
         {blog.description}
       </Typography>
 
@@ -53,5 +52,3 @@ const BlogDetails = () => {
 };
 
 export default BlogDetails;
-
-
