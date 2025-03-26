@@ -106,7 +106,7 @@ const Blog = () => {
                   <Button
                     onClick={() => {
                       if (post._id) {
-                        navigate(`/blogs/${post._id}`, { state: post });
+                        navigate(`/blogs/${post._id}`, { state: post }, window.scrollTo(0, 0));
                       } else {
                         console.error("Invalid blog post ID");
                       }
