@@ -12,9 +12,12 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CurriculumPage = () => {
   const [response, setResponse] = useState([]);
+
+  const navigate = useNavigate();
 
   const getData = async () => {
     try {
@@ -31,7 +34,8 @@ const CurriculumPage = () => {
   };
 
   const handleEnroll = (level) => {
-    Swal.fire(`Enrolling in ${level}`);
+    navigate("/advanceCoaching");
+    window.scrollTo(0, 0);
   };
 
   const gradients = [
@@ -133,46 +137,3 @@ const CurriculumPage = () => {
 };
 
 export default CurriculumPage;
-
-// const courses = [
-//   {
-//     level: "Level 1 (Beginner)",
-//     icon: <LocalLibrary fontSize="large" sx={{ color: "#1E88E5" }} />,
-//     outcome: "Learn the fundamentals and rules of chess",
-//     topics: [
-//       "Chessboard and Pieces",
-//       "Basic Rules & Movement",
-//       "Check & Checkmate",
-//     ],
-//     gradient: "linear-gradient(135deg, #2196F3 30%, #21CBF3 90%)",
-//   },
-//   {
-//     level: "Level 2 (Intermediate)",
-//     icon: <School fontSize="large" sx={{ color: "#43A047" }} />,
-//     outcome: "Develop strategies and improve gameplay",
-//     topics: [
-//       "Basic Opening Strategies",
-//       "Middle Game Tactics",
-//       "Pawn Structures",
-//     ],
-//     gradient: "linear-gradient(135deg, #4CAF50 30%, #66BB6A 90%)",
-//   },
-//   {
-//     level: "Level 3 (Advance)",
-//     icon: <EmojiEvents fontSize="large" sx={{ color: "#FB8C00" }} />,
-//     outcome: "Master advanced chess tactics and strategies",
-//     topics: ["Advanced Openings", "Positional Play", "Endgame Principles"],
-//     gradient: "linear-gradient(135deg, #FB8C00 30%, #FFA726 90%)",
-//   },
-//   {
-//     level: "FIDE Rating Course (Expert)",
-//     icon: <Star fontSize="large" sx={{ color: "#D32F2F" }} />,
-//     outcome: "Compete at the highest level with expert strategies",
-//     topics: [
-//       "Grandmaster Strategies",
-//       "Calculation & Visualization",
-//       "Tournament Preparation",
-//     ],
-//     gradient: "linear-gradient(135deg, #E53935 30%, #F44336 90%)",
-//   },
-// ];

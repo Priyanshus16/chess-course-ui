@@ -1,7 +1,10 @@
 import React from 'react';
 import { Box, Typography, Container, Grid, List, ListItem, ListItemText, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const HowItWorks = () => {
+
+  const navigate = useNavigate();
   return (
     <Box sx={{ padding: '80px 0', backgroundColor: 'background.paper' }}>
       <Container maxWidth="md">
@@ -54,7 +57,7 @@ const HowItWorks = () => {
 
           {/* Call to Action */}
           <Box textAlign="center" mt={4}>
-            <Button variant="contained" color="primary" sx={{ padding: '12px 24px', fontSize: '16px' }}>
+            <Button onClick={() =>{ navigate('/advanceCoaching'); window.scrollTo(0,0)}} variant="contained" color="primary" sx={{ padding: '12px 24px', fontSize: '16px' }}>
               Enroll Now
             </Button>
           </Box>

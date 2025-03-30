@@ -67,11 +67,27 @@ const CardBox = styled(Box)({
 
 // Chess Coaching Card Data
 const coachingCards = [
-    { icon: "♔", title: "Grandmaster Strategies", description: "Deep analysis of positional play and advanced planning." },
-    { icon: "♖", title: "Endgame Mastery", description: "Study theoretical and practical endgames to secure victories." },
-    { icon: "♘", title: "Mind Games & Bluffing", description: "Psychological strategies to outthink opponents." },
-    { icon: "♙", title: "Competitive Preparation", description: "Learn opening novelties and study opponent weaknesses." },
-
+  {
+    icon: "♔",
+    title: "Grandmaster Strategies",
+    description: "Deep analysis of positional play and advanced planning.",
+  },
+  {
+    icon: "♖",
+    title: "Endgame Mastery",
+    description:
+      "Study theoretical and practical endgames to secure victories.",
+  },
+  {
+    icon: "♘",
+    title: "Mind Games & Bluffing",
+    description: "Psychological strategies to outthink opponents.",
+  },
+  {
+    icon: "♙",
+    title: "Competitive Preparation",
+    description: "Learn opening novelties and study opponent weaknesses.",
+  },
 ];
 
 const BeginnerCoaching = () => {
@@ -82,10 +98,10 @@ const BeginnerCoaching = () => {
         <ImageBackground />
         <ContentBox>
           <Typography variant="h3" sx={{ fontWeight: "bold", mb: 3 }}>
-            Beginner Chess Coaching ♟️
+            Advance Chess Coaching
           </Typography>
           <Typography variant="body1" sx={{ mt: 2, fontSize: "22px" }}>
-            Start your chess journey with Master Chess Classes! Learn the fundamentals, basic moves, and essential strategies to build a strong foundation.
+          Master the game with high-level coaching from Master Chess Classes! Focus on deep strategy, endgame mastery, and competitive play preparation. Ideal for experienced players aiming for tournament-level performance.
           </Typography>
         </ContentBox>
       </SectionWrapper>
@@ -93,7 +109,7 @@ const BeginnerCoaching = () => {
       {/* Coaching Cards Section */}
       <Box sx={{ mt: 5, textAlign: "center" }}>
         <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3 }}>
-          Benefits of Learning Chess 
+          Benefits of Learning Chess
         </Typography>
         <Grid container spacing={3} justifyContent="center">
           {coachingCards.map((card, index) => (
@@ -103,7 +119,10 @@ const BeginnerCoaching = () => {
                 <Typography variant="h5" sx={{ mt: 2, fontWeight: "bold" }}>
                   {card.title}
                 </Typography>
-                <Typography variant="body2" sx={{ mt: 1, fontSize: "18px", color: "#555" }}>
+                <Typography
+                  variant="body2"
+                  sx={{ mt: 1, fontSize: "18px", color: "#555" }}
+                >
                   {card.description}
                 </Typography>
               </CardBox>
