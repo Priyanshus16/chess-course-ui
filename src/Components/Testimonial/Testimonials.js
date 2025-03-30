@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   IconButton,
-  Button,
 } from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import Slider from "react-slick";

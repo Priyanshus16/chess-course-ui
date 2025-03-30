@@ -6,14 +6,14 @@ import HowItWorks from "../HowItWorks/HowItWorks";
 import CurriculumPage from "../Curriculam/CurriculumPage";
 import Blog from "../Blog/Blog";
 import FloatingVideo from "../Youtube/FloatingVideo";
-// import TestimonialImage from "../Testimonial/TestimonialImage";
+import TestimonialImage from "../Testimonial/TestimonialImage";
 
 const Home = () => {
   return (
     <>
       <Banner />
       <Testimonials />
-      {/* <TestimonialImage/> */}
+      <TestimonialImage/>
       <HowItWorks />
       <Blog />
       <CurriculumPage />

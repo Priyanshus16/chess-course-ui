@@ -47,7 +47,8 @@ import AdvanceCoaching from "./Components/ChessCoaching/AdvanceCoaching.js";
 import AddAdmin from "./Admin/User/AddAdmin.js";
 import TestimonialVideo from "./Admin/Testimonial/TestimonialVideo.js";
 import AddTestimonialVideo from "./Admin/Testimonial/AddTestimonialVideo.js";
-// import TestimonialImage from "./Components/Testimonial/TestimonialImage.js";
+import TestimonialImage from "./Admin/Testimonial/TestimonialImage.js";
+import AddTestimonialImage from "./Admin/Testimonial/AddTestimonialImage.js";
 
 function App() {
   const location = useLocation();
@@ -84,6 +85,8 @@ function App() {
                     <Route path="/admin/Testimonials" element={<Testimonial />} />
                     <Route path="/admin/testimonialVideo" element={<TestimonialVideo />} />
                     <Route path="/admin/addTestimonialVideo" element={<AddTestimonialVideo />} />
+                    <Route path="/admin/testimonialImage" element={<TestimonialImage />} />
+                    <Route path="/admin/addTestimonialImage" element={<AddTestimonialImage />} />
                     <Route path="/admin/addTestimonials" element={<AddTestimonials />} />
                     <Route path="/admin/addCurriculum" element={<AddCurriculum />} />
                     <Route path="/admin/Curriculum" element={<Curriculum />} />
@@ -109,7 +112,7 @@ function App() {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blogs/:id" element={<BlogDetails />} />
                 <Route path="/testimonial" element={<Testimonials />} />
-                {/* <Route path="/testimonialImage" element={<TestimonialImage />} /> */}
+                <Route path="/testimonialImage" element={<TestimonialImage />} />
                 <Route path="/courses" element={<AllCourses />} />
                 <Route path="/courseDetail" element={<CourseDetail />} />
                 <Route path="/myCourses" element={<MyCourses />} />

@@ -1,20 +1,12 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { Box, Card, CardMedia, Container, Typography, IconButton } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
-// Mock data (replace with your DB data)
-const testimonialImages = [
-  { id: 1, url: "https://via.placeholder.com/300x200?text=Testimonial+1" },
-  { id: 2, url: "https://via.placeholder.com/300x200?text=Testimonial+2" },
-  { id: 3, url: "https://via.placeholder.com/300x200?text=Testimonial+3" },
-  { id: 4, url: "https://via.placeholder.com/300x200?text=Testimonial+4" },
-  { id: 5, url: "https://via.placeholder.com/300x200?text=Testimonial+5" },
-  { id: 6, url: "https://via.placeholder.com/300x200?text=Testimonial+6" },
-];
+import axios from "axios";
 
 // Custom Arrow Components
 const NextArrow = (props) => {
@@ -60,6 +52,25 @@ const PrevArrow = (props) => {
 };
 
 const TestimonialImage = () => {
+
+  const [testimonialImage, setTestimonialImage] = useState([]);
+  
+    const getTestimonialData = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/testimonialImage`
+        );
+        console.log(res)
+        setTestimonialImage(res.data.testimonialImage || []);
+      } catch (error) {
+        console.error(error, "there was problem while getting testimonial data");
+      }
+    };
+  
+    useEffect(() => {
+      getTestimonialData();
+    }, []);
+
   // Carousel settings (4 slides per row + custom arrows)
   const settings = {
     dots: true,
@@ -93,7 +104,7 @@ const TestimonialImage = () => {
 
       <Box sx={{ px: { xs: 1, md: 0 }, position: "relative" }}>
         <Slider {...settings}>
-          {testimonialImages.map((item) => (
+          {testimonialImage.map((item) => (
             <Box key={item.id} sx={{ px: 1 }}>
               <Card
                 sx={{
@@ -104,10 +115,10 @@ const TestimonialImage = () => {
               >
                 <CardMedia
                   component="img"
-                  height="200"
-                  image={item.url}
+                  height="300"
+                  image={item.image}
                   alt={`Testimonial ${item.id}`}
-                  sx={{ objectFit: "cover" }}
+                  sx={{ objectFit: "contain", width: "80%", height: "80%" }}
                 />
               </Card>
             </Box>

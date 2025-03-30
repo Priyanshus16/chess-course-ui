@@ -4,7 +4,6 @@ import {
   Typography,
   Container,
   Grid,
-  Button,
   Avatar,
   Paper,
   List,
@@ -13,6 +12,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import InstructorImage from "../../Assets/kunal-vyas.jpg"; 
 
 const About = () => {
   return (
@@ -49,6 +49,27 @@ const About = () => {
         <strong> International Chess Coach</strong>, I am dedicated to helping
         students master the art of chess.
       </Typography>
+
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4 }}>
+  <Avatar
+    alt="Instructor"
+    src={InstructorImage}
+    sx={{
+      width: 200,
+      height: 200,
+      borderRadius: "50%", // Ensures the image is circular
+      border: "4px solid #1E3A8A", // Optional border for styling
+    }}
+  />
+  <Typography variant="h5" sx={{ fontWeight: "bold", mt: 2, color: "#1E3A8A" }}>
+    Kunal Vyas
+  </Typography>
+  <Typography sx={{fontWeight: "bold"}} variant="body1" color="text.secondary">
+    International Chess Coach
+  </Typography>
+</Box>  
+
+
 
       {/* About Section */}
       <Grid container spacing={4} sx={{ mt: 4 }}>
@@ -171,21 +192,10 @@ const About = () => {
           Be a part of <strong>Master Chess Classes</strong> and take your chess
           skills to the next level.
         </Typography>
-        {/* <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "#1E3A8A",
-            fontSize: "1rem",
-            px: 4,
-            py: 1,
-            "&:hover": { backgroundColor: "#1C64F2" },
-          }}
-        >
-          Sign Up Now
-        </Button> */}
       </Box>
     </Container>
   );
 };
 
 export default About;
+
