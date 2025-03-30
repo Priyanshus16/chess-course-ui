@@ -154,8 +154,9 @@ export default function AdminBlog() {
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow sx={{ backgroundColor: "#1976D2", color: "white" }}>
-              <TableCell align="center" sx={{ color: "white", width: "20%", fontWeight: 700 }}>Heading</TableCell>
-              <TableCell align="center" sx={{ color: "white", width: "60%", fontWeight: 700 }}>Description</TableCell>
+              <TableCell align="center" sx={{ color: "white",  fontWeight: 700 }}>Heading</TableCell>
+              <TableCell align="center" sx={{ color: "white", fontWeight: 700 }}>Description</TableCell>
+              <TableCell align="center" sx={{ color: "white",fontWeight: 700 }}>Image</TableCell>
               <TableCell align="center" sx={{ color: "white", fontWeight: 700 }}>Action</TableCell>
             </TableRow>
           </TableHead>
@@ -175,6 +176,9 @@ export default function AdminBlog() {
                   ) : (
                     item.description.substring(0, 50) + "..."
                   )}
+                </TableCell>
+                <TableCell align="center">
+                  <img src={item.image} alt={item.heading} style={{ width: "70px", height: "70px" }} />
                 </TableCell>
                 <TableCell align="center">
                   {editId === item._id ? (
