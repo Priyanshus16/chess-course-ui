@@ -11,15 +11,12 @@ import {
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import Slider from "react-slick";
 import axios from "axios";
-
-// Import slick-carousel CSS files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-// Custom arrows for the carousel
-const PrevArrow = ({ onClick }) => (
+// Custom arrows for the testimonials carousel
+const TestimonialPrevArrow = ({ onClick }) => (
   <IconButton
     onClick={onClick}
     sx={{
@@ -35,7 +32,7 @@ const PrevArrow = ({ onClick }) => (
   </IconButton>
 );
 
-const NextArrow = ({ onClick }) => (
+const TestimonialNextArrow = ({ onClick }) => (
   <IconButton
     onClick={onClick}
     sx={{
@@ -51,8 +48,51 @@ const NextArrow = ({ onClick }) => (
   </IconButton>
 );
 
+// Custom arrows for the video carousel (different styling to avoid conflict)
+const VideoPrevArrow = ({ onClick }) => (
+  <IconButton
+    onClick={onClick}
+    sx={{
+      position: "absolute",
+      left: 10,
+      top: "50%",
+      transform: "translateY(-50%)",
+      zIndex: 1,
+      color: "white",
+      backgroundColor: "rgba(0,0,0,0.5)",
+      "&:hover": {
+        backgroundColor: "rgba(0,0,0,0.7)",
+      },
+    }}
+  >
+    <ArrowBackIos />
+  </IconButton>
+);
+
+const VideoNextArrow = ({ onClick }) => (
+  <IconButton
+    onClick={onClick}
+    sx={{
+      position: "absolute",
+      right: 10,
+      top: "50%",
+      transform: "translateY(-50%)",
+      zIndex: 1,
+      color: "white",
+      backgroundColor: "rgba(0,0,0,0.5)",
+      "&:hover": {
+        backgroundColor: "rgba(0,0,0,0.7)",
+      },
+    }}
+  >
+    <ArrowForwardIos />
+  </IconButton>
+);
+
 const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
+
+  const [testimonialVideos, setTestimonialVideos] = useState([]);
 
   const getTestimonialData = async () => {
     try {
@@ -60,6 +100,7 @@ const Testimonials = () => {
         `${process.env.REACT_APP_BASE_URL}/testimonial`
       );
       setTestimonials(res.data.testimonial || []);
+      setTestimonialVideos(res.data.testimonialVideo || []);
     } catch (error) {
       console.error(error, "there was problem while getting testimonial data");
     }
@@ -69,23 +110,57 @@ const Testimonials = () => {
     getTestimonialData();
   }, []);
 
-  // Slider settings
-  const sliderSettings = {
+  // Video slider settings
+  const videoSliderSettings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    nextArrow: <VideoNextArrow />,
+    prevArrow: <VideoPrevArrow />,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    arrows: true,
+    appendDots: (dots) => (
+      <div style={{ position: "absolute", bottom: "10px", width: "100%" }}>
+        <ul style={{ margin: 0, padding: 0, textAlign: "center" }}>{dots}</ul>
+      </div>
+    ),
+    customPaging: (i) => (
+      <div
+        style={{
+          width: "10px",
+          height: "10px",
+          borderRadius: "50%",
+          backgroundColor: "white",
+          opacity: 0.5,
+          margin: "0 4px",
+          cursor: "pointer",
+        }}
+      />
+    ),
+  };
+
+  // Testimonial slider settings
+  const testimonialSliderSettings = {
+    dots: true,
+    infinite: testimonials.length > 1,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: <TestimonialNextArrow />,
+    prevArrow: <TestimonialPrevArrow />,
     responsive: [
       {
         breakpoint: 900,
-        settings: { slidesToShow: 1 },
+        settings: {
+          slidesToShow: 1,
+        },
       },
       {
         breakpoint: 600,
-        settings: { slidesToShow: 1, arrows: false },
+        settings: { slidesToShow: 1 },
       },
     ],
   };
@@ -99,194 +174,175 @@ const Testimonials = () => {
         alignItems: "center",
         p: { xs: 2, md: 4 },
         backgroundColor: "#f0f0f0",
-        textAlign: { xs: "center", md: "left" },
+        gap: { xs: 3, md: 4 },
       }}
     >
-      {/* Left Section (YouTube Video) */}
+      {/* Left Section (Video Carousel) - Simplified */}
+
       <Box
         sx={{
           flex: 1,
-          pr: { md: 4 },
-          mb: { xs: 4, md: 0 },
-          maxWidth: { xs: "100%", md: "40%" },
+          width: "100%",
+          maxWidth: { xs: "100%", md: "50%" },
+          borderRadius: "8px",
+          overflow: "hidden",
+          boxShadow: "0px 4px 15px rgba(0,0,0,0.1)",
         }}
       >
-        <Typography variant="h4" gutterBottom>
-          Improve Your Chess with the Best!
-        </Typography>
-        <Typography variant="body1" color="text.secondary" paragraph>
-          Watch how our courses can help you elevate your chess skills.
-        </Typography>
-        <Box sx={{ width: "100%", position: "relative", pb: "56.25%" }}>
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/P4fCFom_KzI"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-            }}
-          ></iframe>
-        </Box>
+        <Slider {...videoSliderSettings}>
+          {testimonialVideos.map((item) => (
+            <Box key={item._id} sx={{ position: "relative", pb: "56.25%" }}>
+              <video
+                src={item.video}
+                muted
+                autoPlay
+                loop
+                playsInline
+                controls={false}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain", // Ensures no black bars
+                  borderRadius: "8px",
+                }}
+              />
+            </Box>
+          ))}
+        </Slider>
       </Box>
 
-      {/* Right Section (Carousel) */}
+      {/* Right Section (Testimonials Carousel) */}
       <Box
         sx={{
-          flex: 2,
-          width: { xs: "100%", md: "60%" },
-          mx: "auto",
-          py: 4,
+          flex: 1,
+          width: "100%",
+          maxWidth: { xs: "100%", md: "50%" },
         }}
       >
-        <Slider {...sliderSettings}>
-          {testimonials.length > 0 ? (
-            testimonials.map((testimonial) => (
-              <Card
-                key={testimonial._id}
-                sx={{
-                  m: { xs: 2, md: 3 },
-                  p: { xs: 3, md: 5 },
-                  textAlign: "left",
-                  borderRadius: "15px",
-                  boxShadow: "0px 6px 20px rgba(0,0,0,0.15)",
-                  background:
-                    "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(240,240,240,0.7))",
-                  border: "1px solid rgba(0,0,0,0.05)",
-                  transition: "all 0.3s ease-in-out",
-                  "&:hover": {
-                    transform: "translateY(-5px)",
-                    boxShadow: "0px 10px 25px rgba(0,0,0,0.2)",
-                  },
-                }}
-              >
-                <CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: { xs: "column", md: "row" },
-                      textAlign: { xs: "center", md: "left" },
-                      mb: 3,
-                    }}
-                  >
-                    <Avatar
-                      src={testimonial.image}
-                      alt={testimonial.name}
+        {testimonials.length > 0 ? (
+          <Slider {...testimonialSliderSettings}>
+            {testimonials.map((testimonial) => (
+              <Box key={testimonial._id} sx={{ px: 1, py: 1 }}>
+                <Card
+                  sx={{
+                    height: "100%",
+                    p: { xs: 2, md: 3 },
+                    textAlign: "left",
+                    borderRadius: "12px",
+                    boxShadow: "0px 4px 15px rgba(0,0,0,0.1)",
+                    background: "white",
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      transform: "translateY(-5px)",
+                      boxShadow: "0px 8px 20px rgba(0,0,0,0.15)",
+                    },
+                  }}
+                >
+                  <CardContent>
+                    <Box
                       sx={{
-                        width: 90,
-                        height: 90,
-                        mr: { md: 3 },
-                        mb: { xs: 2, md: 0 },
-                        border: "4px solid #1976d2",
-                        boxShadow: "0px 4px 8px rgba(0,0,0,0.1)",
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: { xs: "column", md: "row" },
+                        textAlign: { xs: "center", md: "left" },
+                        mb: 2,
                       }}
-                    />
-                    <Box>
-                      <Typography
-                        variant="h6"
+                    >
+                      <Avatar
+                        src={testimonial.image}
+                        alt={testimonial.name}
                         sx={{
+                          width: 70,
+                          height: 70,
+                          mr: { md: 2 },
+                          mb: { xs: 1, md: 0 },
+                          border: "3px solid #1976d2",
+                        }}
+                      />
+                      <Box>
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            fontWeight: "bold",
+                            color: "#333",
+                            fontSize: "1.1rem",
+                          }}
+                        >
+                          {testimonial.name}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "text.secondary", fontStyle: "italic" }}
+                        >
+                          {testimonial.role}
+                        </Typography>
+                      </Box>
+                    </Box>
+
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        fontStyle: "italic",
+                        color: "#555",
+                        fontSize: "1rem",
+                        lineHeight: 1.5,
+                        mb: 2,
+                        position: "relative",
+                        px: 2,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "2rem",
+                          color: "#1976d2",
                           fontWeight: "bold",
-                          color: "#333",
-                          fontSize: { xs: "1.2rem", md: "1.5rem" },
+                          position: "absolute",
+                          left: "-10px",
+                          top: "-15px",
                         }}
                       >
-                        {testimonial.name}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{ color: "text.secondary", fontStyle: "italic" }}
+                        “
+                      </span>
+                      {testimonial.description}
+                      <span
+                        style={{
+                          fontSize: "2rem",
+                          color: "#1976d2",
+                          fontWeight: "bold",
+                          position: "absolute",
+                          right: "-10px",
+                          bottom: "-25px",
+                        }}
                       >
-                        {testimonial.role}
-                      </Typography>
-                    </Box>
-                  </Box>
+                        ”
+                      </span>
+                    </Typography>
 
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      fontStyle: "italic",
-                      color: "#555",
-                      fontSize: "1.1rem",
-                      lineHeight: 1.6,
-                      mb: 2,
-                      position: "relative",
-                      px: 2,
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: "2rem",
-                        color: "#1976d2",
-                        fontWeight: "bold",
-                        position: "absolute",
-                        left: "-10px",
-                        top: "-5px",
-                      }}
-                    >
-                      “
-                    </span>
-                    {testimonial.description}
-                    <span
-                      style={{
-                        fontSize: "2rem",
-                        color: "#1976d2",
-                        fontWeight: "bold",
-                        position: "absolute",
-                        right: "-10px",
-                        bottom: "-5px",
-                      }}
-                    >
-                      ”
-                    </span>
-                  </Typography>
-
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontWeight: "bold",
-                      color: "#1976d2",
-                      fontSize: "1rem",
-                      mb: 2,
-                    }}
-                  >
-                    Enrolled in:{" "}
-                    <span style={{ color: "#444" }}>{testimonial.course}</span>
-                  </Typography>
-
-                  <Box sx={{ textAlign: "center", mt: 3 }}>
-                    <Button
-                      variant="contained"
+                    <Typography
+                      variant="body2"
                       sx={{
-                        background: "#1976d2",
-                        color: "#fff",
-                        fontSize: "1rem",
                         fontWeight: "bold",
-                        textTransform: "none",
-                        px: 4,
-                        py: 1,
-                        borderRadius: "8px",
-                        transition: "all 0.3s ease-in-out",
-                        "&:hover": {
-                          background: "#125a9c",
-                        },
+                        color: "#1976d2",
+                        fontSize: "0.9rem",
+                        mb: 1,
                       }}
                     >
-                      Join Now
-                    </Button>
-                  </Box>
-                </CardContent>
-              </Card>
-            ))
-          ) : (
-            <Typography>No testimonials available</Typography>
-          )}
-        </Slider>
+                      Enrolled in:{" "}
+                      <span style={{ color: "#444" }}>
+                        {testimonial.course}
+                      </span>
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            ))}
+          </Slider>
+        ) : (
+          <Typography>No testimonials available</Typography>
+        )}
       </Box>
     </Box>
   );

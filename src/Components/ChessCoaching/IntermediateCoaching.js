@@ -81,10 +81,10 @@ const BeginnerCoaching = () => {
         <ImageBackground />
         <ContentBox>
           <Typography variant="h3" sx={{ fontWeight: "bold", mb: 3 }}>
-            Beginner Chess Coaching ♟️
+            Intermediate Chess Coaching 
           </Typography>
           <Typography variant="body1" sx={{ mt: 2, fontSize: "22px" }}>
-            Start your chess journey with Master Chess Classes! Learn the fundamentals, basic moves, and essential strategies to build a strong foundation.
+          Take your chess skills to the next level with Master Chess Classes! Learn advanced openings, tactical patterns, and strategic planning to improve your gameplay. Perfect for players who understand the basics and want to refine their techniques.
           </Typography>
         </ContentBox>
       </SectionWrapper>

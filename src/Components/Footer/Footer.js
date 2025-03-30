@@ -143,17 +143,17 @@ const Footer = () => {
                 Chess Courses 📚
               </Typography>
               <Box>
-                <Link href="/courses/beginners" color="inherit" underline="hover">
+                <Link href="/beginnerCoaching" color="inherit" underline="hover">
                   Beginner's Guide to Chess
                 </Link>
               </Box>
               <Box>
-                <Link href="/courses/strategies" color="inherit" underline="hover">
+                <Link href="/intermediateCoaching" color="inherit" underline="hover">
                   Advanced Strategies & Tactics
                 </Link>
               </Box>
               <Box>
-                <Link href="/courses/endgames" color="inherit" underline="hover">
+                <Link href="/advanceCoaching" color="inherit" underline="hover">
                   Mastering Endgames
                 </Link>
               </Box>
@@ -171,7 +171,9 @@ const Footer = () => {
                 Support 🛠️
               </Typography>
               <Box>
-                <Link href="/faq" color="inherit" underline="hover">
+                <Link 
+                // href="/faq" 
+                color="inherit" underline="hover">
                   FAQ
                 </Link>
               </Box>
@@ -181,7 +183,9 @@ const Footer = () => {
                 </Link>
               </Box>
               <Box>
-                <Link href="/privacy" color="inherit" underline="hover">
+                <Link 
+                // href="/privacy" 
+                color="inherit" underline="hover">
                   Privacy Policy
                 </Link>
               </Box>
@@ -200,7 +204,7 @@ const Footer = () => {
               </Typography>
               <Box>
                 <Link
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/share/1BNhujttVc/"
                   color="inherit"
                   underline="hover"
                   target="_blank"
@@ -210,17 +214,17 @@ const Footer = () => {
               </Box>
               <Box>
                 <Link
-                  href="https://twitter.com"
+                  href="https://www.linkedin.com/in/kunal-vyas-3a1329266?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                   color="inherit"
                   underline="hover"
                   target="_blank"
                 >
-                  Twitter
+                  LinkedIn
                 </Link>
               </Box>
               <Box>
                 <Link
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/masterchessclasses?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                   color="inherit"
                   underline="hover"
                   target="_blank"
@@ -230,7 +234,7 @@ const Footer = () => {
               </Box>
               <Box>
                 <Link
-                  href="https://youtube.com"
+                  href="https://youtube.com/@masterchessclasses?si=szp2GXXRBFquQQz4"
                   color="inherit"
                   underline="hover"
                   target="_blank"

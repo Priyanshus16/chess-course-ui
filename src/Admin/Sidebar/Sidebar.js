@@ -26,6 +26,7 @@ const menuItems = [
   { text: "Users", icon: <PeopleIcon />, path: "/admin/Users" },
   { text: "Courses", icon: <SchoolIcon  />, path: "/admin/course" },
   { text: "Testimonials", icon: <FormatQuoteIcon />, path: "/admin/testimonials" },
+  { text: "Testimonial Video", icon: <FormatQuoteIcon />, path: "/admin/testimonialVideo" },
   { text: "Curriculum", icon: <SchoolIcon />, path: "/admin/curriculum" },
   { text: "Blogs", icon: <ArticleIcon />, path: "/admin/adminBlog" },
 ];

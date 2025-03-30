@@ -1,6 +1,18 @@
-import React from 'react';
-import { Box, Typography, Container, Grid, Button, Avatar, Paper, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import React from "react";
+import {
+  Box,
+  Typography,
+  Container,
+  Grid,
+  Button,
+  Avatar,
+  Paper,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const About = () => {
   return (
@@ -9,7 +21,12 @@ const About = () => {
       <Typography
         variant="h3"
         align="center"
-        sx={{ fontWeight: "bold", color: "#1E3A8A", mb: 2, fontFamily: "'Poppins', sans-serif" }}
+        sx={{
+          fontWeight: "bold",
+          color: "#1E3A8A",
+          mb: 2,
+          fontFamily: "'Poppins', sans-serif",
+        }}
       >
         About Us
       </Typography>
@@ -19,10 +36,18 @@ const About = () => {
         color="text.secondary"
         paragraph
         align="center"
-        sx={{ fontSize: "1.2rem", fontStyle: "italic", color: "#374151", px: 2 }}
+        sx={{
+          fontSize: "1.2rem",
+          fontStyle: "italic",
+          color: "#374151",
+          px: 2,
+        }}
       >
-        I'm <strong>Kunal Vyas</strong>, the proud founder and coach of <strong>Master Chess Classes</strong>. With over a decade of experience as an 
-        <strong> International Chess Coach</strong>, I am dedicated to helping students master the art of chess.
+        I'm <strong>Kunal Vyas</strong>, the proud founder and coach of{" "}
+        <strong>Master Chess Classes</strong>. With over a decade of experience
+        as an
+        <strong> International Chess Coach</strong>, I am dedicated to helping
+        students master the art of chess.
       </Typography>
 
       {/* About Section */}
@@ -43,12 +68,17 @@ const About = () => {
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMc9y6LsGiXYfP_OXKM3oaiXamGoJ_8Rj3PA&s"
               sx={{ width: 150, height: 150, mb: 2 }}
             />
-            <Typography variant="h5" sx={{ fontWeight: "bold", color: "#1E3A8A" }}>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", color: "#1E3A8A" }}
+            >
               Chess Expertise
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              I have read <strong>80+ chess books</strong> covering openings, middlegame, endgame, strategy, and pawn structures.
-              This deep knowledge enables me to offer a structured and results-oriented chess education.
+              I have read <strong>80+ chess books</strong> covering openings,
+              middlegame, endgame, strategy, and pawn structures. This deep
+              knowledge enables me to offer a structured and results-oriented
+              chess education.
             </Typography>
           </Paper>
         </Grid>
@@ -69,12 +99,16 @@ const About = () => {
               src="https://store.playstation.com/store/api/chihiro/00_09_000/container/PL/pl/19/EP4037-SLES51630_00-AVPLAYITCH000002/image?w=320&h=320&bg_color=000000&opacity=100&_version=00_09_000"
               sx={{ width: 150, height: 150, mb: 2 }}
             />
-            <Typography variant="h5" sx={{ fontWeight: "bold", color: "#1E3A8A" }}>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", color: "#1E3A8A" }}
+            >
               Holistic Learning
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Beyond chess, I have read <strong>65+ books</strong> on business, psychology, productivity, and teaching,
-              allowing me to integrate life skills into my chess coaching.
+              Beyond chess, I have read <strong>65+ books</strong> on business,
+              psychology, productivity, and teaching, allowing me to integrate
+              life skills into my chess coaching.
             </Typography>
           </Paper>
         </Grid>
@@ -85,12 +119,24 @@ const About = () => {
         <Typography
           variant="h4"
           gutterBottom
-          sx={{ fontWeight: "bold", color: "#1E3A8A", textTransform: "uppercase" }}
+          sx={{
+            fontWeight: "bold",
+            color: "#1E3A8A",
+            textTransform: "uppercase",
+          }}
         >
           Why Choose Us?
         </Typography>
 
-        <List sx={{ display: "inline-block", textAlign: "left", background: "#F9FAFB", p: 3, borderRadius: "10px" }}>
+        <List
+          sx={{
+            display: "inline-block",
+            textAlign: "left",
+            background: "#F9FAFB",
+            p: 3,
+            borderRadius: "10px",
+          }}
+        >
           {[
             "10+ Years of Experience: Trusted and proven coaching methods.",
             "Individual Attention: Small batches ensure focused learning.",
@@ -102,10 +148,11 @@ const About = () => {
                 <CheckCircleIcon sx={{ color: "green" }} />
               </ListItemIcon>
               <ListItemText
-  primary={text}
-  primaryTypographyProps={{ sx: { fontSize: "1.1rem", fontWeight: "500" } }}
-/>
-
+                primary={text}
+                primaryTypographyProps={{
+                  sx: { fontSize: "1.1rem", fontWeight: "500" },
+                }}
+              />
             </ListItem>
           ))}
         </List>
@@ -113,13 +160,18 @@ const About = () => {
 
       {/* Call to Action */}
       <Box sx={{ mt: 6, textAlign: "center" }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold", color: "#1E3A8A" }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{ fontWeight: "bold", color: "#1E3A8A" }}
+        >
           Join Our Chess Community Today!
         </Typography>
         <Typography variant="body1" color="text.secondary" paragraph>
-          Be a part of <strong>Master Chess Classes</strong> and take your chess skills to the next level.
+          Be a part of <strong>Master Chess Classes</strong> and take your chess
+          skills to the next level.
         </Typography>
-        <Button
+        {/* <Button
           variant="contained"
           sx={{
             backgroundColor: "#1E3A8A",
@@ -130,7 +182,7 @@ const About = () => {
           }}
         >
           Sign Up Now
-        </Button>
+        </Button> */}
       </Box>
     </Container>
   );
