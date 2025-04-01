@@ -7,26 +7,30 @@ import { Box } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
 import React from "react";
+
+// UI
 import Header from "./Components/Header/Header.js";
-import AdminHeader from "./Admin/Header/AdminHeader.js";
 import Footer from "./Components/Footer/Footer.js";
 import Login from "./Components/Auth/Login.js";
 import Register from "./Components/Auth/Register.js";
-// import Forgot from "./Components/Auth/Forgot";
 import Home from "./Components/Home/Home.js";
-// import VerifyOTP from "./Components/Auth/VerifyOTP";
-// import ChangePassword from "./Components/Auth/ChangePassword";
 import About from "./Components/About/About";
-// import Courses from "./Components/Courses/Courses";
 import CurriculumPage from "./Components/Curriculam/CurriculumPage";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import Blog from "./Components/Blog/Blog.js";
 import BlogDetails from "./Components/Blog/BlogDetails";
 import Testimonials from "./Components/Testimonial/Testimonials.js";
-import { CourseProvider } from "./context/courseContext.js";
+import ChessStore  from "./Components/Store/ChessStore.js";
+import IntermediateCoaching from "./Components/ChessCoaching/IntermediateCoaching.js";
+import BeginnerCoaching from "./Components/ChessCoaching/BeginnerCoaching.js";
+import AdvanceCoaching from "./Components/ChessCoaching/AdvanceCoaching.js";
+import AllCourses from "./Components/Courses/AllCourses.js";
+import CourseDetail from "./Components/Courses/CourseDetail.js";
+import MyCourses from "./Components/MyCourses/MyCourses.js";
 
 // ADMIN ROUTES
 import Users from "./Admin/User/Users.js";
+import AdminHeader from "./Admin/Header/AdminHeader.js";
 import Testimonial from "./Admin/Testimonial/Testimonial.js";
 import AddTestimonials from "./Admin/Testimonial/AddTestimonials.js";
 import AddCurriculum from "./Admin/Curriculum/AddCurriculum.js";
@@ -37,18 +41,23 @@ import AddCourses from "./Admin/Course/AddCourses.js";
 import Course from "./Admin/Course/Course.js";
 import Sidebar from "./Admin/Sidebar/Sidebar.js";
 import AddUser from "./Admin/User/AddUser.js";
-import AllCourses from "./Components/Courses/AllCourses.js";
-import CourseDetail from "./Components/Courses/CourseDetail.js";
-import MyCourses from "./Components/MyCourses/MyCourses.js";
-import { UserProvider } from "./context/UserContext.js";
-import IntermediateCoaching from "./Components/ChessCoaching/IntermediateCoaching.js";
-import BeginnerCoaching from "./Components/ChessCoaching/BeginnerCoaching.js";
-import AdvanceCoaching from "./Components/ChessCoaching/AdvanceCoaching.js";
 import AddAdmin from "./Admin/User/AddAdmin.js";
 import TestimonialVideo from "./Admin/Testimonial/TestimonialVideo.js";
 import AddTestimonialVideo from "./Admin/Testimonial/AddTestimonialVideo.js";
 import TestimonialImage from "./Admin/Testimonial/TestimonialImage.js";
 import AddTestimonialImage from "./Admin/Testimonial/AddTestimonialImage.js";
+import Banner from "./Admin/Banner/Banner.js";
+import AddBanner from "./Admin/Banner/AddBanner.js";
+
+// CONTEXT
+import { UserProvider } from "./context/UserContext.js";
+import { CourseProvider } from "./context/courseContext.js";
+import BeginnerBanner from "./Admin/Coaching/Beginner/BeginnerBanner.js";
+import AddBeginnerBanner from "./Admin/Coaching/Beginner/AddBeginnerBanner.js";
+import IntermediateBanner from "./Admin/Coaching/Intermediate/IntermediateBanner.js";
+import AddIntermediateBanner from "./Admin/Coaching/Intermediate/AddIntermediateBanner.js";
+import AdvanceBanner from "./Admin/Coaching/Advance/AdvanceBanner.js";
+import AddAdvanceBanner from "./Admin/Coaching/Advance/AddAdvanceBanner.js";
 
 function App() {
   const location = useLocation();
@@ -94,6 +103,14 @@ function App() {
                     <Route path="/admin/adminBlog" element={<AdminBlog />} />
                     <Route path="/admin/addCourses" element={<AddCourses />} />
                     <Route path="/admin/Course" element={<Course />} />
+                    <Route path="/admin/banner" element={<Banner />} />
+                    <Route path="/admin/beginnerBanner" element={<BeginnerBanner />} />
+                    <Route path="/admin/addBeginnerBanner" element={<AddIntermediateBanner />} />
+                    <Route path="/admin/intermediateBanner" element={<IntermediateBanner />} />
+                    <Route path="/admin/addIntermediateBanner" element={<AddIntermediateBanner />} />
+                    <Route path="/admin/advanceBanner" element={<AdvanceBanner />} />
+                    <Route path="/admin/addAdvanceBanner" element={<AddAdvanceBanner />} />
+                    
                   </Routes>
                 </Box>
               </Box>
@@ -119,6 +136,7 @@ function App() {
                 <Route path="/intermediateCoaching" element={<IntermediateCoaching />} />
                 <Route path="/beginnerCoaching" element={<BeginnerCoaching />} />
                 <Route path="/advanceCoaching" element={<AdvanceCoaching />} />
+                <Route path="/store" element={<ChessStore />} />
 
               </Routes>
             </>

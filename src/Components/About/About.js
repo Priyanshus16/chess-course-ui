@@ -5,137 +5,126 @@ import {
   Container,
   Grid,
   Avatar,
-  Paper,
+  Divider,
+  useTheme,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import InstructorImage from "../../Assets/kunal-vyas.jpg";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import InstructorImage from "../../Assets/kunal-vyas.jpg"; 
 
 const About = () => {
+  const theme = useTheme();
+
   return (
-    <Container id="about" sx={{ mt: 8, mb: 8, width: "100%" }}>
+    <Container id="about" sx={{ mt: 8, mb: 8 }}>
       {/* Header Section */}
-      <Typography
-        variant="h3"
-        align="center"
-        sx={{
-          fontWeight: "bold",
-          color: "#1E3A8A",
-          mb: 2,
-          fontFamily: "'Poppins', sans-serif",
-        }}
-      >
-        About Us
-      </Typography>
+      <Box sx={{ textAlign: "center", mb: 6 }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 700,
+            color: theme.palette.primary.main,
+            mb: 2,
+            textTransform: "uppercase",
+            letterSpacing: 1,
+          }}
+        >
+          About Master Chess Classes
+        </Typography>
+        <Divider sx={{ width: 100, height: 4, bgcolor: theme.palette.primary.main, mx: "auto", mb: 4 }} />
+      </Box>
 
-      <Typography
-        variant="body1"
-        color="text.secondary"
-        paragraph
-        align="center"
-        sx={{
-          fontSize: "1.2rem",
-          fontStyle: "italic",
-          color: "#374151",
-          px: 2,
-        }}
-      >
-        I'm <strong>Kunal Vyas</strong>, the proud founder and coach of{" "}
-        <strong>Master Chess Classes</strong>. With over a decade of experience
-        as an
-        <strong> International Chess Coach</strong>, I am dedicated to helping
-        students master the art of chess.
-      </Typography>
-
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4 }}>
-  <Avatar
-    alt="Instructor"
-    src={InstructorImage}
-    sx={{
-      width: 200,
-      height: 200,
-      borderRadius: "50%", // Ensures the image is circular
-      border: "4px solid #1E3A8A", // Optional border for styling
-    }}
-  />
-  <Typography variant="h5" sx={{ fontWeight: "bold", mt: 2, color: "#1E3A8A" }}>
-    Kunal Vyas
-  </Typography>
-  <Typography sx={{fontWeight: "bold"}} variant="body1" color="text.secondary">
-    International Chess Coach
-  </Typography>
-</Box>  
-
-
-
-      {/* About Section */}
-      <Grid container spacing={4} sx={{ mt: 4 }}>
-        <Grid item xs={12} md={6}>
-          <Paper
-            elevation={6}
+      {/* Profile Section */}
+      <Grid container spacing={6} alignItems="center" sx={{ mb: 6 }}>
+        <Grid item xs={12} md={4} sx={{ display: "flex", justifyContent: "center" }}>
+          <Avatar
+            alt="Kunal Vyas"
+            src={InstructorImage}
             sx={{
-              p: 4,
-              textAlign: "center",
-              borderRadius: "10px",
-              backgroundColor: "#F3F4F6",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              width: 250,
+              height: 250,
+              border: `4px solid ${theme.palette.primary.main}`,
             }}
-          >
-            <Avatar
-              alt="Chess Knowledge"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMc9y6LsGiXYfP_OXKM3oaiXamGoJ_8Rj3PA&s"
-              sx={{ width: 150, height: 150, mb: 2 }}
-            />
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", color: "#1E3A8A" }}
-            >
-              Chess Expertise
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              I have read <strong>80+ chess books</strong> covering openings,
-              middlegame, endgame, strategy, and pawn structures. This deep
-              knowledge enables me to offer a structured and results-oriented
-              chess education.
-            </Typography>
-          </Paper>
+          />
         </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Paper
-            elevation={6}
-            sx={{
-              p: 4,
-              textAlign: "center",
-              borderRadius: "10px",
-              backgroundColor: "#F3F4F6",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <Avatar
-              alt="Holistic Learning"
-              src="https://store.playstation.com/store/api/chihiro/00_09_000/container/PL/pl/19/EP4037-SLES51630_00-AVPLAYITCH000002/image?w=320&h=320&bg_color=000000&opacity=100&_version=00_09_000"
-              sx={{ width: 150, height: 150, mb: 2 }}
-            />
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", color: "#1E3A8A" }}
-            >
-              Holistic Learning
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Beyond chess, I have read <strong>65+ books</strong> on business,
-              psychology, productivity, and teaching, allowing me to integrate
-              life skills into my chess coaching.
-            </Typography>
-          </Paper>
+        
+        <Grid item xs={12} md={8}>
+          <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+            Kunal Vyas
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 3, fontStyle: "italic", fontWeight: 600 }}>
+            International Chess Coach & Founder
+          </Typography>
+          
+          <Typography variant="body1" paragraph sx={{ lineHeight: 1.8, fontSize: "1.1rem", fontWeight: "500" }}>
+            With over a decade of experience as an International Chess Coach, I've dedicated my career to helping students master the art of chess through structured, results-oriented training.
+          </Typography>
+          
+          <Typography variant="body1" paragraph sx={{ lineHeight: 1.8,fontSize: "1.1rem", fontWeight: "500" }}>
+            My extensive study of 80+ chess books covering all aspects of the game - from openings to endgames, strategy to positional play - enables me to provide students with a comprehensive chess education that delivers rapid improvement.
+          </Typography>
         </Grid>
       </Grid>
 
-      {/* Why Choose Us Section */}
+      {/* Methodology Section */}
+      <Box sx={{ 
+        backgroundColor: theme.palette.grey[100], 
+        p: 4,
+        borderRadius: 2,
+        mb: 6
+      }}>
+        <Typography variant="h5" sx={{ fontWeight: 600, mb: 3, color: theme.palette.primary.main }}>
+          Our Approach
+        </Typography>
+        
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+              Structured Learning
+            </Typography>
+            <Box component="ul" sx={{ 
+        pl: 2,
+        '& li': {
+          mb: 1,
+          fontSize: '1rem',
+          fontWeight: "500",
+          lineHeight: 1.6,
+          fontFamily: "'Roboto', sans-serif"
+        }
+      }}>
+        <li>Progressive curriculum from fundamentals to advanced strategies</li>
+        <li>Customized lesson plans for each student's level</li>
+        <li>Systematic breakdown of complex chess concepts</li>
+        <li>Regular skill assessments to track development</li>
+      </Box>
+          </Grid>
+          
+          <Grid item xs={12} md={6}>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+              Results Focused
+            </Typography>
+            <Box component="ul" sx={{ 
+        pl: 2,
+        '& li': {
+          mb: 1,
+          fontSize: "1rem", fontWeight: "500",
+          lineHeight: 1.6,
+          fontFamily: "'Roboto', sans-serif"
+        }
+      }}>
+        <li>Proven track record of student rating improvements</li>
+        <li>Tournament preparation and performance analysis</li>
+        <li>Practical application of learned concepts</li>
+        <li>Measurable progress benchmarks</li>
+      </Box>
+          </Grid>
+        </Grid>
+      </Box>
+
+      {/* Why Choose Us Section  */}
       <Box sx={{ mt: 6, textAlign: "center" }}>
         <Typography
           variant="h4"
@@ -180,17 +169,19 @@ const About = () => {
       </Box>
 
       {/* Call to Action */}
-      <Box sx={{ mt: 6, textAlign: "center" }}>
-        <Typography
-          variant="h4"
-          gutterBottom
-          sx={{ fontWeight: "bold", color: "#1E3A8A" }}
-        >
-          Join Our Chess Community Today!
+      <Box sx={{ 
+        mt: 6, 
+        textAlign: "center",
+        backgroundColor: theme.palette.primary.main,
+        color: "white",
+        p: 4,
+        borderRadius: 2
+      }}>
+        <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+          Ready to Elevate Your Chess Game?
         </Typography>
-        <Typography variant="body1" color="text.secondary" paragraph>
-          Be a part of <strong>Master Chess Classes</strong> and take your chess
-          skills to the next level.
+        <Typography variant="body1" sx={{ mb: 3 }}>
+          Join Master Chess Classes today and experience professional training that delivers results.
         </Typography>
       </Box>
     </Container>
@@ -198,4 +189,3 @@ const About = () => {
 };
 
 export default About;
-

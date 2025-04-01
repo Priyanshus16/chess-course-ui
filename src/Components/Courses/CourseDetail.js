@@ -39,7 +39,6 @@ const CourseDetail = () => {
           userId: user._id,
         }
       );
-      console.log(response)
       if (response.status === 200) {
         Swal.fire("Enrolled Successfully!", "", "success");
       }

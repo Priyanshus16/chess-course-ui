@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -6,13 +6,18 @@ import {
   Card,
   CardContent,
   IconButton,
+  Tooltip,
 } from "@mui/material";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import { 
+  ArrowBackIos, 
+  ArrowForwardIos,
+  VolumeOff,
+  VolumeUp
+} from "@mui/icons-material";
 import Slider from "react-slick";
 import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useState, useEffect } from "react";
 
 // Custom arrows for the testimonials carousel
 const TestimonialPrevArrow = ({ onClick }) => (
@@ -47,7 +52,7 @@ const TestimonialNextArrow = ({ onClick }) => (
   </IconButton>
 );
 
-// Custom arrows for the video carousel (different styling to avoid conflict)
+// Custom arrows for the video carousel
 const VideoPrevArrow = ({ onClick }) => (
   <IconButton
     onClick={onClick}
@@ -90,7 +95,6 @@ const VideoNextArrow = ({ onClick }) => (
 
 const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
-
   const [testimonialVideos, setTestimonialVideos] = useState([]);
 
   const getTestimonialData = async () => {
@@ -164,6 +168,158 @@ const Testimonials = () => {
     ],
   };
 
+  // Single video card component with mute control
+  const SingleVideoCard = ({ video }) => {
+    const [isMuted, setIsMuted] = useState(true);
+
+    return (
+      <Box sx={{ position: "relative", pb: "56.25%" }}>
+        <video
+          src={video.video}
+          muted={isMuted}
+          autoPlay
+          loop
+          playsInline
+          controls={false}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            borderRadius: "8px",
+          }}
+        />
+        <Tooltip title={isMuted ? "Unmute" : "Mute"}>
+          <IconButton
+            onClick={() => setIsMuted(!isMuted)}
+            sx={{
+              position: "absolute",
+              bottom: 16,
+              right: 16,
+              backgroundColor: "rgba(0,0,0,0.5)",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "rgba(0,0,0,0.7)",
+              },
+            }}
+          >
+            {isMuted ? <VolumeOff /> : <VolumeUp />}
+          </IconButton>
+        </Tooltip>
+      </Box>
+    );
+  };
+
+  // Single testimonial card component
+  const SingleTestimonialCard = ({ testimonial }) => (
+    <Card
+      sx={{
+        height: "100%",
+        p: { xs: 2, md: 3 },
+        textAlign: "left",
+        borderRadius: "12px",
+        boxShadow: "0px 4px 15px rgba(0,0,0,0.1)",
+        background: "white",
+      }}
+    >
+      <CardContent>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: { xs: "column", md: "row" },
+            textAlign: { xs: "center", md: "left" },
+            mb: 2,
+          }}
+        >
+          <Avatar
+            src={testimonial.image}
+            alt={testimonial.name}
+            sx={{
+              width: 70,
+              height: 70,
+              mr: { md: 2 },
+              mb: { xs: 1, md: 0 },
+              border: "3px solid #1976d2",
+            }}
+          />
+          <Box>
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                color: "#333",
+                fontSize: "1.1rem",
+              }}
+            >
+              {testimonial.name}
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ color: "text.secondary", fontStyle: "italic" }}
+            >
+              {testimonial.role}
+            </Typography>
+          </Box>
+        </Box>
+
+        <Typography
+          variant="body1"
+          sx={{
+            fontStyle: "italic",
+            color: "#555",
+            fontSize: "1rem",
+            lineHeight: 1.5,
+            mb: 2,
+            position: "relative",
+            px: 2,
+          }}
+        >
+          <span
+            style={{
+              fontSize: "2rem",
+              color: "#1976d2",
+              fontWeight: "bold",
+              position: "absolute",
+              left: "-10px",
+              top: "-15px",
+            }}
+          >
+            “
+          </span>
+          {testimonial.description}
+          <span
+            style={{
+              fontSize: "2rem",
+              color: "#1976d2",
+              fontWeight: "bold",
+              position: "absolute",
+              right: "-10px",
+              bottom: "-25px",
+            }}
+          >
+            ”
+          </span>
+        </Typography>
+
+        <Typography
+          variant="body2"
+          sx={{
+            fontWeight: "bold",
+            color: "#1976d2",
+            fontSize: "0.9rem",
+            mb: 1,
+          }}
+        >
+          Enrolled in:{" "}
+          <span style={{ color: "#444" }}>{testimonial.course}</span>
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <Box
       sx={{
@@ -176,44 +332,36 @@ const Testimonials = () => {
         gap: { xs: 3, md: 4 },
       }}
     >
-      {/* Left Section (Video Carousel) - Simplified */}
-
+      {/* Left Section (Video) */}
       <Box
         sx={{
           flex: 1,
           width: "100%",
           maxWidth: { xs: "100%", md: "50%" },
-          borderRadius: "8px",
-          overflow: "hidden",
-          boxShadow: "0px 4px 15px rgba(0,0,0,0.1)",
         }}
       >
-        <Slider {...videoSliderSettings}>
-          {testimonialVideos.map((item) => (
-            <Box key={item._id} sx={{ position: "relative", pb: "56.25%" }}>
-              <video
-                src={item.video}
-                muted
-                autoPlay
-                loop
-                playsInline
-                controls={false}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain", // Ensures no black bars
-                  borderRadius: "8px",
-                }}
-              />
-            </Box>
-          ))}
-        </Slider>
+        {testimonialVideos.length === 0 ? (
+          <Typography>No testimonial videos available</Typography>
+        ) : testimonialVideos.length === 1 ? (
+          <SingleVideoCard video={testimonialVideos[0]} />
+        ) : (
+          <Box
+            sx={{
+              borderRadius: "8px",
+              overflow: "hidden",
+              boxShadow: "0px 4px 15px rgba(0,0,0,0.1)",
+            }}
+          >
+            <Slider {...videoSliderSettings}>
+              {testimonialVideos.map((item) => (
+                <SingleVideoCard key={item._id} video={item} />
+              ))}
+            </Slider>
+          </Box>
+        )}
       </Box>
 
-      {/* Right Section (Testimonials Carousel) */}
+      {/* Right Section (Testimonials) */}
       <Box
         sx={{
           flex: 1,
@@ -221,126 +369,18 @@ const Testimonials = () => {
           maxWidth: { xs: "100%", md: "50%" },
         }}
       >
-        {testimonials.length > 0 ? (
+        {testimonials.length === 0 ? (
+          <Typography>No testimonials available</Typography>
+        ) : testimonials.length === 1 ? (
+          <SingleTestimonialCard testimonial={testimonials[0]} />
+        ) : (
           <Slider {...testimonialSliderSettings}>
             {testimonials.map((testimonial) => (
               <Box key={testimonial._id} sx={{ px: 1, py: 1 }}>
-                <Card
-                  sx={{
-                    height: "100%",
-                    p: { xs: 2, md: 3 },
-                    textAlign: "left",
-                    borderRadius: "12px",
-                    boxShadow: "0px 4px 15px rgba(0,0,0,0.1)",
-                    background: "white",
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      transform: "translateY(-5px)",
-                      boxShadow: "0px 8px 20px rgba(0,0,0,0.15)",
-                    },
-                  }}
-                >
-                  <CardContent>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        flexDirection: { xs: "column", md: "row" },
-                        textAlign: { xs: "center", md: "left" },
-                        mb: 2,
-                      }}
-                    >
-                      <Avatar
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        sx={{
-                          width: 70,
-                          height: 70,
-                          mr: { md: 2 },
-                          mb: { xs: 1, md: 0 },
-                          border: "3px solid #1976d2",
-                        }}
-                      />
-                      <Box>
-                        <Typography
-                          variant="h6"
-                          sx={{
-                            fontWeight: "bold",
-                            color: "#333",
-                            fontSize: "1.1rem",
-                          }}
-                        >
-                          {testimonial.name}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          sx={{ color: "text.secondary", fontStyle: "italic" }}
-                        >
-                          {testimonial.role}
-                        </Typography>
-                      </Box>
-                    </Box>
-
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        fontStyle: "italic",
-                        color: "#555",
-                        fontSize: "1rem",
-                        lineHeight: 1.5,
-                        mb: 2,
-                        position: "relative",
-                        px: 2,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontSize: "2rem",
-                          color: "#1976d2",
-                          fontWeight: "bold",
-                          position: "absolute",
-                          left: "-10px",
-                          top: "-15px",
-                        }}
-                      >
-                        “
-                      </span>
-                      {testimonial.description}
-                      <span
-                        style={{
-                          fontSize: "2rem",
-                          color: "#1976d2",
-                          fontWeight: "bold",
-                          position: "absolute",
-                          right: "-10px",
-                          bottom: "-25px",
-                        }}
-                      >
-                        ”
-                      </span>
-                    </Typography>
-
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        fontWeight: "bold",
-                        color: "#1976d2",
-                        fontSize: "0.9rem",
-                        mb: 1,
-                      }}
-                    >
-                      Enrolled in:{" "}
-                      <span style={{ color: "#444" }}>
-                        {testimonial.course}
-                      </span>
-                    </Typography>
-                  </CardContent>
-                </Card>
+                <SingleTestimonialCard testimonial={testimonial} />
               </Box>
             ))}
           </Slider>
-        ) : (
-          <Typography>No testimonials available</Typography>
         )}
       </Box>
     </Box>

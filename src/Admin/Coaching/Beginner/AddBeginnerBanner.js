@@ -8,18 +8,19 @@ import {
   Avatar,
   InputAdornment,
 } from "@mui/material";
-import { Title, CloudUpload } from "@mui/icons-material";
+import { Title, Description, CloudUpload } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const AddTestimonialImage = () => {
+const AddBeginnerBanner = () => {
   const navigate = useNavigate();
   const cloud_name = process.env.REACT_APP_CLOUD_NAME;
   const cloudinary_URL = process.env.REACT_APP_CLOUDINARY_URL;
 
   const [formData, setFormData] = useState({
-    name: "",
+    heading: "",
+    description: "",
     image: null,
     imagePreview: null,
   });
@@ -38,7 +39,7 @@ const AddTestimonialImage = () => {
       setFormData({
         ...formData,
         image: file,
-        imagePreview: URL.createObjectURL(file), // Show preview
+        imagePreview: URL.createObjectURL(file), 
       });
     }
     Swal.fire("Image uploaded successfully!");
@@ -53,7 +54,7 @@ const AddTestimonialImage = () => {
         const imageData = new FormData();
         imageData.append("file", formData.image);
         imageData.append("upload_preset", "chess-course");
-        imageData.append("folder", "testimonial-images");
+        imageData.append("folder", "Banner/BeginnerBanner");
 
         const cloudinaryRes = await axios.post(
           `${cloudinary_URL}/${cloud_name}/image/upload`,
@@ -67,16 +68,15 @@ const AddTestimonialImage = () => {
         image: imageUrl,
       };
 
-
-      if (!finalData.name || !finalData.image) {
+      if (!finalData.heading || !finalData.description || !finalData.image) {
         return Swal.fire("Please provide all fields.");
       }
 
       await axios.post(
-        `${process.env.REACT_APP_BASE_ADMIN_URL}/addTestimonialImage`,
+        `${process.env.REACT_APP_BASE_ADMIN_URL}/addBeginnerBanner`,
         finalData
       );
-      navigate("/admin/testimonialImage");
+      navigate("/admin/beginnerBanner");
     } catch (error) {
       console.error(error, "Error while sending data");
     }
@@ -96,16 +96,16 @@ const AddTestimonialImage = () => {
         }}
       >
         <Typography variant="h4" gutterBottom sx={{ fontWeight: "600", color: "#1E3A8A" }}>
-          Add Testimonial Image
+          Add Banner
         </Typography>
 
         <form>
           {/* Heading */}
           <TextField
-            label="Name"
+            label="Heading"
             fullWidth
-            name="name"
-            value={formData.name}
+            name="heading"
+            value={formData.heading}
             onChange={handleChange}
             margin="normal"
             InputProps={{
@@ -117,6 +117,24 @@ const AddTestimonialImage = () => {
             }}
           />
 
+          {/* Description */}
+          <TextField
+            label="Description"
+            multiline
+            rows={4}
+            name="description"
+            value={formData.description}
+            fullWidth
+            onChange={handleChange}
+            margin="normal"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Description sx={{ color: "#1E3A8A" }} />
+                </InputAdornment>
+              ),
+            }}
+          />
 
           {/* Image Upload */}
           <Box display="flex" flexDirection="column" alignItems="center" mt={3}>
@@ -156,7 +174,7 @@ const AddTestimonialImage = () => {
               borderRadius: 2,
             }}
           >
-            Submit Testimonial Image
+            Submit Banner
           </Button>
         </form>
       </Box>
@@ -164,4 +182,4 @@ const AddTestimonialImage = () => {
   );
 };
 
-export default AddTestimonialImage;
+export default AddBeginnerBanner;

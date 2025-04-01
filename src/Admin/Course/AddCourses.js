@@ -140,8 +140,6 @@ const AddCourses = () => {
         return Swal.fire("Please provide all fields.");
       }
 
-      console.log(finalData);
-
       await axios.post(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/addCourses`,
         finalData

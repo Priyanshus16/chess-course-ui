@@ -14,9 +14,9 @@ const Home = () => {
       <Banner />
       <Testimonials />
       <TestimonialImage/>
-      <HowItWorks />
-      <Blog />
+      {/* <HowItWorks /> */}
       <CurriculumPage />
+      {/* <Blog /> */}
       <About />
       <ContactUs />
       <FloatingVideo />

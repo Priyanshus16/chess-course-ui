@@ -32,7 +32,6 @@ export default function TestimonialImage() {
   const getData = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASE_ADMIN_URL}/testimonialImage`);
-      console.log(response)
       setApiData(response.data.testimonialImage);
     } catch (error) {
       console.error("Error fetching data:", error);

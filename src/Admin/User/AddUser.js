@@ -30,7 +30,6 @@ const AddUser = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(formData);
     e.preventDefault();
     try {
       if (!formData.name || !formData.email || !formData.password) {
@@ -41,7 +40,6 @@ const AddUser = () => {
         `${process.env.REACT_APP_BASE_ADMIN_URL}/addUser`,
         formData
       );
-      console.log(res)
       navigate("/admin/users");
     } catch (error) {
       if(error.response.status === 409){

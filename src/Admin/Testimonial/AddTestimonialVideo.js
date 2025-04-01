@@ -57,61 +57,48 @@ const AddTestimonialVideo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let videoUrl = "";
-
-      
-
-      // Upload Video to Cloudinary
-      if (formData.video) {
-        setUploading(true);
-        const videoData = new FormData();
-        videoData.append("file", formData.video);
-        videoData.append("upload_preset", "chess-course");
-        videoData.append("folder", "testimonial-videos");
-        videoData.append("resource_type", "video");
-
-        const cloudinaryRes = await axios.post(
-          `https://api.cloudinary.com/v1_1/${cloud_name}/video/upload`,
-          videoData,
-          {
-            onUploadProgress: (progressEvent) => {
-              const percentCompleted = Math.round(
-                (progressEvent.loaded * 100) / progressEvent.total
-              );
-              setUploadingProgress(percentCompleted); 
-              console.log(`Upload Progress: ${percentCompleted}%`);
-            },
-          }
-        );
-        videoUrl = cloudinaryRes.data.secure_url;
-        setUploading(false); // Stop upload progress
-        Swal.fire("Video uploaded successfully!");
+      if (!formData.video) {
+        return Swal.fire("Please select a video to upload.");
       }
-
-      const finalData = {
-        ...formData,
-        video: videoUrl,
-      };
-
-      if (
-        !finalData.name ||
-        !finalData.video
-      ) {
-        return Swal.fire("Please provide all fields.");
-      }
-
-      console.log(finalData);
-
-      await axios.post(
-        `${process.env.REACT_APP_BASE_ADMIN_URL}/addTestimonialVideo`,
-        finalData
+  
+      setUploading(true);
+      const videoData = new FormData();
+      videoData.append("file", formData.video);
+      videoData.append("upload_preset", "chess-course");
+      videoData.append("folder", "testimonial-videos");
+      videoData.append("resource_type", "video");
+  
+      // Upload with progress tracking
+      const cloudinaryRes = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/video/upload`,
+        videoData,
+        {
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setUploadingProgress(percentCompleted);
+            console.log(`Upload Progress: ${percentCompleted}%`);
+          },
+        }
       );
+  
+      const videoUrl = cloudinaryRes.data.secure_url;
+      setUploading(false);
+      Swal.fire("Video uploaded successfully!");
+  
+      const finalData = { ...formData, video: videoUrl };
+  
+      await axios.post(`${process.env.REACT_APP_BASE_ADMIN_URL}/addTestimonialVideo`, finalData);
       navigate("/admin/testimonialVideo");
     } catch (error) {
       console.error(error, "Error while sending data");
       setUploading(false);
+      Swal.fire("Error uploading video. Try a smaller file less than 100mb.");
     }
   };
+  
 
   return (
     <Container maxWidth="sm">

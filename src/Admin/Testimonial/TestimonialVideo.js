@@ -33,7 +33,6 @@ export default function TestimonialVideo() {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/testimonialVideo`
       );
-      console.log(response);
       setApiData(response.data.testimonialVideo || []);
       //   setFilteredData(response.data.testimonials || []);
     } catch (error) {
