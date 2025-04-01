@@ -45,9 +45,11 @@ const Header = () => {
   };
 
   const toggleDrawer = (open) => () => setDrawerOpen(open);
+
   const handleNavigation = (path) => {
     window.scrollTo(0, 0);
     navigate(path);
+    handleMenuClose();
   };
 
   const handleMenuOpen = (event) => {
@@ -57,17 +59,18 @@ const Header = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+  
 
   return (
     <AppBar position="sticky" sx={{ background: "#E3F2FD", minHeight: 60 }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         {/* Logo */}
         <Box
-          sx={{ cursor: "pointer", width: "70px", padding: "5px 0", marginLeft:"30px" }} 
+          sx={{ cursor: "pointer", width: "65px", padding: "5px 0", marginLeft:"30px" }} 
           onClick={() => navigate("/")}
         >
           <img
-            src={require("../../Assets/MasterChessClassesLogo.png")}
+            src={require("../../Assets/Master Chess Classes Logo1.png.jpg")}
             width="100%"
             alt="logo"
           />
@@ -143,9 +146,7 @@ const Header = () => {
 
           <Button
             onClick={() =>
-              window.open(
-                "https://shop.mychesslearning.com/?_gl=1%2A1rh8i1v%2A_gcl_au%2AMjEwNDA0NDc2Ny4xNzQyNzIwMzI1%2A_ga%2ANjcwODQyNjg2LjE3NDI3MjAzMjU.%2A_ga_5JJNDDZ5YZ%2AMTc0MjcyMDMyNC4xLjAuMTc0MjcyMDMyNC4wLjAuMA"
-              )
+              navigate('/store')
             }
             sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
             startIcon={<ContactMailIcon />}

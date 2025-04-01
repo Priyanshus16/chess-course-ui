@@ -60,7 +60,6 @@ const TestimonialImage = () => {
         const res = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/testimonialImage`
         );
-        console.log(res)
         setTestimonialImage(res.data.testimonialImage || []);
       } catch (error) {
         console.error(error, "there was problem while getting testimonial data");
@@ -105,7 +104,7 @@ const TestimonialImage = () => {
       <Box sx={{ px: { xs: 1, md: 0 }, position: "relative" }}>
         <Slider {...settings}>
           {testimonialImage.map((item) => (
-            <Box key={item.id} sx={{ px: 1 }}>
+            <Box key={item._id} sx={{ px: 1 }}>
               <Card
                 sx={{
                   borderRadius: "8px",
