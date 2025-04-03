@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { AccessTime, MonetizationOn } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
-import ReactPlayer from "react-player";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -105,24 +104,6 @@ const CourseDetail = () => {
             </List>
           </CardContent>
         </Card>
-
-        {/* Course Video */}
-        {course.video && (
-          <Box sx={{ mt: 3 }}>
-            <Typography
-              variant="h6"
-              sx={{ fontWeight: "bold", color: "#1E3A8A", mb: 1 }}
-            >
-              Course Preview
-            </Typography>
-            <ReactPlayer
-              url={course.video}
-              controls
-              width="100%"
-              height="400px"
-            />
-          </Box>
-        )}
 
         {/* Enroll Button */}
         <Button
