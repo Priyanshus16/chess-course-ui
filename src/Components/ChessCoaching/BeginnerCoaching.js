@@ -68,43 +68,26 @@ const CardBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Chess Coaching Card Data
-const coachingCards = [
-  {
-    icon: "♘",
-    title: "Higher IQ",
-    description:
-      "Chess enhances logical thinking, calculation, and puzzle-solving skills.",
-  },
-  {
-    icon: "♕",
-    title: "Improves Focus",
-    description:
-      "Chess requires unwavering attention, as one mistake can cost the game.",
-  },
-  {
-    icon: "♖",
-    title: "Enhances Problem-Solving",
-    description:
-      "Players learn to think ahead, analyze patterns, and make strategic decisions.",
-  },
-  {
-    icon: "♙",
-    title: "Builds Patience & Discipline",
-    description:
-      "Chess teaches patience, as players must wait for the right moment to strike.",
-  },
-];
+// Chess Card icon
+const staticIcons = ["♘", "♕", "♖", "♙"];
 
 const BeginnerCoaching = () => {
   const [response, setResponse] = React.useState([]);
+  const [coachingCards, setCoachingCards] = React.useState([]);
 
   const getData = async () => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/intermediateBanner`
+        `${process.env.REACT_APP_BASE_URL}/beginnerBanner`
       );
       setResponse(res.data.beginnerBanner);
+      const updatedCoachingCards = res.data.coachingCards.map(
+        (card, index) => ({
+          ...card,
+          icon: staticIcons[index % staticIcons.length], // Repeat icons in a cycle
+        })
+      );
+      setCoachingCards(updatedCoachingCards);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography, Container, Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import ContactUs from "../ContactUs/ContactUs";
@@ -66,40 +66,27 @@ const CardBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Chess Coaching Card Data
-const coachingCards = [
-  {
-    icon: "♔",
-    title: "Grandmaster Strategies",
-    description: "Deep analysis of positional play and advanced planning.",
-  },
-  {
-    icon: "♖",
-    title: "Endgame Mastery",
-    description:
-      "Study theoretical and practical endgames to secure victories.",
-  },
-  {
-    icon: "♘",
-    title: "Mind Games & Bluffing",
-    description: "Psychological strategies to outthink opponents.",
-  },
-  {
-    icon: "♙",
-    title: "Competitive Preparation",
-    description: "Learn opening novelties and study opponent weaknesses.",
-  },
-];
+// Chess Coaching icons
+const staticIcons = ["♔", "♖", "♘", "♙"];
 
 const AdvanceCoaching = () => {
   const [response, setResponse] = React.useState([]);
+  const [coachingCards, setCoachingCards] = useState([]);
 
   const getData = async () => {
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/advanceBanner`
-      );  
+      );
       setResponse(res.data.advanceBanner);
+      const updatedCoachingCards = res.data.coachingCards.map(
+        (card, index) => ({
+          ...card,
+          icon: staticIcons[index % staticIcons.length], // Repeat icons in a cycle
+        })
+      );
+      console.log(updatedCoachingCards);
+      setCoachingCards(updatedCoachingCards);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -111,49 +98,49 @@ const AdvanceCoaching = () => {
 
   return (
     <Container maxWidth="lg">
-      {/* Section with Background Image and Content */}
+
       <SectionWrapper sx={{ mt: 3 }}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundImage: `url(${response[0]?.image || chessImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "brightness(50%)",
-          }}
-        />
-        <ContentBox>
-          <Typography
-            variant="h3"
-            sx={{
-              fontWeight: "bold",
-              mb: 3,
-              fontSize: { xs: "28px", sm: "32px", md: "40px" },
-            }}
-          >
-            {response[0]?.heading}
-            {/* Advance Chess Coaching */}
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              mt: 2,
-              fontSize: { xs: "18px", sm: "20px", md: "22px" },
-              lineHeight: 1.6,
-            }}
-          >
-            {response[0]?.description}
-            {/* Master the game with high-level coaching from Master Chess Classes!
-            Focus on deep strategy, endgame mastery, and competitive play
-            preparation. Ideal for experienced players aiming for
-            tournament-level performance. */}
-          </Typography>
-        </ContentBox>
-      </SectionWrapper>
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  backgroundImage: `url(${response[0]?.image || chessImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: "brightness(50%)",
+                }}
+              />
+              <ContentBox>
+                <Typography
+                  variant="h3"
+                  sx={{
+                    fontWeight: "bold",
+                    mb: 3,
+                    fontSize: { xs: "28px", sm: "32px", md: "40px" },
+                  }}
+                >
+                  {response[0]?.heading}
+                  {/* Intermediate Chess Coaching */}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    mt: 2,
+                    fontSize: { xs: "18px", sm: "20px", md: "22px" },
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {response[0]?.description}
+                  {/* Take your chess skills to the next level with Master Chess Classes!
+                  Learn advanced openings, tactical patterns, and strategic planning
+                  to improve your gameplay. Perfect for players who understand the
+                  basics and want to refine their techniques. */}
+                </Typography>
+              </ContentBox>
+            </SectionWrapper>
 
       <Box sx={{ mt: 5 }}>
         <Typography
@@ -188,7 +175,7 @@ const AdvanceCoaching = () => {
                         fontSize: { xs: "1.25rem", sm: "1.5rem" },
                       }}
                     >
-                      {card.title}
+                      {card.heading}
                     </Typography>
                     <Typography
                       variant="body1"

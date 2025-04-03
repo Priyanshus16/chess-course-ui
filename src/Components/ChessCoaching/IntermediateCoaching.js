@@ -68,35 +68,12 @@ const CardBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Chess Coaching Card Data
-const coachingCards = [
-  {
-    icon: "♜",
-    title: "Opening Mastery",
-    description: "Deep understanding of opening principles and best responses.",
-  },
-  {
-    icon: "♞",
-    title: "Tactical Vision",
-    description:
-      "Identify tactics like forks, pins, skewers, and discovered attacks.",
-  },
-  {
-    icon: "♛",
-    title: "Time Management",
-    description:
-      "Learn to control the clock and optimize moves in time trouble.",
-  },
-  {
-    icon: "♗",
-    title: "Transition to Endgames",
-    description:
-      "Understand when to simplify the position for a better endgame.",
-  },
-];
+// Chess Coaching icons
+const staticIcons = ["♜", "♞", "♛", "♗"];
 
 const IntermediateCoaching = () => {
   const [response, setResponse] = React.useState([]);
+  const [coachingCards, setCoachingCards] = React.useState([]);
 
   const getData = async () => {
     try {
@@ -104,6 +81,13 @@ const IntermediateCoaching = () => {
         `${process.env.REACT_APP_BASE_URL}/intermediateBanner`
       );
       setResponse(res.data.intermediateBanner);
+      const updatedCoachingCards = res.data.coachingCards.map(
+        (card, index) => ({
+          ...card,
+          icon: staticIcons[index % staticIcons.length], // Repeat icons in a cycle
+        })
+      );
+      setCoachingCards(updatedCoachingCards);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -193,7 +177,7 @@ const IntermediateCoaching = () => {
                         fontSize: { xs: "1.25rem", sm: "1.5rem" },
                       }}
                     >
-                      {card.title}
+                      {card.heading}
                     </Typography>
                     <Typography
                       variant="body1"

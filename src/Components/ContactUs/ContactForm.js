@@ -10,7 +10,7 @@ import {
   Paper,
 } from "@mui/material";
 
-const ContactForm = () => {
+const ContactForm = ({handleClose}) => {
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -32,11 +32,31 @@ const ContactForm = () => {
     setStatus("Sending...");
 
     try {
-      await axios.post(
+      const res = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/send-email`,
         formData
       );
+
+      if(res.status === 200) {
+        setFormData({
+          name: "",
+          contact: "",
+          email: "",
+          city: "",
+          ageGroup: "",
+          language: "",
+          device: "",
+        })
+
+        // Close modal only if handleClose is provided
+      if (handleClose) {
+        setTimeout(() => {
+          handleClose();
+        }, 1000);  // Optional delay for better UX
+      }
       setStatus("✅ Email sent successfully!");
+      }
+      
     } catch (error) {
       setStatus("❌ Failed to send email. Try again.");
     }
@@ -60,6 +80,7 @@ const ContactForm = () => {
           name="name"
           variant="outlined"
           margin="normal"
+          value={formData.name}
           onChange={handleChange}
           required
         />
@@ -69,6 +90,7 @@ const ContactForm = () => {
           name="contact"
           variant="outlined"
           margin="normal"
+          value={formData.contact}
           onChange={handleChange}
           required
         />
@@ -78,6 +100,7 @@ const ContactForm = () => {
           name="email"
           variant="outlined"
           margin="normal"
+          value={formData.email}
           onChange={handleChange}
           required
         />
@@ -88,6 +111,7 @@ const ContactForm = () => {
             name="city"
             variant="outlined"
             margin="normal"
+            value={formData.city}
             onChange={handleChange}
             required
           />
@@ -99,6 +123,7 @@ const ContactForm = () => {
             name="device"
             variant="outlined"
             margin="normal"
+            value={formData.device}
             onChange={handleChange}
             required
           >
@@ -116,6 +141,7 @@ const ContactForm = () => {
             name="ageGroup"
             variant="outlined"
             margin="normal"
+            value={formData.ageGroup}
             onChange={handleChange}
             required
           >
@@ -130,6 +156,7 @@ const ContactForm = () => {
             name="language"
             variant="outlined"
             margin="normal"
+            value={formData.language}
             onChange={handleChange}
             required
           >

@@ -80,6 +80,28 @@ const menuItems = [
       },
     ],
   },
+  {
+    text: "Benefits Cards",
+    icon: <FormatQuoteIcon />,
+    subItems: [
+      {
+        text: "Advance Benefits",
+        icon: <RateReviewIcon />,
+        path: "/admin/advanceBenefit",
+      },
+      {
+        text: "Intermediate Benefits",
+        icon: <ImageIcon />,
+        path: "/admin/intermediateBenefit",
+      },
+      {
+        text: "Beginner Benefits",
+        icon: <VideoLibraryIcon />,
+        path: "/admin/beginnerBenefit",
+      },
+    ],
+  },
+  { text: "Chess Store", icon: <ArticleIcon />, path: "/admin/store" },
 ];
 
 export default function Sidebar() {
