@@ -162,7 +162,6 @@ export default function Sidebar() {
       >
         <Toolbar />
         <Box sx={{ overflow: "auto", p: 2 }}>
-          {/* Admin Panel Title (Shifted Slightly Right) */}
           <Typography
             sx={{
               fontSize: "18px",
