@@ -118,8 +118,8 @@ export default function Course() {
         await axios.delete(
           `${process.env.REACT_APP_BASE_ADMIN_URL}/course/${id}`
         );
-        setApiData((prevData) => prevData.filter((item) => item._id !== id));
         getData();
+        setApiData((prevData) => prevData.filter((item) => item._id !== id));
         Swal.fire("Deleted!", "Course has been deleted.", "success");
       } catch (error) {
         console.error("Error deleting course:", error);

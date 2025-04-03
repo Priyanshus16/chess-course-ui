@@ -110,7 +110,7 @@ const Header = () => {
 
           {courses.length > 0 && (
             <Button
-              onClick={() => handleNavigation("/courses")}
+              onClick={() => handleNavigation("/allCourses")}
               sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
               startIcon={<School />}
             >

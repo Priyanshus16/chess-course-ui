@@ -214,7 +214,7 @@ function App() {
                     path="/testimonialImage"
                     element={<TestimonialImage />}
                   />
-                  <Route path="/courses" element={<AllCourses />} />
+                  <Route path="/allCourses" element={<AllCourses />} />
                   <Route path="/courseDetail" element={<CourseDetail />} />
                   <Route path="/myCourses" element={<MyCourses />} />
                   <Route
