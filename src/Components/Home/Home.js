@@ -4,9 +4,9 @@ import About from "../About/About";
 import ContactUs from "../ContactUs/ContactUs";
 import HowItWorks from "../HowItWorks/HowItWorks";
 import CurriculumPage from "../Curriculam/CurriculumPage";
-import Blog from "../Blog/Blog";
 import FloatingVideo from "../Youtube/FloatingVideo";
 import TestimonialImage from "../Testimonial/TestimonialImage";
+import PopUpModal from "../Banner/PopUpModal";
 
 const Home = () => {
   return (
@@ -14,12 +14,11 @@ const Home = () => {
       <Banner />
       <Testimonials />
       <TestimonialImage/>
-      {/* <HowItWorks /> */}
       <CurriculumPage />
-      {/* <Blog /> */}
       <About />
       <ContactUs />
       <FloatingVideo />
+      <PopUpModal />
 
       {/* Floating WhatsApp Icon */}
       <a
