@@ -18,6 +18,10 @@ import Swal from "sweetalert2";
 
 const AddAdmin = () => {
   const navigate = useNavigate();
+  const userType = localStorage.getItem("userType");
+  if (userType !== "admin") {
+    navigate("/");
+  }
 
   const [formData, setFormData] = useState({
     name: "",

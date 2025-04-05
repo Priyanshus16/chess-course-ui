@@ -133,9 +133,7 @@ const AddCourses = () => {
         !finalData.duration ||
         !finalData.price ||
         !finalData.description ||
-        !finalData.curricullum ||
-        !finalData.image ||
-        !finalData.video
+        !finalData.curricullum
       ) {
         return Swal.fire("Please provide all fields.");
       }

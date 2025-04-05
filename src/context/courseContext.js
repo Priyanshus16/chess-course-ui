@@ -5,12 +5,16 @@ const CourseContext = createContext();
 
 export const CourseProvider = ({ children }) => {
   const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    const getData = async () => {
+  const getData = async () => {
+    try {
       const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses`);
       setCourses(res.data.courses);
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     getData();
   }, []);
 

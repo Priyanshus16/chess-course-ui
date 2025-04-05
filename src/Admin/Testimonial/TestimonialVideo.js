@@ -26,7 +26,10 @@ import Swal from "sweetalert2";
 export default function TestimonialVideo() {
   const [apiData, setApiData] = useState([]);
   const navigate = useNavigate();
-
+  const userType = localStorage.getItem("userType");
+  if (userType !== "admin") {
+    navigate("/");
+  }
   // Fetch testimonials
   const getData = async () => {
     try {
