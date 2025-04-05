@@ -62,6 +62,7 @@ const AddCourseVideos = () => {
     formData.append("file", videoFile); // ✅ must be "file", not "video"
     formData.append("upload_preset", upload_preset); // ✅ required for unsigned uploads
     formData.append("resource_type", "video");
+    try {
     const cloudinaryRes = await axios.post(
       `${cloudinary_URL}/${cloud_name}/video/upload`,
       formData
@@ -70,7 +71,6 @@ const AddCourseVideos = () => {
     formData.append("title", videoTitle);
     formData.append("description", videoDesc);
     formData.append("videoUrl", videoUrl);
-    try {
       await axios.post(`${BASE_URL}/course/video/${courseId}`, {
         videoUrl,
         title: videoTitle,
