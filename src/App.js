@@ -64,6 +64,7 @@ import AddBeginnerBenefit from "./Admin/Coaching/Beginner/AddBeginnerBenefit.js"
 import Store from "./Admin/Store/Store.js";
 import AddItem from "./Admin/Store/AddItem.js";
 import PopUpModal from "./Components/Banner/PopUpModal.js";
+import AddCourseVideos from "./Admin/Course/AddCouseVideos.js";
 
 function App() {
   const location = useLocation();
@@ -140,6 +141,7 @@ function App() {
                         element={<AddCourses />}
                       />
                       <Route path="/admin/Course" element={<Course />} />
+                      <Route path="/admin/addCourseVideos" element={<AddCourseVideos />} />
                       <Route path="/admin/banner" element={<Banner />} />
                       <Route path="/admin/addBanner" element={<AddBanner />} />
                       <Route

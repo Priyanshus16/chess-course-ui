@@ -5,19 +5,21 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [users, setUser] = useState([]);
-
-  useEffect(() => {
-    const getData = async () => {
+  const getData = async () => {
+    try {
       const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`);
       setUser(res.data.users);
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     getData();
   }, []);
 
   return (
-    <UserContext.Provider value={{ users }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ users }}>{children}</UserContext.Provider>
   );
 };
 

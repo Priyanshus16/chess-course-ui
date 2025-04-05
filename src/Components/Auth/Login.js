@@ -41,7 +41,7 @@ const Login = () => {
         const token = response.data.token;
         localStorage.setItem("token", JSON.stringify(token));
         localStorage.setItem("user", JSON.stringify(localStorageData));
-
+        localStorage.setItem("userType", user.source);
         if (user.source === "admin") {
           navigate("/admin/");
           Swal.fire("Admin login successfully");

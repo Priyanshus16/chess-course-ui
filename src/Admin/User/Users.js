@@ -47,6 +47,10 @@ const modalStyle = {
 
 export default function Users() {
   const navigate = useNavigate();
+  const userType = localStorage.getItem("userType");
+  if (userType !== "admin") {
+    navigate("/");
+  }
   const [apiData, setApiData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

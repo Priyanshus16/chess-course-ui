@@ -31,6 +31,8 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Menu, MenuItem, ListItemIcon, ListItemText } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function Course() {
   const navigate = useNavigate();
@@ -41,6 +43,9 @@ export default function Course() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedMenuItem, setMenuItem] = useState(null);
+  const open = Boolean(anchorEl);
 
   useEffect(() => {
     getData();
@@ -63,20 +68,27 @@ export default function Course() {
     if (searchTerm.trim() === "") {
       setFilteredData(apiData);
     } else {
-      const filtered = apiData.filter((course) =>
-        course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (course.description && course.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (course.courseLevel && course.courseLevel.toLowerCase().includes(searchTerm.toLowerCase()))
+      const filtered = apiData.filter(
+        (course) =>
+          course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (course.description &&
+            course.description
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())) ||
+          (course.courseLevel &&
+            course.courseLevel.toLowerCase().includes(searchTerm.toLowerCase()))
       );
       setFilteredData(filtered);
     }
   }, [searchTerm, apiData]);
 
-  const handleEdit = (item) => {
-    setEditRow(item._id);
-    setEditedData({ ...item });
+  const handleEdit = () => {
+    if (selectedMenuItem) {
+      setEditRow(selectedMenuItem._id);
+      setEditedData({ ...selectedMenuItem });
+    }
+    handleClose();
   };
-
   const handleChange = (e, field) => {
     setEditedData({ ...editedData, [field]: e.target.value });
   };
@@ -97,9 +109,10 @@ export default function Course() {
       Swal.fire("Error!", "Failed to update course.", "error");
     }
   };
-
   const handleCancel = () => {
     setEditRow(null);
+    setMenuItem(null);
+    setAnchorEl(null);
   };
 
   const handleDeleteCourse = async (id) => {
@@ -128,16 +141,28 @@ export default function Course() {
     }
   };
 
-  const handleOpenModal = (course) => {
-    setSelectedCourse(course);
+  const handleOpenModal = (event) => {
+    setSelectedCourse(selectedMenuItem);
     setIsModalOpen(true);
+    setAnchorEl(event.currentTarget); 
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedCourse(null);
   };
+  const handleMenuModel = (event, currentItem) => {
+    setAnchorEl(event.currentTarget);
+    setMenuItem(currentItem);
+  };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleContentModel = (item) => {
+    navigate(`/admin/addCourseVideos?courseId=${selectedMenuItem._id}`);
+  };
   const truncateText = (text, maxLength = 30) => {
     if (!text) return "";
     if (text.length <= maxLength) return text;
@@ -145,9 +170,12 @@ export default function Course() {
   };
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: "#E3F2FD", minHeight: "97vh" }}>
+    <Box
+      component="main"
+      sx={{ flexGrow: 1, p: 3, bgcolor: "#E3F2FD", minHeight: "97vh" }}
+    >
       <Toolbar />
-      
+
       {/* Header Section */}
       <Box
         sx={{
@@ -167,7 +195,7 @@ export default function Course() {
         >
           Course Management
         </Typography>
-        
+
         <Box sx={{ display: "flex", gap: 2 }}>
           <Button
             variant="contained"
@@ -181,28 +209,28 @@ export default function Course() {
       </Box>
 
       {/* Search Bar */}
-            <Box sx={{ mb: 3 }}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                placeholder="Search testimonials..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: 2,
-                    backgroundColor: "white",
-                  },
-                }}
-              />
-            </Box>
+      <Box sx={{ mb: 3 }}>
+        <TextField
+          fullWidth
+          variant="outlined"
+          placeholder="Search testimonials..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 2,
+              backgroundColor: "white",
+            },
+          }}
+        />
+      </Box>
 
       {/* Table Section */}
       <TableContainer component={Paper}>
@@ -234,7 +262,7 @@ export default function Course() {
               filteredData.map((item) => (
                 <TableRow key={item._id} hover>
                   <TableCell align="center">
-                    {editRow === item._id ? (
+                    {editRow === item._id.toString() ? (
                       <TextField
                         value={editedData.title || ""}
                         onChange={(e) => handleChange(e, "title")}
@@ -245,9 +273,9 @@ export default function Course() {
                       truncateText(item.title, 25)
                     )}
                   </TableCell>
-                  
+
                   <TableCell align="center">
-                    {editRow === item._id ? (
+                    {editRow === item._id.toString() ? (
                       <TextField
                         value={editedData.description || ""}
                         onChange={(e) => handleChange(e, "description")}
@@ -260,9 +288,9 @@ export default function Course() {
                       truncateText(item.description, 40)
                     )}
                   </TableCell>
-                  
+
                   <TableCell align="center">
-                    {editRow === item._id ? (
+                    {editRow === item._id.toString() ? (
                       <TextField
                         value={editedData.duration || ""}
                         onChange={(e) => handleChange(e, "duration")}
@@ -273,9 +301,9 @@ export default function Course() {
                       item.duration
                     )}
                   </TableCell>
-                  
+
                   <TableCell align="center">
-                    {editRow === item._id ? (
+                    {editRow === item._id.toString() ? (
                       <TextField
                         value={editedData.price || ""}
                         onChange={(e) => handleChange(e, "price")}
@@ -286,9 +314,9 @@ export default function Course() {
                       item.price
                     )}
                   </TableCell>
-                  
+
                   <TableCell align="center">
-                    {editRow === item._id ? (
+                    {editRow === item._id.toString() ? (
                       <TextField
                         value={editedData.courseLevel || ""}
                         onChange={(e) => handleChange(e, "courseLevel")}
@@ -299,9 +327,9 @@ export default function Course() {
                       item.courseLevel
                     )}
                   </TableCell>
-                  
+
                   <TableCell align="center">
-                    {editRow === item._id ? (
+                    {editRow === item._id.toString() ? (
                       <TextField
                         value={
                           editedData.curricullum
@@ -311,7 +339,9 @@ export default function Course() {
                         onChange={(e) =>
                           setEditedData({
                             ...editedData,
-                            curricullum: e.target.value.split(",").map(item => item.trim()),
+                            curricullum: e.target.value
+                              .split(",")
+                              .map((item) => item.trim()),
                           })
                         }
                         size="small"
@@ -321,7 +351,7 @@ export default function Course() {
                       truncateText(item.curricullum?.join(", ") || "", 30)
                     )}
                   </TableCell>
-                  
+
                   <TableCell align="center">
                     <img
                       style={{ width: "60px", borderRadius: "5px" }}
@@ -329,9 +359,9 @@ export default function Course() {
                       alt={item.title || "Course"}
                     />
                   </TableCell>
-                  
+
                   <TableCell align="center">
-                    {editRow === item._id ? (
+                    {editRow === item._id.toString() ? (
                       <>
                         <IconButton
                           color="success"
@@ -347,22 +377,71 @@ export default function Course() {
                       <>
                         <IconButton
                           color="info"
-                          onClick={() => handleOpenModal(item)}
+                          onClick={(e) => handleMenuModel(e, item)}
                         >
-                          <VisibilityIcon />
+                          <MoreVertIcon />
                         </IconButton>
-                        <IconButton
-                          color="primary"
-                          onClick={() => handleEdit(item)}
+
+                        <Menu
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                          anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "left",
+                          }}
+                          transformOrigin={{
+                            vertical: "top",
+                            horizontal: "left",
+                          }}
                         >
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton
-                          color="error"
-                          onClick={() => handleDeleteCourse(item._id)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
+                          <MenuItem
+                            onClick={(e) => {
+                              handleOpenModal(e);
+                              handleClose();
+                            }}
+                          >
+                            <ListItemIcon>
+                              <VisibilityIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="View" />
+                          </MenuItem>
+                          <MenuItem
+                            onClick={() => {
+                              handleClose();
+                              handleContentModel(item);
+                            }}
+                          >
+                            <ListItemIcon>
+                              <AddIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Add Content" />
+                          </MenuItem>
+
+                          <MenuItem
+                            onClick={() => {
+                              handleClose();
+                              handleEdit(item);
+                            }}
+                          >
+                            <ListItemIcon>
+                              <EditIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Edit" />
+                          </MenuItem>
+
+                          <MenuItem
+                            onClick={() => {
+                              handleDeleteCourse(selectedMenuItem?._id);
+                              handleClose();
+                            }}
+                          >
+                            <ListItemIcon>
+                              <DeleteIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Delete" />
+                          </MenuItem>
+                        </Menu>
                       </>
                     )}
                   </TableCell>
@@ -414,14 +493,14 @@ export default function Course() {
                   </Typography>
                 </Box>
               </Box>
-              
+
               <Box>
                 <Typography variant="subtitle1" fontWeight="bold">
                   Description:
                 </Typography>
                 <Typography paragraph>{selectedCourse.description}</Typography>
               </Box>
-              
+
               <Box sx={{ display: "flex", gap: 4 }}>
                 <Box>
                   <Typography variant="subtitle1" fontWeight="bold">
@@ -429,7 +508,7 @@ export default function Course() {
                   </Typography>
                   <Typography>{selectedCourse.duration}</Typography>
                 </Box>
-                
+
                 <Box>
                   <Typography variant="subtitle1" fontWeight="bold">
                     Price:
@@ -437,7 +516,7 @@ export default function Course() {
                   <Typography>{selectedCourse.price}</Typography>
                 </Box>
               </Box>
-              
+
               <Box>
                 <Typography variant="subtitle1" fontWeight="bold">
                   Curriculum:

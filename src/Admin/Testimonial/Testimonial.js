@@ -54,7 +54,10 @@ export default function Testimonial() {
   const [openModal, setOpenModal] = useState(false);
   const [editedData, setEditedData] = useState({});
   const navigate = useNavigate();
-
+  const userType = localStorage.getItem("userType");
+  if (userType !== "admin") {
+    navigate("/");
+  }
   // Fetch testimonials
   const getData = async () => {
     try {
