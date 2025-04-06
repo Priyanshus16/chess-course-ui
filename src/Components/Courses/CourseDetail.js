@@ -14,7 +14,9 @@ import {
 import { AccessTime, MonetizationOn } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const CourseDetail = () => {
   const location = useLocation();
@@ -31,22 +33,37 @@ const CourseDetail = () => {
     }
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/enroll`,
+       // Save course and user for use after Stripe payment
+       localStorage.setItem("courseToEnroll", JSON.stringify(course));
+       localStorage.setItem("userToEnroll", JSON.stringify(user));
+
+      const stripe = await stripePromise;
+
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/create-checkout-session`,
         {
-          courseId: course._id,
-          userId: user._id,
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ course: [course], userId: user._id }),
         }
       );
-      if (response.status === 200) {
-        Swal.fire("Enrolled Successfully!", "", "success");
+
+      if (response.status === 400 ) {
+        Swal.fire("You are already enrolled in this course");
+        return;
+      }
+
+      const session = await response.json();
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        console.error(result.error.message);
       }
     } catch (error) {
-      if(error.response.status === 400) {
-        Swal.fire("You are already enrolled in this course");
-      } else {  
-      Swal.fire("An error occurred while enrolling");
-      }
+      console.error("Error:", error);
     }
   };
 

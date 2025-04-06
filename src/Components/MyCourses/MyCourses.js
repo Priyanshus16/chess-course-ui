@@ -39,19 +39,26 @@ const MyCourses = () => {
   const { users } = useUsers();
   const { courses } = useCourses();
 
+
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));
     if (!localUser) return;
-
-    const userCourses =
-      users.find((user) => user._id === localUser._id)?.purchasedCourses || [];
-    const purchasedCourseIds = userCourses.map((course) => course.courseId);
+  
+    const currentUser = users.find((user) => user._id === localUser._id);
+    if (!currentUser || !currentUser.purchasedCourses) return;
+  
+    const purchasedCourseIds = currentUser.purchasedCourses.map((course) =>
+      typeof course.courseId === "object" ? course.courseId._id : course.courseId
+    );
+  
     const filteredCourses = courses.filter((course) =>
       purchasedCourseIds.includes(course._id)
     );
-
+  
     setPurchasedCourses(filteredCourses);
   }, [users, courses]);
+  
+
 
   return (
     <Box

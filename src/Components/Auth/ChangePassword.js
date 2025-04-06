@@ -26,7 +26,7 @@ const ChangePassword = () => {
     const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/reset-password`, {
         email: state?.email,
         newPassword: passwordData.password,
-      });
+      }); 
       if (response.data) {
         toast.success(response.data);
         navigate('/login');

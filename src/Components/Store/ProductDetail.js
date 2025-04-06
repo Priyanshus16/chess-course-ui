@@ -12,9 +12,8 @@ import {
   Rating,
   Stack,
   Paper,
-  IconButton
 } from "@mui/material";
-import { ShoppingCart, Favorite, Share, ArrowBack } from "@mui/icons-material";
+import { ShoppingCart, ArrowBack } from "@mui/icons-material";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
 const ProductDetail = () => {

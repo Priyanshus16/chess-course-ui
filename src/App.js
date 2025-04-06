@@ -49,6 +49,8 @@ import AddBanner from "./Admin/Banner/AddBanner.js";
 // CONTEXT
 import { UserProvider } from "./context/UserContext.js";
 import { CourseProvider } from "./context/courseContext.js";
+
+// UI Routes
 import BeginnerBanner from "./Admin/Coaching/Beginner/BeginnerBanner.js";
 import AddBeginnerBanner from "./Admin/Coaching/Beginner/AddBeginnerBanner.js";
 import IntermediateBanner from "./Admin/Coaching/Intermediate/IntermediateBanner.js";
@@ -65,6 +67,11 @@ import Store from "./Admin/Store/Store.js";
 import AddItem from "./Admin/Store/AddItem.js";
 import PopUpModal from "./Components/Banner/PopUpModal.js";
 import AddCourseVideos from "./Admin/Course/AddCouseVideos.js";
+import PaymentSuccess from "./Components/Payment/PaymentSuccess.js";
+import PaymentCancel from "./Components/Payment/PaymentCancel.js";
+import ForgotPassword from "./Components/Auth/Forgot.js";
+import VerifyOTP from "./Components/Auth/VerifyOTP.js";
+import ChangePassword from "./Components/Auth/ChangePassword.js";
 
 function App() {
   const location = useLocation();
@@ -233,7 +240,15 @@ function App() {
                   />
                   <Route path="/store" element={<ChessStore />} />
                   <Route path="/modal" element={<PopUpModal />} />
-                  <Route path="/store/productDetail/:id" element={<ProductDetail />} />
+                  <Route
+                    path="/store/productDetail/:id"
+                    element={<ProductDetail />}
+                  />
+                  <Route path="success" element={<PaymentSuccess />} />
+                  <Route path="cancel" element={<PaymentCancel />} />
+                  <Route path="forgotPassword" element={<ForgotPassword />} />
+                  <Route path="changePassword" element={<ChangePassword />} />
+                  <Route path="verifyOTP" element={<VerifyOTP />} />
                 </Routes>
               </>
             )}
