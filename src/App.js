@@ -72,6 +72,7 @@ import PaymentCancel from "./Components/Payment/PaymentCancel.js";
 import ForgotPassword from "./Components/Auth/Forgot.js";
 import VerifyOTP from "./Components/Auth/VerifyOTP.js";
 import ChangePassword from "./Components/Auth/ChangePassword.js";
+import MyCourseContent from "./Components/MyCourses/MyCourseContent.js";
 
 function App() {
   const location = useLocation();
@@ -226,6 +227,7 @@ function App() {
                   <Route path="/allCourses" element={<AllCourses />} />
                   <Route path="/courseDetail" element={<CourseDetail />} />
                   <Route path="/myCourses" element={<MyCourses />} />
+                  <Route path="/myCourses/:courseId" element={<MyCourseContent />} />
                   <Route
                     path="/intermediateCoaching"
                     element={<IntermediateCoaching />}

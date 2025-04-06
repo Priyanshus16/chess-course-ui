@@ -9,6 +9,7 @@ import {
   IconButton,
   Fade,
   Dialog,
+  Button,
 } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -18,6 +19,7 @@ import { styled } from "@mui/system";
 import { useUsers } from "../../context/UserContext";
 import { useCourses } from "../../context/courseContext";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 // Styled Components
 const StyledCard = styled(Card)({
@@ -59,7 +61,7 @@ const MyCourses = () => {
     fetchPurchasedCourses();
   }, []);
   
-
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -146,12 +148,13 @@ const MyCourses = () => {
 
                 {/* Play Video Button */}
                 {course.video && (
+                  <>
                   <Box
                     display="flex"
                     justifyContent="center"
                     alignItems="center"
                     padding={2}
-                    sx={{ background: "rgba(25, 118, 210, 0.05)" }}
+                    sx={{ background: "rgba(25, 118, 210, 0.05)", flexDirection: "column" }}
                   >
                     <IconButton
                       onClick={() => setVideoUrl(course.video)}
@@ -162,7 +165,9 @@ const MyCourses = () => {
                     >
                       <PlayCircleOutlineIcon fontSize="large" />
                     </IconButton>
+                    <Button variant="contained" color="primary" onClick={() => navigate(`/myCourses/${course._id}`)}>Start Course</Button>
                   </Box>
+                  </>
                 )}
               </StyledCard>
             </Fade>

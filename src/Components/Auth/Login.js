@@ -9,22 +9,12 @@ const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  // Admin credentials
-  const adminUser = "kunal@gmail.com";
-  const adminPassword = "kunal@12345";
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.email === adminUser && formData.password === adminPassword) {
-      localStorage.setItem("admin", JSON.stringify({ email: adminUser }));
-      navigate("/admin/");
-      Swal.fire("admin login successfully");
-      return;
-    }
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/login`,
