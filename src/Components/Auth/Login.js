@@ -46,7 +46,7 @@ const Login = () => {
           navigate("/admin/");
           Swal.fire("Admin login successfully");
         } else {
-          Swal.fire("login successfully");
+          // Swal.fire("login successfully");
           navigate("/home");
         }
         setTimeout(() => {
@@ -131,13 +131,12 @@ const Login = () => {
             </Link>
           </Typography>
           <Typography variant="body2" sx={{ mt: 2 }}>
-            Admin?{" "}
             <Link
               component="button"
-              onClick={() => navigate("/admin/")}
+              onClick={() => navigate("/forgotPassword")}
               color="primary"
             >
-              Login
+              Forgot Password
             </Link>
           </Typography>
         </Paper>

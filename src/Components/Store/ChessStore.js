@@ -19,7 +19,7 @@ const ChessStore = () => {
 
   const getData = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/chessStore`);
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/store`);
       setProducts(res.data.items);
     } catch (error) {
       console.error("Problem while fetching data");
@@ -35,7 +35,7 @@ const ChessStore = () => {
       {/* Store Header */}
       <Box sx={{ textAlign: "center", mb: 5 }}>
         <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 700 }}>
-          Master Chess Coaching Store
+          Master Chess Classes Store
         </Typography>
       </Box>
 

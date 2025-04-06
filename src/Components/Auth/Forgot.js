@@ -18,10 +18,14 @@ const ForgotPassword = () => {
       const loginResponse = await axios.post(`${process.env.REACT_APP_BASE_URL}/forgot-password`,userData)
       if(loginResponse.data){
       toast.success(loginResponse.data.message)
-      navigate("/VerifyOTP",{state:{otp:loginResponse.data.otp,email:userData.email}})
+      navigate("/verifyOTP",{state:{otp:loginResponse.data.otp,email:userData.email}})
     }
     } catch (error) {
-      toast.error(error);
+      if(error.response.status === 400){
+        toast.error("User not found")
+      return;
+    } else
+      toast.error(error.response.data.message)
     }
   }
   return (
