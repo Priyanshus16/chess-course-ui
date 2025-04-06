@@ -240,18 +240,6 @@ const Header = () => {
             </Button>
 
             <Button
-              onClick={() =>
-                window.open(
-                  "https://shop.mychesslearning.com/?_gl=1%2A1rh8i1v%2A_gcl_au%2AMjEwNDA0NDc2Ny4xNzQyNzIwMzI1%2A_ga%2ANjcwODQyNjg2LjE3NDI3MjAzMjU.%2A_ga_5JJNDDZ5YZ%2AMTc0MjcyMDMyNC4xLjAuMTc0MjcyMDMyNC4wLjAuMA"
-                )
-              }
-              sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
-              startIcon={<ContactMailIcon />}
-            >
-              Chess Store
-            </Button>
-
-            <Button
               onClick={() => handleNavigation("/contact")}
               sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
               startIcon={<ContactMail />}

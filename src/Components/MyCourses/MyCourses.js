@@ -17,6 +17,7 @@ import ReactPlayer from "react-player";
 import { styled } from "@mui/system";
 import { useUsers } from "../../context/UserContext";
 import { useCourses } from "../../context/courseContext";
+import axios from "axios";
 
 // Styled Components
 const StyledCard = styled(Card)({
@@ -44,19 +45,19 @@ const MyCourses = () => {
     const localUser = JSON.parse(localStorage.getItem("user"));
     if (!localUser) return;
   
-    const currentUser = users.find((user) => user._id === localUser._id);
-    if (!currentUser || !currentUser.purchasedCourses) return;
+    const fetchPurchasedCourses = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BASE_ADMIN_URL}/users/${localUser._id}/purchased-courses`);
   
-    const purchasedCourseIds = currentUser.purchasedCourses.map((course) =>
-      typeof course.courseId === "object" ? course.courseId._id : course.courseId
-    );
+        setPurchasedCourses(res.data.purchasedCourses);
+      } catch (error) {
+        console.error("Error fetching purchased courses:", error);
+      }
+    };
   
-    const filteredCourses = courses.filter((course) =>
-      purchasedCourseIds.includes(course._id)
-    );
-  
-    setPurchasedCourses(filteredCourses);
-  }, [users, courses]);
+    fetchPurchasedCourses();
+  }, []);
   
 
 

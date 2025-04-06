@@ -244,11 +244,11 @@ function App() {
                     path="/store/productDetail/:id"
                     element={<ProductDetail />}
                   />
-                  <Route path="success" element={<PaymentSuccess />} />
-                  <Route path="cancel" element={<PaymentCancel />} />
-                  <Route path="forgotPassword" element={<ForgotPassword />} />
-                  <Route path="changePassword" element={<ChangePassword />} />
-                  <Route path="verifyOTP" element={<VerifyOTP />} />
+                  <Route path="/success" element={<PaymentSuccess />} />
+                  <Route path="/cancel" element={<PaymentCancel />} />
+                  <Route path="/forgotPassword" element={<ForgotPassword />} />
+                  <Route path="/changePassword" element={<ChangePassword />} />
+                  <Route path="/verifyOTP" element={<VerifyOTP />} />
                 </Routes>
               </>
             )}
