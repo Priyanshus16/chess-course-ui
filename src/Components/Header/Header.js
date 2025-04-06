@@ -17,6 +17,7 @@ import {
   Login,
   Logout,
   ExpandMore,
+  Store,
 } from "@mui/icons-material";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { Link, useNavigate } from "react-router-dom";
@@ -149,7 +150,7 @@ const Header = () => {
               navigate('/store')
             }
             sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
-            startIcon={<ContactMailIcon />}
+            startIcon={<Store />}
           >
             Chess Store
           </Button>
@@ -247,11 +248,18 @@ const Header = () => {
               Contact
             </Button>
             <Button
+              onClick={() => handleNavigation("/myCourses")}
+              sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
+              startIcon={<School />}
+            >
+              My Courses
+            </Button>
+            <Button
               onClick={() => handleNavigation("/store")}
               sx={{ color: "#1976D2", textTransform: "none", fontSize: "1rem" }}
-              startIcon={<ContactMail />}
+              startIcon={<Store />}
             >
-              Store
+              Chess Store
             </Button>
 
             <Button
