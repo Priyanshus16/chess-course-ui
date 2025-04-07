@@ -73,6 +73,8 @@ import ForgotPassword from "./Components/Auth/Forgot.js";
 import VerifyOTP from "./Components/Auth/VerifyOTP.js";
 import ChangePassword from "./Components/Auth/ChangePassword.js";
 import MyCourseContent from "./Components/MyCourses/MyCourseContent.js";
+import ContactDetail from "./Admin/Contact Detail/ContactDetail.js";
+import AddContactDetail from "./Admin/Contact Detail/AddContactDetail.js";
 
 function App() {
   const location = useLocation();
@@ -203,6 +205,8 @@ function App() {
                       />
                       <Route path="/admin/store" element={<Store />} />
                       <Route path="/admin/addItem" element={<AddItem />} />
+                      <Route path="/admin/contactDetail" element={<ContactDetail />} />
+                      <Route path="/admin/addContactDetail" element={<AddContactDetail />} />
                     </Routes>
                   </Box>
                 </Box>

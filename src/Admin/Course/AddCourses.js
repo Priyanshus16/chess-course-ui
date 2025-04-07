@@ -303,7 +303,7 @@ const AddCourses = () => {
                 component="label"
                 startIcon={<PlayCircleOutline />}
               >
-                Upload Course
+                Upload Demo Video
                 <input
                   type="file"
                   accept="video/*"

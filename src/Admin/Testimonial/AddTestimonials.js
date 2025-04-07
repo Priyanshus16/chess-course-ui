@@ -195,41 +195,27 @@ const AddTestimonials = () => {
               padding: "30px",
               textAlign: "center",
               borderRadius: "8px",
-              cursor: "pointer",
               bgcolor: "#F8FAFC",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
               width: "100%",
+              cursor: "pointer",
             }}
+            onClick={() => document.getElementById("fileInput").click()}
           >
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => {
-                const file = e.target.files[0];
-                if (file) {
-                  setFormData({
-                    ...formData,
-                    image: file,
-                    imagePreview: URL.createObjectURL(file),
-                  });
-                }
-                Swal.fire("Image uploaded successfully!");
-              }}
-              style={{
-                opacity: 0,
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                cursor: "pointer",
-              }}
-            />
             <CloudUpload sx={{ fontSize: 50, color: "#1976d2" }} />
             <Typography sx={{ fontSize: 16, fontWeight: "bold", mt: 1 }}>
               Drop a file here or click to upload
             </Typography>
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
           </Box>
 
           {formData.imagePreview && (

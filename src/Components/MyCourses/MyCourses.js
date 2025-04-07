@@ -249,6 +249,9 @@ const MyCourses = () => {
   const [videoUrl, setVideoUrl] = useState(null);
   const navigate = useNavigate();
 
+  console.log("is this working?");
+  console.log(purchasedCourses)
+
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));
     if (!localUser) return;

@@ -39,7 +39,7 @@ export default function Store() {
   const [editedData, setEditedData] = useState({
     heading: "",
     description: "",
-    shortDescription:"",
+    shortDescription: "",
     category: "",
     price: "",
     link: "",
@@ -287,7 +287,15 @@ export default function Store() {
                   )}
                 </TableCell>
 
-                <TableCell align="center">
+                <TableCell
+                  align="center"
+                  sx={{
+                    maxWidth: 150,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
                   {editId === item._id ? (
                     <TextField
                       name="link"
@@ -300,6 +308,16 @@ export default function Store() {
                       href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      style={{
+                        display: "inline-block",
+                        maxWidth: "100%",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        color: "#1976D2",
+                        textDecoration: "none",
+                      }}
+                      title={item.link}
                     >
                       {item.link}
                     </a>
@@ -315,7 +333,9 @@ export default function Store() {
                       fullWidth
                     />
                   ) : (
-                    (item.shortDescription ? item.shortDescription.substring(0, 50) : "No description available") + "..."
+                    (item.shortDescription
+                      ? item.shortDescription.substring(0, 50)
+                      : "No description available") + "..."
                   )}
                 </TableCell>
 
