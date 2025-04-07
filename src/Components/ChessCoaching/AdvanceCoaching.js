@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Box, Typography, Container, Grid } from "@mui/material";
 import { styled } from "@mui/system";
-import ContactUs from "../ContactUs/ContactUs";
 import Testimonials from "../Testimonial/Testimonials";
 import About from "../About/About";
 import chessImage from "../../Assets/chess-image.jpg";

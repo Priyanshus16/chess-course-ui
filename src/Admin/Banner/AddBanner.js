@@ -39,7 +39,7 @@ const AddBanner = () => {
       setFormData({
         ...formData,
         image: file,
-        imagePreview: URL.createObjectURL(file), 
+        imagePreview: URL.createObjectURL(file),
       });
     }
     Swal.fire("Image uploaded successfully!");
@@ -95,7 +95,11 @@ const AddBanner = () => {
           fontFamily: "'Poppins', sans-serif",
         }}
       >
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: "600", color: "#1E3A8A" }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{ fontWeight: "600", color: "#1E3A8A" }}
+        >
           Add Banner
         </Typography>
 
@@ -137,72 +141,58 @@ const AddBanner = () => {
           />
 
           {/* Image Upload */}
-                    <Box
-                      sx={{
-                        border: "2px dashed #ccc",
-                        padding: "30px",
-                        textAlign: "center",
-                        borderRadius: "8px",
-                        cursor: "pointer",
-                        bgcolor: "#F8FAFC",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                      }}
-                    >
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                          const file = e.target.files[0];
-                          if (file) {
-                            setFormData({
-                              ...formData,
-                              image: file,
-                              imagePreview: URL.createObjectURL(file),
-                            });
-                          }
-                          Swal.fire("Image uploaded successfully!");
-                        }}
-                        style={{
-                          opacity: 0,
-                          position: "absolute",
-                          width: "100%",
-                          height: "100%",
-                          cursor: "pointer",
-                        }}
-                      />
-                      <CloudUpload sx={{ fontSize: 50, color: "#1976d2" }} />
-                      <Typography sx={{ fontSize: 16, fontWeight: "bold", mt: 1 }}>
-                        Drop a file here or click to upload
-                      </Typography>
-                    </Box>
-          
-                    {formData.imagePreview && (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          mt: 2,
-                        }}
-                      >
-                        <Avatar
-                          src={formData.imagePreview}
-                          sx={{
-                            width: 80,
-                            height: 80,
-                            mb: 1,
-                            border: "2px solid #ccc",
-                          }}
-                        />
-                        <Typography variant="body2" sx={{ color: "#666" }}>
-                          {formData.imageName}
-                        </Typography>
-                      </Box>
-                    )}
+          <Box
+            sx={{
+              border: "2px dashed #ccc",
+              padding: "30px",
+              textAlign: "center",
+              borderRadius: "8px",
+              bgcolor: "#F8FAFC",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              cursor: "pointer",
+            }}
+            onClick={() => document.getElementById("fileInput").click()}
+          >
+            <CloudUpload sx={{ fontSize: 50, color: "#1976d2" }} />
+            <Typography sx={{ fontSize: 16, fontWeight: "bold", mt: 1 }}>
+              Drop a file here or click to upload
+            </Typography>
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+          </Box>
+
+          {formData.imagePreview && (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                mt: 2,
+              }}
+            >
+              <Avatar
+                src={formData.imagePreview}
+                sx={{
+                  width: 80,
+                  height: 80,
+                  mb: 1,
+                  border: "2px solid #ccc",
+                }}
+              />
+              <Typography variant="body2" sx={{ color: "#666" }}>
+                {formData.imageName}
+              </Typography>
+            </Box>
+          )}
 
           {/* Submit Button */}
           <Button

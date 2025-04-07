@@ -102,6 +102,7 @@ const menuItems = [
     ],
   },
   { text: "Chess Store", icon: <ArticleIcon />, path: "/admin/store" },
+  { text: "Contact Detail", icon: <ArticleIcon />, path: "/admin/contactDetail" },
 ];
 
 export default function Sidebar() {
