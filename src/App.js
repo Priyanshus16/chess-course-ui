@@ -95,6 +95,7 @@ function App() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              overflowX: "hidden",
             }}
           >
             {isAdminRoute ? (
