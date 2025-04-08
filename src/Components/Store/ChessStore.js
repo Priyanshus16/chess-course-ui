@@ -34,7 +34,12 @@ const ChessStore = () => {
     <Container maxWidth="xl" sx={{ py: 4 }}>
       {/* Store Header */}
       <Box sx={{ textAlign: "center", mb: 5 }}>
-        <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 700 }}>
+        <Typography
+          variant="h3"
+          component="h1"
+          gutterBottom
+          sx={{ fontWeight: 700 }}
+        >
           Master Chess Classes Store
         </Typography>
       </Box>
@@ -95,7 +100,9 @@ const ProductCard = ({ product, id }) => {
       <Box sx={{ p: 2, pt: 0 }}>
         <Button
           onClick={() => {
-            navigate(`/store/productDetail/${id}`, { state: { product: product } });
+            navigate(`/store/productDetail/${id}`, {
+              state: { product: product },
+            });
           }}
           variant="contained"
           fullWidth
@@ -110,4 +117,5 @@ const ProductCard = ({ product, id }) => {
 };
 
 export default ChessStore;
+
 
