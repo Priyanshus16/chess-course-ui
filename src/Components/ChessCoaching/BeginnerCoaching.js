@@ -177,7 +177,7 @@ const BeginnerCoaching = () => {
                         fontSize: { xs: "1.25rem", sm: "1.5rem" },
                       }}
                     >
-                      {card.title}
+                      {card.heading}
                     </Typography>
                     <Typography
                       variant="body1"

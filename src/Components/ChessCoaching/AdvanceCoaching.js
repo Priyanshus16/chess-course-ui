@@ -84,7 +84,6 @@ const AdvanceCoaching = () => {
           icon: staticIcons[index % staticIcons.length], // Repeat icons in a cycle
         })
       );
-      console.log(updatedCoachingCards);
       setCoachingCards(updatedCoachingCards);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -97,49 +96,48 @@ const AdvanceCoaching = () => {
 
   return (
     <Container maxWidth="lg">
-
       <SectionWrapper sx={{ mt: 3 }}>
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  backgroundImage: `url(${response[0]?.image || chessImage})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  filter: "brightness(50%)",
-                }}
-              />
-              <ContentBox>
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontWeight: "bold",
-                    mb: 3,
-                    fontSize: { xs: "28px", sm: "32px", md: "40px" },
-                  }}
-                >
-                  {response[0]?.heading}
-                  {/* Intermediate Chess Coaching */}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    mt: 2,
-                    fontSize: { xs: "18px", sm: "20px", md: "22px" },
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {response[0]?.description}
-                  {/* Take your chess skills to the next level with Master Chess Classes!
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundImage: `url(${response[0]?.image || chessImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "brightness(50%)",
+          }}
+        />
+        <ContentBox>
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: "bold",
+              mb: 3,
+              fontSize: { xs: "28px", sm: "32px", md: "40px" },
+            }}
+          >
+            {response[0]?.heading}
+            {/* Intermediate Chess Coaching */}
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              mt: 2,
+              fontSize: { xs: "18px", sm: "20px", md: "22px" },
+              lineHeight: 1.6,
+            }}
+          >
+            {response[0]?.description}
+            {/* Take your chess skills to the next level with Master Chess Classes!
                   Learn advanced openings, tactical patterns, and strategic planning
                   to improve your gameplay. Perfect for players who understand the
                   basics and want to refine their techniques. */}
-                </Typography>
-              </ContentBox>
-            </SectionWrapper>
+          </Typography>
+        </ContentBox>
+      </SectionWrapper>
 
       <Box sx={{ mt: 5 }}>
         <Typography

@@ -22,7 +22,6 @@ const ContactUs = () => {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/contactDetail`
       );
-      console.log("API response:", response.data);
 
       const contact = response?.data?.contact?.[0];
       if (contact) {
@@ -108,7 +107,7 @@ const ContactUs = () => {
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.6765672881894!2d72.87765541537891!3d19.072188857546515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6303f4f9b6d%3A0x1e74f19e97f5b0b2!2sMaster%20Chess%20Academy!5e0!3m2!1sen!2sin!4v1649422345678!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.992138675087!2d75.857134015432!3d22.71956848509909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fc7e2c1a7b1d%3A0x1e74f19e97f5b0b2!2sMaster%20Chess%20Classes!5e0!3m2!1sen!2sin!4v1649422345678!5m2!1sen!2sin"
             ></iframe>
           </Box>
         </Grid>

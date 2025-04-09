@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { AccessTime, MonetizationOn } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
+import ReactPlayer from "react-player";
 import Swal from "sweetalert2";
 import { loadStripe } from "@stripe/stripe-js";
 
@@ -33,9 +34,9 @@ const CourseDetail = () => {
     }
 
     try {
-       // Save course and user for use after Stripe payment
-       localStorage.setItem("courseToEnroll", JSON.stringify(course));
-       localStorage.setItem("userToEnroll", JSON.stringify(user));
+      // Save course and user for use after Stripe payment
+      localStorage.setItem("courseToEnroll", JSON.stringify(course));
+      localStorage.setItem("userToEnroll", JSON.stringify(user));
 
       const stripe = await stripePromise;
 
@@ -48,7 +49,7 @@ const CourseDetail = () => {
         }
       );
 
-      if (response.status === 400 ) {
+      if (response.status === 400) {
         Swal.fire("You are already enrolled in this course");
         return;
       }
@@ -119,6 +120,23 @@ const CourseDetail = () => {
                 </React.Fragment>
               ))}
             </List>
+            {/* Video Player */}
+            {course.video && (
+              <Box sx={{ mt: 3 }}>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", color: "#1E3A8A", mb: 1 }}
+                >
+                  Course Preview
+                </Typography>
+                <ReactPlayer
+                  url={course.video}
+                  controls
+                  width="100%"
+                  style={{ borderRadius: "10px", overflow: "hidden" }}
+                />
+              </Box>
+            )}
           </CardContent>
         </Card>
 
