@@ -60,8 +60,6 @@ const AddItem = () => {
         image: imageUrl,
       };
 
-      console.log(finalData);
-
       if (
         !finalData.heading ||
         !finalData.description ||

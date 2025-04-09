@@ -5,7 +5,6 @@ import {
   Container,
   Typography,
   Box,
-  Avatar,
   InputAdornment,
 } from "@mui/material";
 import { Title, Description } from "@mui/icons-material";
@@ -35,7 +34,6 @@ const AddBeginnerBenefit = () => {
       if (!formData.heading || !formData.description ) {
         return Swal.fire("Please provide all fields.");
       }
-      console.log(formData)
       await axios.post(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/addBeginnerBenefit`,
         formData

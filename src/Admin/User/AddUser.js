@@ -40,7 +40,7 @@ const AddUser = () => {
         return Swal.fire("Please provide all fields.");
       }
       
-      const res = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/addUser`,
         formData
       );
@@ -50,7 +50,6 @@ const AddUser = () => {
         Swal.fire("User already exists");
         return;
       }
-      console.log(error)
       console.error(error, "Error while sending data");
     }
   };

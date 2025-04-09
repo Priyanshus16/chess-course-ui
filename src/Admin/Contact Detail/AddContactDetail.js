@@ -40,8 +40,6 @@ const AddContactDetail = () => {
           text: "Please provide all fields.",
         });
       }
-
-      console.log(formData, "Form Data");
   
       await axios.post(
         `${process.env.REACT_APP_BASE_ADMIN_URL}/addContactDetail`,
@@ -50,11 +48,11 @@ const AddContactDetail = () => {
       navigate("/admin/contactDetail");
     } catch (error) {
       console.error(error, "Error while sending data");
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Submission Failed",
-    //     text: "An error occurred while submitting the data.",
-    //   });
+      Swal.fire({
+        icon: "error",
+        title: "Submission Failed",
+        text: "An error occurred while submitting the data.",
+      });
     }
   };
 
