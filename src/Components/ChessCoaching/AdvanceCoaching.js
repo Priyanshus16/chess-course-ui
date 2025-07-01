@@ -8,6 +8,7 @@ import ContactForm from "../ContactUs/ContactForm";
 import CurriculumPage from "../Curriculam/CurriculumPage";
 import axios from "axios";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 // Styled components
 const SectionWrapper = styled(Box)(({ theme }) => ({
@@ -89,10 +90,18 @@ const AdvanceCoaching = () => {
       console.error("Error fetching data:", error);
     }
   };
-
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const benefits = params.get("benefits");
   useEffect(() => {
-    getData();
-  }, []);
+  getData();
+  if(benefits === "true"){
+  const el = document.getElementById("benefits");
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" }); // or "auto"
+  }
+  }
+}, []);
 
   return (
     <Container maxWidth="lg">
@@ -139,7 +148,7 @@ const AdvanceCoaching = () => {
         </ContentBox>
       </SectionWrapper>
 
-      <Box sx={{ mt: 5 }}>
+      <Box sx={{ mt: 5 }} id="benefits">
         <Typography
           variant="h4"
           sx={{
