@@ -34,8 +34,8 @@ const CurriculumPage = () => {
   };
 
   const handleEnroll = (level) => {
-    navigate("/advanceCoaching");
-    window.scrollTo(0, 0);
+    navigate("/advanceCoaching/?benefits=true");
+    // window.scrollTo(0, 0);
   };
 
   const gradients = [

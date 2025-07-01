@@ -2,7 +2,6 @@ import Banner from "../Banner/Banner";
 import Testimonials from "../Testimonial/Testimonials";
 import About from "../About/About";
 import ContactUs from "../ContactUs/ContactUs";
-import HowItWorks from "../HowItWorks/HowItWorks";
 import CurriculumPage from "../Curriculam/CurriculumPage";
 import FloatingVideo from "../Youtube/FloatingVideo";
 import TestimonialImage from "../Testimonial/TestimonialImage";

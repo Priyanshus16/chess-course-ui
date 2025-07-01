@@ -19,7 +19,6 @@ import {
   ExpandMore,
   Store,
 } from "@mui/icons-material";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { Link, useNavigate } from "react-router-dom";
 import { useCourses } from "../../context/courseContext";
 
