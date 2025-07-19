@@ -66,10 +66,17 @@ const Blog = () => {
             >
               <CardMedia
                 component="img"
-                height="200"
                 image={post.image || "/images/default-blog.jpg"}
                 alt={post.title}
-                sx={{ objectFit: "cover", p: 1 }}
+                sx={{
+                  with: '100%', 
+                  maxWidth: '100%',
+                  boxSizing: 'border-box' ,
+                  height: "100%",
+                  objectFit: "contain",
+                  p: 1,
+                  backgroundColor: "#f5f5f5",
+                }}
               />
               <CardContent
                 sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
